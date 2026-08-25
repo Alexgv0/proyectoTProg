@@ -2,9 +2,15 @@ package formularios;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class ModificarUsuario extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
+	
+	private JList<String> listaUsuarios;
 
     public ModificarUsuario() {
         setTitle("Alta de Usuario");
