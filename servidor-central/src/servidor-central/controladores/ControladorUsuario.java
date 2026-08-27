@@ -5,7 +5,6 @@ import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
 import java.util.Set;
-//import java.util.HashSet;
 
 public class ControladorUsuario {
 
@@ -24,39 +23,61 @@ public class ControladorUsuario {
         return instancia;
     }
     
-    public Usuario altaMedico(String nickname, String nombre,
-            String apellido, String email, int registro, String mesLicencia, 
-            String sitioWeb, Set<DTEspecialidad> especialidades, int porcentajeConsultas) {
-    	//to do
-    }
-    
-    public Usuario altaPaciente(String nickname, String nombre, 
-    		String apellido, String email, DTFecha fecNacimiento, 
-    		int documento, DTFecha fechaIngreso, Set<String>antecedentesMed) {
-    	// to do
-    } 
-    
-    // ALTA DE USUARIO
-    public void altaUsuario(Usuario u) {
-
-        if (manejadorUsuarios.existeUsuario(u.getNickname())) {
-            throw new IllegalArgumentException(
-                "El nickname ya está registrado."
+    public Usuario altaMedico(
+    		String nickname, 
+    		String nombre,
+            String apellido, 
+            String email, 
+            int registro, 
+            String mesLicencia, 
+            String sitioWeb, 
+            Set<DTEspecialidad> especialidades, 
+            int porcentajeConsultas) {
+    	if (!manejadorUsuarios.existeUsuario(nickname)) {
+            return manejadorUsuarios.crearMedico(
+                    nickname,
+                    nombre,
+                    apellido,
+                    email,
+                    registro,
+                    mesLicencia,
+                    sitioWeb,
+                    especialidades,
+                    porcentajeConsultas
             );
         }
-
-        Usuario usuario = new Usuario(
-            u.getNickname(),
-            u.getNombre(),
-            u.getApellido(),
-            u.getEmail()
-        );
-
-        manejadorUsuarios.agregarUsuario(usuario);
+        return null;
+    }
+    
+    public Usuario altaPaciente(String nickname, 
+    		String nombre, 
+    		String apellido, 
+    		String email, 
+    		DTFecha fecNacimiento, 
+    		int documento, 
+    		DTFecha fechaIngreso, 
+    		Set<String>antecedentesMed) {
+    	if (!manejadorUsuarios.existeUsuario(nickname)) {
+            return manejadorUsuarios.crearPaciente(
+                    nickname,
+                    nombre,
+                    apellido,
+                    email,
+                    fecNacimiento,
+                    documento,
+                    fechaIngreso,
+                    antecedentesMed
+            );
+        }
+        return null;
+    } 
+    
+    public void altaUsuario(Usuario u) {
+        manejadorUsuarios.agregarUsuario(u);
     }
     
     public void cancelar(Usuario u) {
-    	//to do
+        manejadorUsuarios.cancelarUsuario(u);
     }
     
 }

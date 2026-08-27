@@ -4,3 +4,13 @@
 # Java compiled files
 **/bin/
 *.class
+
+# Archivos compilados de Java
+bin/
+
+# Configuración de Eclipse
+.settings/
+
+# Archivos de proyecto de Eclipse
+.classpath
+.project
