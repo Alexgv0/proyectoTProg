@@ -6,23 +6,24 @@ import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
 import java.util.Set;
 
-public class ControladorUsuario {
+public class ControladorUsuarios {
 
-    private static ControladorUsuario instancia;
+    private static ControladorUsuarios instancia;
 
     private ManejadorUsuarios manejadorUsuarios;
 
-    private ControladorUsuario() {
+    private ControladorUsuarios() {
         manejadorUsuarios = ManejadorUsuarios.getInstancia();
     }
 
-    public static ControladorUsuario getInstancia() {
+    public static ControladorUsuarios getInstancia() {
         if (instancia == null) {
-            instancia = new ControladorUsuario();
+            instancia = new ControladorUsuarios();
         }
         return instancia;
     }
     
+    //cu altaUsuario
     public Usuario altaMedico(
     		String nickname, 
     		String nombre,
@@ -80,4 +81,9 @@ public class ControladorUsuario {
         manejadorUsuarios.cancelarUsuario(u);
     }
     
+    //cu consultaUsuario
+    
+    //cu modificarDatosUsuario
+    
+    //
 }
