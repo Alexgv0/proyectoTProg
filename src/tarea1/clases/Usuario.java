@@ -6,11 +6,37 @@ public class Usuario {
 	private String apellido;
 	private String email;
 	
-	/* constructores getters y setters
-	   public Usuario(String nickname, String nombre, String apellido, String email) {
+	public Usuario(String nickname, String nombre, String apellido, String email) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.email = email;
+	}
 		
-	}*/
+	public String getNickname() {
+        return nickname;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    //otras operaciones de la clase usuario to do
 }
