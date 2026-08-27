@@ -1,10 +1,15 @@
 package clases;
 
+import java.util.Map;
 import java.util.Set;
 import datatypes.DTConsulta;
 import enums.Dia;
 
 public class DiaConsulta{
+	private Map<String, Consulta> consultas;
+	private Especialidad especialidad;
+	private Clinica clinica;
+	
 	private String nombre;
 	private String descripcion;
 	private Dia dia;

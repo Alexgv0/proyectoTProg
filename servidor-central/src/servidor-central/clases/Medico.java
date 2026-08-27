@@ -1,5 +1,6 @@
 package clases;
 
+import java.util.Map;
 import java.util.Set;
 
 import datatypes.DTEspecialidad;
@@ -8,10 +9,12 @@ public class Medico extends Usuario {
 
     private int registro;
     private String mesLicencia;
-    private String sitioWeb;
-    private Set<DTEspecialidad> especialidades;
     private int porcentajeConsultas;
+    private String sitioWeb;
 
+    private Set<DTEspecialidad> especialidades;
+    private Map<String, Consulta> consultas;
+    
     public Medico(
             String nickname,
             String nombre,

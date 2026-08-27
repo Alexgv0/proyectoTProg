@@ -8,10 +8,12 @@ import java.util.HashSet;
 public class Paciente extends Usuario {
 
     private DTFecha fecNacimiento;
-    private int documento;
     private DTFecha fechaIngreso;
+    private int documento;
     private Set<String> antecedentesMed;
+    
     private Set<BeneficioAnual> beneficios;
+    private Set<Reserva> reservas;
     
     
     public Paciente(

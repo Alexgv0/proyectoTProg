@@ -1,10 +1,17 @@
 package clases;
 
+import java.util.Map;
+import java.util.Set;
+
 import datatypes.DTConsulta;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
 
 public class Consulta{
+	private DiaConsulta diaConsulta;
+	private Map<String, Medico> medicos;
+	private Set<Reserva> reservas;
+	
 	private String nombre;
 	private DTFecha fecha;
 	private int numeroSala;
