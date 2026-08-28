@@ -10,10 +10,10 @@ public class ControladorReservas {
 
     private static ControladorReservas instancia;
 
-    private ManejadorReservas manejadorUsuarios;
+    private ManejadorReservas mr;
 
     private ControladorReservas() {
-    	manejadorReservas = ManejadorReservas.getInstancia();
+    	mr = ManejadorReservas.getInstancia();
     }
 
     public static ControladorReservas getInstancia() {
@@ -23,3 +23,15 @@ public class ControladorReservas {
         return instancia;
     }
     
+    //alta de dia de consulta
+    
+    //consulta de dia de consulta
+    
+    //alta de consulta
+    
+    //consulta de consulta
+    
+    //reserva de consulta
+    
+    //consulta de reserva de consulta
+}

@@ -5,15 +5,16 @@ import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
 import java.util.Set;
+import datatypes.DTUsuario;
 
 public class ControladorUsuarios {
 
     private static ControladorUsuarios instancia;
 
-    private ManejadorUsuarios manejadorUsuarios;
+    private ManejadorUsuarios mu;
 
     private ControladorUsuarios() {
-        manejadorUsuarios = ManejadorUsuarios.getInstancia();
+        mu = ManejadorUsuarios.getInstancia();
     }
 
     public static ControladorUsuarios getInstancia() {
@@ -34,8 +35,8 @@ public class ControladorUsuarios {
             String sitioWeb, 
             Set<DTEspecialidad> especialidades, 
             int porcentajeConsultas) {
-    	if (!manejadorUsuarios.existeUsuario(nickname)) {
-            return manejadorUsuarios.crearMedico(
+    	if (!mu.existeUsuario(nickname)) {
+            return mu.crearMedico(
                     nickname,
                     nombre,
                     apellido,
@@ -58,8 +59,8 @@ public class ControladorUsuarios {
     		int documento, 
     		DTFecha fechaIngreso, 
     		Set<String>antecedentesMed) {
-    	if (!manejadorUsuarios.existeUsuario(nickname)) {
-            return manejadorUsuarios.crearPaciente(
+    	if (!mu.existeUsuario(nickname)) {
+            return mu.crearPaciente(
                     nickname,
                     nombre,
                     apellido,
@@ -74,16 +75,28 @@ public class ControladorUsuarios {
     } 
     
     public void altaUsuario(Usuario u) {
-        manejadorUsuarios.agregarUsuario(u);
+        mu.agregarUsuario(u);
     }
     
     public void cancelar(Usuario u) {
-        manejadorUsuarios.cancelarUsuario(u);
+        mu.cancelarUsuario(u);
     }
     
     //cu consultaUsuario
+    public Set<DTUsuario> listarUsuarios(){
+    	return null;//todo
+    }
     
-    //cu modificarDatosUsuario
+    public Set<DTUsuario> SeleccionarUsuario(String nickname){
+    	return null;//todo
+    }
     
-    //
+    public Set<DTUsuario>
+    //cu modificarDatosUsuario opcional
+    
+    //alta de especialidad
+    
+    //alta de beneficio anual opcional
+    
+    // consulta de beneficio anual opcional
 }
