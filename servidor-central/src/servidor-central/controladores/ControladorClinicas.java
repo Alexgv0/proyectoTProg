@@ -113,8 +113,13 @@ public class ControladorClinicas {
         mdc.agregarDiaConsulta(nuevoDiaConsulta);
     }
     
-    
     //alta de clinica
     
     //consulta de clinica
+    
+    //Consulta Día Consulta
+    
+    //Alta Consulta
+    
+    //Consulta Consulta
 }
