@@ -30,6 +30,10 @@ public class ManejadorEspecialidades {
         return especialidades.get(nombre);
     }
     
+    public Set<Especialidad> listarEspecialidades() {
+    	return new HashSet<>(especialidades.values());
+    }
+    
     //pueden ser utiles
     
     public boolean existeEspecialidad(String nombre) {
@@ -42,9 +46,5 @@ public class ManejadorEspecialidades {
             especialidad.getNombre(),
             especialidad
         );
-    }
-    
-    public Set<Especialidad> obtenerEspecialidades() {
-        return new HashSet<>(especialidades.values());
     }
 }

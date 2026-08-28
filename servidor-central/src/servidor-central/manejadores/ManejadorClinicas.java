@@ -21,7 +21,7 @@ public class ManejadorClinicas {
 		return instancia;
 	}
 
-	public Set<Clinica> obtenerClinicas() {
+	public Set<Clinica> listarClinicas() {
 		return new HashSet<>(clinicas.values());
 	}
 
