@@ -30,7 +30,7 @@ public class Clinica{
 	}
 	
 	public DTClinica getDatosClinica() {
-		return DTClinica(
+		return new DTClinica(
 				this.nombre,
 				this.descripcion,
 				this.direccion,
@@ -43,4 +43,6 @@ public class Clinica{
 	public String getNombre() {
 		return this.nombre;
 	}
+	
+	
 }

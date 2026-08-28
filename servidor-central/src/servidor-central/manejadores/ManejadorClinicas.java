@@ -1,11 +1,15 @@
 package manejadores;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import clases.Clinica;
 
 public class ManejadorClinicas {
 	private static ManejadorClinicas instancia;
+	
+	private Map<String, Clinica> clinicas;
 	
 	private ManejadorClinicas() {
 		
@@ -17,8 +21,11 @@ public class ManejadorClinicas {
 	}
 
 	public Set<Clinica> obtenerClinicas() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HashSet<>(clinicas.values());
+	}
+
+	public Clinica obtenerClinica(String nombre) {
+		return clinicas.get(nombre);
 	}
 
 }

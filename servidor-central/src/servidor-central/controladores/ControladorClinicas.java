@@ -5,6 +5,7 @@ import manejadores.ManejadorUsuarios;
 import clases.Clinica;
 import clases.Usuario;
 import datatypes.DTFecha;
+import datatypes.DTClinica;
 import datatypes.DTEspecialidad;
 
 import java.util.HashSet;
@@ -41,6 +42,11 @@ public class ControladorClinicas {
     	}
     	
     	return res;
+    }
+    
+    public DTClinica obtenerDatosClinica(String nombre) {
+		Clinica c = mc.obtenerClinica(nombre);
+    	return c.getDatosClinica();
     }
     
     //alta de clinica
