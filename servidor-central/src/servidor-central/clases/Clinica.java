@@ -39,4 +39,8 @@ public class Clinica{
 				this.costoConsulta
 				);
 	}
+
+	public String getNombre() {
+		return this.nombre;
+	}
 }
