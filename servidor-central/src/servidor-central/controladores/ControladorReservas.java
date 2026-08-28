@@ -1,6 +1,7 @@
 package controladores;
 
 import manejadores.ManejadorReservas;
+import manejadores.ManejadorUsuarios;
 import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
@@ -13,9 +14,11 @@ public class ControladorReservas {
     private static ControladorReservas instancia;
 
     private ManejadorReservas mr;
+    private ManejadorUsuarios mu;
 
     private ControladorReservas() {
     	mr = ManejadorReservas.getInstancia();
+    	mu = ManejadorUsuarios.getInstancia();
     }
 
     public static ControladorReservas getInstancia() {
@@ -26,9 +29,9 @@ public class ControladorReservas {
     }
     
     
-    //cu consultaUsuario
+    // CU :: consultaUsuario y CU :: Consulta de Reserva de Consulta
     public Set<DTUsuario> listarReservasConsultas(String nickPaciente){
-    	return null;//todo
+    	Paciente p = mu.obtenerPaciente(nickPaciente);
     }
     
     public DTReservaConsulta seleccionarReservaConsulta(String nickPaciente, String nombreConsulta) {

@@ -110,6 +110,10 @@ public class ManejadorUsuarios {
 	public Map<String, Paciente> obtenerPacientes() {
 		return pacientes;
 	}
+
+	public Paciente obtenerPaciente(String nickPaciente) {
+		return pacientes.get(nickPaciente);
+	}
     
     //implementar funciones de los manejadores
 
