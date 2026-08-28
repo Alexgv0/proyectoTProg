@@ -3,8 +3,10 @@ package controladores;
 import manejadores.ManejadorReservas;
 import clases.Usuario;
 import datatypes.DTFecha;
+import datatypes.DTUsuario;
 import datatypes.DTEspecialidad;
 import java.util.Set;
+import datatypes.DTReservaConsulta;
 
 public class ControladorReservas {
 
@@ -23,13 +25,22 @@ public class ControladorReservas {
         return instancia;
     }
     
+    
+    //cu consultaUsuario
+    public Set<DTUsuario> listarReservasConsultas(String nickPaciente){
+    	return null;//todo
+    }
+    
+    public DTReservaConsulta seleccionarReservaConsulta(String nickPaciente, String nombreConsulta) {
+    	return null;//todo
+    }
+    
+    /*todo este grupito va en controladorclinicas
     //alta de dia de consulta
-    
     //consulta de dia de consulta
-    
     //alta de consulta
+    //consulta de consulta*/
     
-    //consulta de consulta
     
     //reserva de consulta
     
