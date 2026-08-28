@@ -2,6 +2,7 @@ package clases;
 
 import java.util.Set;
 import datatypes.DTFecha;
+import datatypes.DTReserva;
 
 import java.util.HashSet;
 
@@ -35,4 +36,13 @@ public class Paciente extends Usuario {
         
         this.beneficios = new HashSet<>();
     }
+
+
+	public Set<DTReserva> listarReservas() {
+		Set<DTReserva> res = new HashSet<>();
+		for(Reserva r: this.reservas) {
+			res.add(r.crearDTReserva());
+		}
+		return res;
+	}
 }

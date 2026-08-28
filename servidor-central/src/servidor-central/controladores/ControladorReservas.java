@@ -2,8 +2,10 @@ package controladores;
 
 import manejadores.ManejadorReservas;
 import manejadores.ManejadorUsuarios;
+import clases.Paciente;
 import clases.Usuario;
 import datatypes.DTFecha;
+import datatypes.DTReserva;
 import datatypes.DTUsuario;
 import datatypes.DTEspecialidad;
 import java.util.Set;
@@ -32,6 +34,8 @@ public class ControladorReservas {
     // CU :: consultaUsuario y CU :: Consulta de Reserva de Consulta
     public Set<DTUsuario> listarReservasConsultas(String nickPaciente){
     	Paciente p = mu.obtenerPaciente(nickPaciente);
+    	Set<DTReserva> reservas = p.listarReservas();
+    	return reservas;
     }
     
     public DTReservaConsulta seleccionarReservaConsulta(String nickPaciente, String nombreConsulta) {

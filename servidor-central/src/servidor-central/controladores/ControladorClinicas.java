@@ -69,6 +69,19 @@ public class ControladorClinicas {
     }
     
     //ALTA DE dia de consulta
+    public Set<String> listarEspecialidades() {
+
+        Set<Especialidad> especialidades = me.listarEspecialidades();
+
+        Set<String> res = new HashSet<>();
+
+        for (Especialidad e : especialidades) {
+            res.add(e.getNombre());
+        }
+
+        return res;
+    }
+    
     public void altaDiaConsulta(
             String nombre,
             String descripcion,

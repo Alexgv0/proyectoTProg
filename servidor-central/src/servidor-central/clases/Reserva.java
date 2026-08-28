@@ -1,6 +1,7 @@
 package clases;
 
 import datatypes.DTFecha;
+import datatypes.DTReserva;
 
 public class Reserva{
 	private DTFecha fecha;
@@ -11,5 +12,9 @@ public class Reserva{
 		this.fecha = fecha;
 		this.numeroCliente = numCli;
 		this.costoReserva = costoRes;
+	}
+
+	public DTReserva crearDTReserva() {
+		return new DTReserva(fecha, numeroCliente, costoReserva);
 	}
 }
