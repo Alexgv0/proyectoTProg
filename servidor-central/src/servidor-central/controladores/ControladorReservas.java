@@ -32,7 +32,7 @@ public class ControladorReservas {
     
     
     // CU :: consultaUsuario y CU :: Consulta de Reserva de Consulta
-    public Set<DTUsuario> listarReservasConsultas(String nickPaciente){
+    public Set<DTReserva> listarReservasConsultas(String nickPaciente){
     	Paciente p = mu.obtenerPaciente(nickPaciente);
     	Set<DTReserva> reservas = p.listarReservas();
     	return reservas;
