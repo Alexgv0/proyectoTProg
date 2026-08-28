@@ -1,9 +1,14 @@
 package controladores;
 
 import manejadores.ManejadorUsuarios;
+import clases.Clinica;
+import clases.Paciente;
 import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
+
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import datatypes.DTUsuario;
 
@@ -87,8 +92,19 @@ public class ControladorUsuarios {
     	return null;//todo
     }
     
-    public Set<DTUsuario> SeleccionarUsuario(String nickname){
+    public Set<DTUsuario> seleccionarUsuario(String nickname){
     	return null;//todo
+    }
+    
+    public Set<String> listarPacientes() {
+    	Map<String, Paciente> pacientes = mu.obtenerPacientes();
+    	Set<String> res = new HashSet<>();
+    	
+    	for(Paciente p : pacientes.values()) {
+    		res.add(p.getNickname());
+    	}
+    	
+    	return res;
     }
     
     //cu modificarDatosUsuario opcional
