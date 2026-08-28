@@ -1,6 +1,7 @@
 package manejadores;
 
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,11 +13,11 @@ public class ManejadorClinicas {
 	private Map<String, Clinica> clinicas;
 	
 	private ManejadorClinicas() {
-		
+		clinicas = new HashMap<>();
 	};
 	
 	public static ManejadorClinicas getInstancia() {
-		if (instancia != null) instancia = new ManejadorClinicas();
+		if (instancia == null) instancia = new ManejadorClinicas();
 		return instancia;
 	}
 
@@ -27,5 +28,10 @@ public class ManejadorClinicas {
 	public Clinica obtenerClinica(String nombre) {
 		return clinicas.get(nombre);
 	}
+	
+	//PUEDE SER UTIL
+	public void agregarClinica(Clinica clinica) {
+        clinicas.put(clinica.getNombre(), clinica);
+    }
 
 }

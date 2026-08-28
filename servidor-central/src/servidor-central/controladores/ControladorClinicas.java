@@ -1,19 +1,21 @@
 package controladores;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import manejadores.ManejadorClinicas;
-import manejadores.ManejadorUsuarios;
+import manejadores.ManejadorEspecialidades;
+import manejadores.ManejadorDiasConsulta;
 import clases.Clinica;
-import clases.Usuario;
+import clases.DiaConsulta;
+import clases.Especialidad;
 import datatypes.DTFecha;
 import datatypes.DTClinica;
 import datatypes.DTEspecialidad;
 import datatypes.DTConsulta;
 import datatypes.DTUsuario;
-import clases.DiaConsulta;
-import clases.Especialidad;
+import enums.Dia;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public class ControladorClinicas {
 
@@ -21,11 +23,13 @@ public class ControladorClinicas {
 	private static ControladorClinicas instancia;
 	
     private ManejadorClinicas mc;
-    private ManejadorUsuarios mu;
+    private ManejadorEspecialidades me;
+    private ManejadorDiasConsulta mdc;
 
     private ControladorClinicas() {
         this.mc = ManejadorClinicas.getInstancia();
-        this.mu = ManejadorUsuarios.getInstancia();
+        this.me = ManejadorEspecialidades.getInstancia();
+        this.mdc = ManejadorDiasConsulta.getInstancia();
     }
 
     
@@ -68,35 +72,47 @@ public class ControladorClinicas {
     public void altaDiaConsulta(
             String nombre,
             String descripcion,
-            String diaSemana,
-            String horaInicio,
+            Dia diaSemana,
+            int horaInicio,
             String especialidad,
             String clinica) {
 
-        // 1. Verificar que no exista un día de consulta con ese nombre
+    	if (mdc.existeDiaConsulta(nombre)) {
+            throw new IllegalArgumentException(
+                "Ya existe un día de consulta con ese nombre."
+            );
+        }
 
-        // 2. Buscar la clínica
+    	Clinica c = mc.obtenerClinica(clinica);
+        if (c == null) {
+            throw new IllegalArgumentException(
+                "La clínica no existe."
+            );
+        }
+        
+        Especialidad e = me.obtenerEspecialidad(especialidad);
+        if (e == null) {
+            throw new IllegalArgumentException(
+                "La especialidad no existe."
+            );
+        }
+        
+        float costo = c.getCostoConsulta()
+                * (1 + e.getPorcentajeCostoConsultaAdicional() / 100.0f);
 
-        // 3. Buscar la especialidad
+        DiaConsulta nuevoDiaConsulta = new DiaConsulta(
+                nombre,
+                descripcion,
+                diaSemana,
+                horaInicio,
+                e,
+                c,
+                costo
+            );
 
-        // 4. Calcular el costo
-
-        // 5. Crear el DíaConsulta
-
-        // 6. Guardarlo mediante el manejador
+        mdc.agregarDiaConsulta(nuevoDiaConsulta);
     }
     
-    public DiaConsulta ingresarDatosDiaConsulta(String nombre, String descripcion, String diaSemana, int horaInicio, Especialidad especialidad , Clinica clinica) {
-    	return null; //todo
-    }
-    
-    public void darAltaDiaConsulta(DiaConsulta diaConsulta ) {
-    	 //todo
-    }
-    
-    public void cancelarAltaDiaConsulta(DiaConsulta diaConsulta) {
-    	// todo
-    }
     
     //alta de clinica
     

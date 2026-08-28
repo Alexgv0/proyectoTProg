@@ -10,13 +10,14 @@ import java.util.Set;
 //import java.util.HashSet;
 import datatypes.DTEspecialidad;
 import datatypes.DTFecha;
-//import datatypes.
+
 
 public class ManejadorUsuarios {
 
     private static ManejadorUsuarios instancia;
 
     private Map<String, Usuario> usuarios;
+    private Map<String, Paciente> pacientes;
 
     private ManejadorUsuarios() {
         usuarios = new HashMap<>();
@@ -105,6 +106,10 @@ public class ManejadorUsuarios {
     public Map<String, Usuario> getUsuarios() {
         return usuarios;
     }
+
+	public Map<String, Paciente> obtenerPacientes() {
+		return pacientes;
+	}
     
     //implementar funciones de los manejadores
 

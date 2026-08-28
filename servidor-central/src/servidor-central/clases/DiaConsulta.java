@@ -2,11 +2,14 @@ package clases;
 
 import java.util.Map;
 import java.util.Set;
+
 import datatypes.DTConsulta;
 import enums.Dia;
 
 public class DiaConsulta{
+	
 	private Map<String, Consulta> consultas;
+	
 	private Especialidad especialidad;
 	private Clinica clinica;
 	
@@ -21,17 +24,25 @@ public class DiaConsulta{
 			String des,
 			Dia dia,
 			int hi,
+			Especialidad especialidad,
+            Clinica clinica,
 			float cc
 			) {
 		this.nombre = nom;
 		this.descripcion = des;
 		this.dia = dia;
 		this.horaInicio = hi;
+		this.especialidad = especialidad;
+        this.clinica = clinica;
 		this.costoConsulta = cc;
 	}
 	
 	public Set<DTConsulta> listarConsultas() {
 		return null;
 		// TODO
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 }

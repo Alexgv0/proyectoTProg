@@ -1,9 +1,11 @@
 package manejadores;
 
-import clases.DiaConsulta;
-
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import clases.DiaConsulta;
 
 public class ManejadorDiasConsulta {
 
@@ -25,5 +27,18 @@ public class ManejadorDiasConsulta {
     public boolean existeDiaConsulta(String nombreDiaConsulta) {
 	    return diasConsulta.containsKey(nombreDiaConsulta);
 	}
+    
+    public void agregarDiaConsulta(DiaConsulta diaConsulta) {
+        diasConsulta.put(diaConsulta.getNombre(), diaConsulta);
+    }
+
+    public DiaConsulta buscarDiaConsulta(String nombre) {
+        return diasConsulta.get(nombre);
+    }
+    
+    //puede ser util
+    public Set<DiaConsulta> obtenerDiasConsulta() {
+        return new HashSet<>(diasConsulta.values());
+    }
     
 }

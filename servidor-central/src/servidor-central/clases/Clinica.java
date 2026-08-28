@@ -1,9 +1,12 @@
 package clases;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import datatypes.DTClinica;
 
 public class Clinica{
+	
 	private Map<String, DiaConsulta> diasConsulta;
 
 	private String nombre;
@@ -27,6 +30,8 @@ public class Clinica{
 		this.sitioWeb = sw;
 		this.costoMedicamento = costoMed;
 		this.costoConsulta = costoCon;
+		
+		this.diasConsulta = new HashMap<>();
 	}
 	
 	public DTClinica getDatosClinica() {
@@ -44,5 +49,8 @@ public class Clinica{
 		return this.nombre;
 	}
 	
+	public float getCostoConsulta() {
+        return this.costoConsulta;
+    }
 	
 }
