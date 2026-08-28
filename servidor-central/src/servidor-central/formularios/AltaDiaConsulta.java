@@ -2,6 +2,7 @@ package formularios;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import clases.DiaConsulta;
+//import clases.DiaConsulta;
 import controladores.ControladorClinicas;
 import enums.Dia;
 
@@ -78,6 +79,7 @@ public class AltaDiaConsulta extends JInternalFrame {
         comboClinica = new JComboBox<>();
         panelDatos.add(comboClinica);
 
+        
         JPanel panelBotones = new JPanel();
 
         btnAceptar = new JButton("Aceptar");
@@ -101,16 +103,20 @@ public class AltaDiaConsulta extends JInternalFrame {
 
     private void cargarClinicas() {
 
-        for (String nombre : controlador.listarClinicas()) {
+    	Set<String> clinicas = controlador.listarClinicas();
+
+        for (String nombre : clinicas) {
             comboClinica.addItem(nombre);
         }
     }
 
     private void cargarEspecialidades() {
+    	Set<String> especialidades =
+                controlador.listarEspecialidades();
 
-        // Acá necesitamos que el controlador tenga
-        // un método para listar especialidades.
-
+        for (String nombre : especialidades) {
+            comboEspecialidad.addItem(nombre);
+        }
     }
 
     private void aceptar() {
