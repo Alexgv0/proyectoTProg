@@ -91,7 +91,6 @@ public class ControladorUsuarios {
     	return null;//todo
     }
     
-    public Set<DTUsuario>
     //cu modificarDatosUsuario opcional
     
     //alta de especialidad
