@@ -35,13 +35,7 @@ public class ControladorReservas {
     	return null;//todo
     }
     
-    /*todo este grupito va en controladorclinicas
-    //alta de dia de consulta
-    //consulta de dia de consulta
-    //alta de consulta
-    //consulta de consulta*/
-    
-    
+   
     //reserva de consulta
     
     //consulta de reserva de consulta
