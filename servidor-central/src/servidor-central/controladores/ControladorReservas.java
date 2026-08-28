@@ -13,7 +13,7 @@ public class ControladorReservas {
     private ManejadorReservas manejadorUsuarios;
 
     private ControladorReservas() {
-    	manejadorReservas = ManejadorReservas.getInstancia();
+    	ManejadorReservas mr = ManejadorReservas.getInstancia();
     }
 
     public static ControladorReservas getInstancia() {
@@ -22,4 +22,4 @@ public class ControladorReservas {
         }
         return instancia;
     }
-    
+}
