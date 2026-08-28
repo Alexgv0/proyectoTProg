@@ -33,6 +33,8 @@ public class ControladorClinicas {
         return instancia;
     }
     
+    // CU :: Consulta de Clinica
+    
     public Set<String> listarClinicas() {
     	Set<Clinica> clinicas = mc.obtenerClinicas();
     	Set<String> res = new HashSet<>();
@@ -48,6 +50,8 @@ public class ControladorClinicas {
 		Clinica c = mc.obtenerClinica(nombre);
     	return c.getDatosClinica();
     }
+    
+    
     
     //alta de clinica
     
