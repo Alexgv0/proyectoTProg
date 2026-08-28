@@ -7,6 +7,10 @@ import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTClinica;
 import datatypes.DTEspecialidad;
+import datatypes.DTConsulta;
+import datatypes.DTUsuario;
+import clases.DiaConsulta;
+import clases.Especialidad;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -51,7 +55,19 @@ public class ControladorClinicas {
     	return c.getDatosClinica();
     }
     
+    //consulta usuario
+    public Set<DTConsulta> listarConsultas(DTUsuario u){
+    	return null; //todo
+    }
     
+    public DTConsulta seleccionarConsulta(String nombreConsulta) {
+    	return null; //todo
+    }
+    
+    //ALTA DE dia de consulta
+    public DiaConsulta ingresarDatosDiaConsulta(String nombre, String descripcion, String diaSemana, int horaInicio, Especialidad especialidad , Clinica clinica) {
+    	return null; //todo
+    }
     
     //alta de clinica
     
