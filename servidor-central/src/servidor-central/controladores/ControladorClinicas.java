@@ -65,8 +65,37 @@ public class ControladorClinicas {
     }
     
     //ALTA DE dia de consulta
+    public void altaDiaConsulta(
+            String nombre,
+            String descripcion,
+            String diaSemana,
+            String horaInicio,
+            String especialidad,
+            String clinica) {
+
+        // 1. Verificar que no exista un día de consulta con ese nombre
+
+        // 2. Buscar la clínica
+
+        // 3. Buscar la especialidad
+
+        // 4. Calcular el costo
+
+        // 5. Crear el DíaConsulta
+
+        // 6. Guardarlo mediante el manejador
+    }
+    
     public DiaConsulta ingresarDatosDiaConsulta(String nombre, String descripcion, String diaSemana, int horaInicio, Especialidad especialidad , Clinica clinica) {
     	return null; //todo
+    }
+    
+    public void darAltaDiaConsulta(DiaConsulta diaConsulta ) {
+    	 //todo
+    }
+    
+    public void cancelarAltaDiaConsulta(DiaConsulta diaConsulta) {
+    	// todo
     }
     
     //alta de clinica

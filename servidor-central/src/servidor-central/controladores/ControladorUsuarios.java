@@ -78,7 +78,7 @@ public class ControladorUsuarios {
         mu.agregarUsuario(u);
     }
     
-    public void cancelar(Usuario u) {
+    public void cancelarAltaUsuario(Usuario u) {
         mu.cancelarUsuario(u);
     }
     
