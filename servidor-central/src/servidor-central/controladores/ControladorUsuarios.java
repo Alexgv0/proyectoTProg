@@ -4,6 +4,7 @@ import manejadores.ManejadorEspecialidades;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
 import clases.Usuario;
+import clases.Especialidad;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
 
@@ -32,6 +33,37 @@ public class ControladorUsuarios {
     }
     
     //cu altaUsuario
+    
+    public Set<String> listarEspecialidades() {
+
+        Set<Especialidad> especialidades =
+                me.listarEspecialidades();
+
+        Set<String> res = new HashSet<>();
+
+        for (Especialidad e : especialidades) {
+            res.add(e.getNombre());
+        }
+
+        return res;
+    }
+    
+    public DTEspecialidad obtenerDatosEspecialidad(String nombre) {
+
+        Especialidad e = me.obtenerEspecialidad(nombre);
+
+        if (e == null) {
+            throw new IllegalArgumentException(
+                    "La especialidad no existe."
+            );
+        }
+
+        return new DTEspecialidad(
+                e.getNombre(),
+                e.getPorcentajeCostoConsultaAdicional()
+        );
+    }
+    
     public Usuario altaMedico(
     		String nickname, 
     		String nombre,

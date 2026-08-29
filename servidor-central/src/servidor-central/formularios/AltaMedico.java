@@ -1,13 +1,23 @@
 package formularios;
 
+import java.util.HashSet;
 import java.awt.GridLayout;
+import java.util.Set;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
+import controladores.ControladorUsuarios;
+import datatypes.DTEspecialidad;
 
 public class AltaMedico extends JInternalFrame {
 
@@ -24,15 +34,22 @@ public class AltaMedico extends JInternalFrame {
 
     private JComboBox<String> comboEspecialidad;
     
+    private DefaultListModel<String> modeloEspecialidades;
+    private JList<String> listaEspecialidades;
+    
+    private ControladorUsuarios controlador;
+    
     public AltaMedico() {
 
         setTitle("Alta de Médico");
-        setSize(550, 500);
+        setSize(550, 550);
         setClosable(true);
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
-
+        
+        controlador = ControladorUsuarios.getInstancia();
+        
         getContentPane().setLayout(null);
 
         JPanel panelDatos = new JPanel(new GridLayout(6, 2, 5, 5));
@@ -101,32 +118,180 @@ public class AltaMedico extends JInternalFrame {
         getContentPane().add(txtSitioWeb);
 
         // Especialidad
-        panelDatos.add(new JLabel("Especialidad:"));
+        JLabel lblEspecialidad = new JLabel("Especialidad:");
+        lblEspecialidad.setBounds(30, 275, 150, 25);
+        getContentPane().add(lblEspecialidad);
+
         comboEspecialidad = new JComboBox<>();
-        panelDatos.add(comboEspecialidad);
+        comboEspecialidad.setBounds(190, 275, 200, 25);
+        getContentPane().add(comboEspecialidad);
+        
+        // Botón agregar especialidad
+        JButton btnAgregarEspecialidad = new JButton("Agregar");
+        btnAgregarEspecialidad.setBounds(400, 275, 90, 25);
+        getContentPane().add(btnAgregarEspecialidad);
+
+        // Lista de especialidades seleccionadas
+        JLabel lblSeleccionadas = new JLabel("Seleccionadas:");
+        lblSeleccionadas.setBounds(30, 315, 150, 25);
+        getContentPane().add(lblSeleccionadas);
+
+        modeloEspecialidades = new DefaultListModel<>();
+
+        listaEspecialidades = new JList<>(modeloEspecialidades);
+
+        JScrollPane scrollEspecialidades =
+                new JScrollPane(listaEspecialidades);
+
+        scrollEspecialidades.setBounds(190, 310, 300, 70);
+        getContentPane().add(scrollEspecialidades);
 
         // Porcentaje adicional
         JLabel lblPorcentaje = new JLabel("Porcentaje adicional:");
-        lblPorcentaje.setBounds(30, 310, 150, 25);
+        lblPorcentaje.setBounds(30, 400, 150, 25);
         getContentPane().add(lblPorcentaje);
 
         txtPorcentaje = new JTextField();
-        txtPorcentaje.setBounds(190, 310, 300, 25);
+        txtPorcentaje.setBounds(190, 400, 300, 25);
         getContentPane().add(txtPorcentaje);
 
         // Botón Dar de alta
         JButton btnAlta = new JButton("Dar de alta");
-        btnAlta.setBounds(130, 390, 120, 30);
+        btnAlta.setBounds(130, 450, 120, 30);
         getContentPane().add(btnAlta);
 
         // Botón Cancelar
         JButton btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(280, 390, 120, 30);
+        btnCancelar.setBounds(280, 450, 120, 30);
         getContentPane().add(btnCancelar);
 
+        cargarEspecialidades();
+        
+     // Agregar especialidad
+        btnAgregarEspecialidad.addActionListener(e -> {
+
+            String especialidad =
+                    (String) comboEspecialidad.getSelectedItem();
+
+            if (especialidad == null) {
+                return;
+            }
+
+            // Evitar duplicados
+            if (!modeloEspecialidades.contains(especialidad)) {
+                modeloEspecialidades.addElement(especialidad);
+            }
+        });
+        
         // Evento Cancelar
         btnCancelar.addActionListener(e -> {
             dispose();
         });
+     // Evento Dar de alta
+        btnAlta.addActionListener(e -> altaMedico());
     }
+    
+    private void cargarEspecialidades() {
+
+        Set<String> especialidades =
+                controlador.listarEspecialidades();
+
+        comboEspecialidad.setModel(
+                new DefaultComboBoxModel<>(
+                        especialidades.toArray(new String[0])
+                )
+        );
+    }
+    
+    private void altaMedico() {
+    	
+    	try {
+    		
+    		String nickname = txtNickname.getText().trim();
+            String nombre = txtNombre.getText().trim();
+            String apellido = txtApellido.getText().trim();
+            String correo = txtCorreo.getText().trim();
+
+            int registro =
+                    Integer.parseInt(txtRegistro.getText().trim());
+
+            String mesLicencia =
+                    txtMesLicencia.getText().trim();
+
+            String sitioWeb =
+                    txtSitioWeb.getText().trim();
+
+            int porcentaje =
+                    Integer.parseInt(txtPorcentaje.getText().trim());
+
+            // Verificar que haya al menos una especialidad
+            if (modeloEspecialidades.isEmpty()) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El médico debe tener al menos una especialidad.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
+
+                return;
+            }
+
+            Set<DTEspecialidad> especialidad =
+                    new HashSet<>();
+            
+            for (int i = 0;
+                    i < modeloEspecialidades.size();
+                    i++) {
+
+                   String nombreEspecialidad =
+                           modeloEspecialidades.getElementAt(i);
+
+                   especialidad.add(
+                           controlador.obtenerDatosEspecialidad(
+                                   nombreEspecialidad
+                           )
+                   );
+               }
+
+               // Llamar al controlador
+               controlador.altaMedico(
+                       nickname,
+                       nombre,
+                       apellido,
+                       correo,
+                       registro,
+                       mesLicencia,
+                       sitioWeb,
+                       especialidad,
+                       porcentaje
+               );
+            
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Medico dado de alta correctamente."
+            );
+
+            dispose();
+            
+    	} catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El registro y el porcentaje deben ser números.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+        } catch (IllegalArgumentException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
 }
