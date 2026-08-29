@@ -195,7 +195,14 @@ public class AltaPaciente extends JInternalFrame {
                     convertirFecha(txtFechaIngreso.getText());
 
             Set<String> antecedentes =
-                    new HashSet<>();
+                    new HashSet<>();         
+
+            for (int i = 0; i < modeloAntecedentesMedicos.size(); i++) {
+                String antecedente =
+                    modeloAntecedentesMedicos.getElementAt(i);
+
+                antecedentes.add(antecedente);
+            }
             
             // Llamamos al controlador
             controlador.altaPaciente(
