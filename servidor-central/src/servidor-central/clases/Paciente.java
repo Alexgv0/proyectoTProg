@@ -1,10 +1,9 @@
 package clases;
 
 import java.util.Set;
+import java.util.HashSet;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
-
-import java.util.HashSet;
 
 public class Paciente extends Usuario {
 
@@ -35,6 +34,7 @@ public class Paciente extends Usuario {
         this.antecedentesMed = antecedentesMed;
         
         this.beneficios = new HashSet<>();
+        this.reservas = new HashSet<>();
     }
 
 
@@ -44,5 +44,13 @@ public class Paciente extends Usuario {
 			res.add(r.crearDTReserva());
 		}
 		return res;
+	}
+
+
+	public Reserva obtenerReserva(String nombreConsulta) {
+		for(Reserva r : this.reservas) {
+			if (r.getConsulta().getNombre().equals(nombreConsulta)) return r;
+		}
+		return null;
 	}
 }

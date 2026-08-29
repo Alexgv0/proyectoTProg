@@ -10,4 +10,16 @@ public class DTReserva {
 		this.numeroCliente = numCli;
 		this.costoReserva = costoRes;
 	}
+	
+	public DTFecha getFecha() {
+		return this.fecha;
+	}
+	
+	public int getNumeroCliente() {
+		return this.numeroCliente;
+	}
+	
+	public float getCostoReserva() {
+		return this.costoReserva;
+	}
 }

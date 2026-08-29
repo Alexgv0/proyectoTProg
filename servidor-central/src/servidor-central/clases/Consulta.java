@@ -43,4 +43,8 @@ public class Consulta{
 	public void agregarReserva(Reserva res) {
 		
 	}
+
+	public String getNombre() {
+		return this.nombre;
+	}
 }

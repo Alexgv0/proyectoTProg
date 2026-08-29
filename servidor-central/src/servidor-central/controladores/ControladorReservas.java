@@ -3,6 +3,7 @@ package controladores;
 import manejadores.ManejadorReservas;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
+import clases.Reserva;
 import clases.Usuario;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
@@ -38,8 +39,10 @@ public class ControladorReservas {
     	return reservas;
     }
     
-    public DTReservaConsulta seleccionarReservaConsulta(String nickPaciente, String nombreConsulta) {
-    	return null;//todo
+    public DTReserva seleccionarReservaConsulta(String nickPaciente, String nombreConsulta) {
+    	Paciente p = mu.obtenerPaciente(nickPaciente);
+    	Reserva r = p.obtenerReserva(nombreConsulta);
+    	return r.crearDTReserva();
     }
     
    
