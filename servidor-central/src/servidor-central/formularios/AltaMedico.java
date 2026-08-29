@@ -1,9 +1,13 @@
 package formularios;
 
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class AltaMedico extends JInternalFrame {
 
@@ -16,9 +20,10 @@ public class AltaMedico extends JInternalFrame {
     private JTextField txtRegistro;
     private JTextField txtMesLicencia;
     private JTextField txtSitioWeb;
-    private JTextField txtEspecialidad;
     private JTextField txtPorcentaje;
 
+    private JComboBox<String> comboEspecialidad;
+    
     public AltaMedico() {
 
         setTitle("Alta de Médico");
@@ -30,6 +35,8 @@ public class AltaMedico extends JInternalFrame {
 
         getContentPane().setLayout(null);
 
+        JPanel panelDatos = new JPanel(new GridLayout(6, 2, 5, 5));
+        
         // Nickname
         JLabel lblNickname = new JLabel("Nickname:");
         lblNickname.setBounds(30, 30, 150, 25);
@@ -94,13 +101,9 @@ public class AltaMedico extends JInternalFrame {
         getContentPane().add(txtSitioWeb);
 
         // Especialidad
-        JLabel lblEspecialidad = new JLabel("Especialidad:");
-        lblEspecialidad.setBounds(30, 275, 150, 25);
-        getContentPane().add(lblEspecialidad);
-
-        txtEspecialidad = new JTextField();
-        txtEspecialidad.setBounds(190, 275, 300, 25);
-        getContentPane().add(txtEspecialidad);
+        panelDatos.add(new JLabel("Especialidad:"));
+        comboEspecialidad = new JComboBox<>();
+        panelDatos.add(comboEspecialidad);
 
         // Porcentaje adicional
         JLabel lblPorcentaje = new JLabel("Porcentaje adicional:");

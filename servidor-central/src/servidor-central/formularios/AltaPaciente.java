@@ -1,10 +1,17 @@
 package formularios;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import controladores.ControladorUsuarios;
+import datatypes.DTFecha;
 
 public class AltaPaciente extends JInternalFrame {
 
@@ -18,6 +25,8 @@ public class AltaPaciente extends JInternalFrame {
     private JTextField txtDocumento;
     private JTextField txtFechaIngreso;
     private JTextArea txtAntecedentes;
+    
+    private ControladorUsuarios controlador;
 
     public AltaPaciente() {
 
@@ -28,6 +37,8 @@ public class AltaPaciente extends JInternalFrame {
         setIconifiable(true);
         setResizable(true);
 
+        controlador = ControladorUsuarios.getInstancia();
+        
         getContentPane().setLayout(null);
 
         // Nickname
@@ -118,5 +129,92 @@ public class AltaPaciente extends JInternalFrame {
         btnCancelar.addActionListener(e -> {
             dispose();
         });
+        
+     // Evento Dar de alta
+        btnAlta.addActionListener(e -> altaPaciente());
+    }
+    
+    private void altaPaciente() {
+
+        try {
+
+            String nickname = txtNickname.getText();
+            String nombre = txtNombre.getText();
+            String apellido = txtApellido.getText();
+            String correo = txtCorreo.getText();
+
+            DTFecha fechaNacimiento =
+                    convertirFecha(txtFechaNacimiento.getText());
+
+            int documento =
+                    Integer.parseInt(txtDocumento.getText());
+
+            DTFecha fechaIngreso =
+                    convertirFecha(txtFechaIngreso.getText());
+
+            Set<String> antecedentes =
+                    new HashSet<>();
+
+            String textoAntecedentes =
+                    txtAntecedentes.getText().trim();
+
+            if (!textoAntecedentes.isEmpty()) {
+                antecedentes.add(textoAntecedentes);
+            }
+
+            // Llamamos al controlador
+            controlador.altaPaciente(
+                    nickname,
+                    nombre,
+                    apellido,
+                    correo,
+                    fechaNacimiento,
+                    documento,
+                    fechaIngreso,
+                    antecedentes
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Paciente dado de alta correctamente."
+            );
+
+            dispose();
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El documento debe ser un número.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+
+        } catch (IllegalArgumentException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+    private DTFecha convertirFecha(String texto) {
+
+        String[] partes = texto.split("/");
+
+        if (partes.length != 3) {
+            throw new IllegalArgumentException(
+                    "La fecha debe tener el formato dd/mm/aaaa."
+            );
+        }
+
+        int dia = Integer.parseInt(partes[0]);
+        int mes = Integer.parseInt(partes[1]);
+        int anio = Integer.parseInt(partes[2]);
+
+        return new DTFecha(dia, mes, anio);
     }
 }

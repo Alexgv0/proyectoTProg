@@ -44,7 +44,7 @@ public class ControladorClinicas {
     // CU :: Consulta de Clinica
     
     public Set<String> listarClinicas() {
-    	Set<Clinica> clinicas = mc.obtenerClinicas();
+    	Set<Clinica> clinicas = mc.listarClinicas();
     	Set<String> res = new HashSet<>();
     	
     	for(Clinica c : clinicas) {
