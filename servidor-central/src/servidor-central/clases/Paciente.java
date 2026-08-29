@@ -28,12 +28,12 @@ public class Paciente extends Usuario {
 
         super(nickname, nombre, apellido, email);
 
-        this.fecNacimiento = fecNacimiento;
-        this.documento = documento;
-        this.fechaIngreso = fechaIngreso;
-        this.antecedentesMed = antecedentesMed;
+        this.setFecNacimiento(fecNacimiento);
+        this.setDocumento(documento);
+        this.setFechaIngreso(fechaIngreso);
+        this.setAntecedentesMed(antecedentesMed);
         
-        this.beneficios = new HashSet<>();
+        this.setBeneficios(new HashSet<>());
         this.reservas = new HashSet<>();
     }
 
@@ -52,5 +52,55 @@ public class Paciente extends Usuario {
 			if (r.getConsulta().getNombre().equals(nombreConsulta)) return r;
 		}
 		return null;
+	}
+
+
+	public DTFecha getFecNacimiento() {
+		return fecNacimiento;
+	}
+
+
+	public void setFecNacimiento(DTFecha fecNacimiento) {
+		this.fecNacimiento = fecNacimiento;
+	}
+
+
+	public DTFecha getFechaIngreso() {
+		return fechaIngreso;
+	}
+
+
+	public void setFechaIngreso(DTFecha fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+
+
+	public int getDocumento() {
+		return documento;
+	}
+
+
+	public void setDocumento(int documento) {
+		this.documento = documento;
+	}
+
+
+	public Set<String> getAntecedentesMed() {
+		return antecedentesMed;
+	}
+
+
+	public void setAntecedentesMed(Set<String> antecedentesMed) {
+		this.antecedentesMed = antecedentesMed;
+	}
+
+
+	public Set<BeneficioAnual> getBeneficios() {
+		return beneficios;
+	}
+
+
+	public void setBeneficios(Set<BeneficioAnual> beneficios) {
+		this.beneficios = beneficios;
 	}
 }

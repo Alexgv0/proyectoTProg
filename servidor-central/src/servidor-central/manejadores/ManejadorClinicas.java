@@ -34,4 +34,8 @@ public class ManejadorClinicas {
         clinicas.put(clinica.getNombre(), clinica);
     }
 
+	public Map<String, Clinica> obtenerClinicas() {
+		return this.clinicas;
+	}
+
 }

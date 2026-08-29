@@ -12,7 +12,7 @@ public class ManejadorConsultas {
     private Map<String, Consulta> consultas;
 
     private ManejadorConsultas() {
-        consultas = new HashMap<>();
+        this.consultas = new HashMap<>();
     }
 
     public static ManejadorConsultas getInstancia() {
@@ -23,6 +23,9 @@ public class ManejadorConsultas {
 
         return instancia;
     }
-	
+
+	public Map<String, Consulta> getConsultas() {
+		return consultas;
+	}
 	
 }

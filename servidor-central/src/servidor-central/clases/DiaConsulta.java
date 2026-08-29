@@ -1,5 +1,6 @@
 package clases;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,12 +30,14 @@ public class DiaConsulta{
 			float cc
 			) {
 		this.nombre = nom;
-		this.descripcion = des;
-		this.dia = dia;
-		this.horaInicio = hi;
-		this.especialidad = especialidad;
-        this.clinica = clinica;
-		this.costoConsulta = cc;
+		this.setDescripcion(des);
+		this.setDia(dia);
+		this.setHoraInicio(hi);
+		this.setEspecialidad(especialidad);
+        this.setClinica(clinica);
+		this.setCostoConsulta(cc);
+		
+		this.consultas = new HashMap<>();
 	}
 	
 	public Set<DTConsulta> listarConsultas() {
@@ -44,5 +47,61 @@ public class DiaConsulta{
 	
 	public String getNombre() {
 		return nombre;
+	}
+
+	public Map<String, Consulta> getConsultas() {
+		return consultas;
+	}
+
+	public void setConsultas(Map<String, Consulta> consultas) {
+		this.consultas = consultas;
+	}
+
+	public Especialidad getEspecialidad() {
+		return especialidad;
+	}
+
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
+	}
+
+	public Clinica getClinica() {
+		return clinica;
+	}
+
+	public void setClinica(Clinica clinica) {
+		this.clinica = clinica;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Dia getDia() {
+		return dia;
+	}
+
+	public void setDia(Dia dia) {
+		this.dia = dia;
+	}
+
+	public int getHoraInicio() {
+		return horaInicio;
+	}
+
+	public void setHoraInicio(int horaInicio) {
+		this.horaInicio = horaInicio;
+	}
+
+	public float getCostoConsulta() {
+		return costoConsulta;
+	}
+
+	public void setCostoConsulta(float costoConsulta) {
+		this.costoConsulta = costoConsulta;
 	}
 }

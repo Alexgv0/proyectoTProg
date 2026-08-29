@@ -1,26 +1,18 @@
 package controladores;
 
-import manejadores.ManejadorReservas;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
 import clases.Reserva;
-import clases.Usuario;
-import datatypes.DTFecha;
 import datatypes.DTReserva;
-import datatypes.DTUsuario;
-import datatypes.DTEspecialidad;
 import java.util.Set;
-import datatypes.DTReservaConsulta;
 
 public class ControladorReservas {
 
     private static ControladorReservas instancia;
 
-    private ManejadorReservas mr;
     private ManejadorUsuarios mu;
 
     private ControladorReservas() {
-    	mr = ManejadorReservas.getInstancia();
     	mu = ManejadorUsuarios.getInstancia();
     }
 

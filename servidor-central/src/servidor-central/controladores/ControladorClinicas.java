@@ -1,6 +1,7 @@
 package controladores;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import manejadores.ManejadorClinicas;
@@ -9,9 +10,7 @@ import manejadores.ManejadorDiasConsulta;
 import clases.Clinica;
 import clases.DiaConsulta;
 import clases.Especialidad;
-import datatypes.DTFecha;
 import datatypes.DTClinica;
-import datatypes.DTEspecialidad;
 import datatypes.DTConsulta;
 import datatypes.DTUsuario;
 import enums.Dia;
@@ -44,10 +43,10 @@ public class ControladorClinicas {
     // CU :: Consulta de Clinica
     
     public Set<String> listarClinicas() {
-    	Set<Clinica> clinicas = mc.obtenerClinicas();
+    	Map<String, Clinica> clinicas = mc.obtenerClinicas();
     	Set<String> res = new HashSet<>();
     	
-    	for(Clinica c : clinicas) {
+    	for(Clinica c : clinicas.values()) {
     		res.add(c.getNombre());
     	}
     	

@@ -52,5 +52,9 @@ public class Clinica{
 	public float getCostoConsulta() {
         return this.costoConsulta;
     }
+
+	public Map<String, DiaConsulta> getDiasConsulta() {
+		return diasConsulta;
+	}
 	
 }

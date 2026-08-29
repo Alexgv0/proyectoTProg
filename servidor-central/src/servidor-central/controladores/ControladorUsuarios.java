@@ -1,7 +1,6 @@
 package controladores;
 
 import manejadores.ManejadorUsuarios;
-import clases.Clinica;
 import clases.Paciente;
 import clases.Usuario;
 import datatypes.DTFecha;

@@ -24,4 +24,29 @@ public class DTClinica {
 		this.costoMedicamento = costoMedicamento;
 		this.costoConsulta = costoConsulta;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public String getSitioWeb() {
+		return sitioWeb;
+	}
+
+	public float getCostoMedicamento() {
+		return costoMedicamento;
+	}
+
+	public float getCostoConsulta() {
+		return costoConsulta;
+	}
+
 }
