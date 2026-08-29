@@ -74,20 +74,36 @@ public class ControladorUsuarios {
             String sitioWeb, 
             Set<DTEspecialidad> especialidades, 
             int porcentajeConsultas) {
-    	if (!mu.existeUsuario(nickname)) {
-            return mu.crearMedico(
-                    nickname,
-                    nombre,
-                    apellido,
-                    email,
-                    registro,
-                    mesLicencia,
-                    sitioWeb,
-                    especialidades,
-                    porcentajeConsultas
+    	
+    	if (mu.existeUsuario(nickname)) {
+            throw new IllegalArgumentException(
+                    "El nickname ya está en uso."
             );
         }
-        return null;
+
+        if (mu.existeEmail(email)) {
+            throw new IllegalArgumentException(
+                    "El correo electrónico ya está en uso."
+            );
+        }
+
+        if (especialidades == null || especialidades.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El médico debe tener al menos una especialidad."
+            );
+        }
+
+        return mu.crearMedico(
+                nickname,
+                nombre,
+                apellido,
+                email,
+                registro,
+                mesLicencia,
+                sitioWeb,
+                especialidades,
+                porcentajeConsultas
+        );
     }
     
     public Usuario altaPaciente(String nickname, 
@@ -98,19 +114,29 @@ public class ControladorUsuarios {
     		int documento, 
     		DTFecha fechaIngreso, 
     		Set<String>antecedentesMed) {
-    	if (!mu.existeUsuario(nickname)) {
-            return mu.crearPaciente(
-                    nickname,
-                    nombre,
-                    apellido,
-                    email,
-                    fecNacimiento,
-                    documento,
-                    fechaIngreso,
-                    antecedentesMed
+    	
+    	if (mu.existeUsuario(nickname)) {
+            throw new IllegalArgumentException(
+                "El nickname ya está en uso."
             );
         }
-        return null;
+
+        if (mu.existeEmail(email)) {
+            throw new IllegalArgumentException(
+                "El correo electrónico ya está en uso."
+            );
+        }
+
+        return mu.crearPaciente(
+                nickname,
+                nombre,
+                apellido,
+                email,
+                fecNacimiento,
+                documento,
+                fechaIngreso,
+                antecedentesMed
+        );
     } 
     
     public void altaUsuario(Usuario u) {

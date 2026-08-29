@@ -1,7 +1,6 @@
 package formularios;
 
 import java.util.HashSet;
-import java.awt.GridLayout;
 import java.util.Set;
 
 import javax.swing.DefaultComboBoxModel;
@@ -14,7 +13,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JPanel;
 
 import controladores.ControladorUsuarios;
 import datatypes.DTEspecialidad;
@@ -51,8 +49,6 @@ public class AltaMedico extends JInternalFrame {
         controlador = ControladorUsuarios.getInstancia();
         
         getContentPane().setLayout(null);
-
-        JPanel panelDatos = new JPanel(new GridLayout(6, 2, 5, 5));
         
         // Nickname
         JLabel lblNickname = new JLabel("Nickname:");

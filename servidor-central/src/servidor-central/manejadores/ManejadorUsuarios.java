@@ -36,6 +36,14 @@ public class ManejadorUsuarios {
     	return usuarios.containsKey(nickname);
     }
     
+    public boolean existeEmail(String email) {
+        for (Usuario usuario : usuarios.values()) {
+            if (usuario.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
     public Medico crearMedico(
     		String nickname, 

@@ -3,12 +3,17 @@ package formularios;
 import java.util.HashSet;
 import java.util.Set;
 
+//import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+//import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JList;
 
 import controladores.ControladorUsuarios;
 import datatypes.DTFecha;
@@ -24,7 +29,10 @@ public class AltaPaciente extends JInternalFrame {
     private JTextField txtFechaNacimiento;
     private JTextField txtDocumento;
     private JTextField txtFechaIngreso;
-    private JTextArea txtAntecedentes;
+    private JComboBox<String> comboAntecedentesMedicos;
+    
+    private DefaultListModel<String> modeloAntecedentesMedicos;
+    private JList<String> listaAntecedentesMedicos;
     
     private ControladorUsuarios controlador;
 
@@ -105,16 +113,50 @@ public class AltaPaciente extends JInternalFrame {
         getContentPane().add(txtFechaIngreso);
 
         // Antecedentes médicos
-        JLabel lblAntecedentes = new JLabel("Antecedentes médicos:");
-        lblAntecedentes.setBounds(30, 275, 150, 25);
-        getContentPane().add(lblAntecedentes);
+        JLabel lblEspecialidad = new JLabel("Antecedentes Médicos:");
+        lblEspecialidad.setBounds(30, 275, 150, 25);
+        getContentPane().add(lblEspecialidad);
 
-        txtAntecedentes = new JTextArea();
-        txtAntecedentes.setLineWrap(true);
-        txtAntecedentes.setWrapStyleWord(true);
-        txtAntecedentes.setBounds(190, 275, 300, 80);
-        getContentPane().add(txtAntecedentes);
+        comboAntecedentesMedicos = new JComboBox<>();
+        comboAntecedentesMedicos.setBounds(190, 275, 300, 25);
+        getContentPane().add(comboAntecedentesMedicos);
 
+        // Botón agregar AntecedentesMedicos
+        JButton btnAgregarAntecedenteMedico = new JButton("Agregar");
+        btnAgregarAntecedenteMedico.setBounds(400, 275, 90, 25);
+        getContentPane().add(btnAgregarAntecedenteMedico);
+
+        // Lista de AntecedentesMedicos seleccionados
+        JLabel lblSeleccionadas = new JLabel("Seleccionados:");
+        lblSeleccionadas.setBounds(30, 315, 150, 25);
+        getContentPane().add(lblSeleccionadas);
+
+        modeloAntecedentesMedicos = new DefaultListModel<>();
+
+        listaAntecedentesMedicos = new JList<>(modeloAntecedentesMedicos);
+
+        JScrollPane scrollEspecialidades =
+                new JScrollPane(listaAntecedentesMedicos);
+
+        scrollEspecialidades.setBounds(190, 310, 300, 70);
+        getContentPane().add(scrollEspecialidades);
+
+        // Agregar antecedentes medicos
+        btnAgregarAntecedenteMedico.addActionListener(e -> {
+
+            String antecedentes =
+                    (String) comboAntecedentesMedicos.getSelectedItem();
+
+            if (antecedentes == null) {
+                return;
+            }
+
+            // Evitar duplicados
+            if (!modeloAntecedentesMedicos.contains(antecedentes)) {
+                modeloAntecedentesMedicos.addElement(antecedentes);
+            }
+        });
+        
         // Botón Dar de alta
         JButton btnAlta = new JButton("Dar de alta");
         btnAlta.setBounds(130, 390, 120, 30);
@@ -154,14 +196,7 @@ public class AltaPaciente extends JInternalFrame {
 
             Set<String> antecedentes =
                     new HashSet<>();
-
-            String textoAntecedentes =
-                    txtAntecedentes.getText().trim();
-
-            if (!textoAntecedentes.isEmpty()) {
-                antecedentes.add(textoAntecedentes);
-            }
-
+            
             // Llamamos al controlador
             controlador.altaPaciente(
                     nickname,
