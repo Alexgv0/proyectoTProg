@@ -3,15 +3,12 @@ package formularios;
 import java.util.HashSet;
 import java.util.Set;
 
-//import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-//import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JList;
 
@@ -29,7 +26,7 @@ public class AltaPaciente extends JInternalFrame {
     private JTextField txtFechaNacimiento;
     private JTextField txtDocumento;
     private JTextField txtFechaIngreso;
-    private JComboBox<String> comboAntecedentesMedicos;
+    private JTextField txtAntecedenteMedico;
     
     private DefaultListModel<String> modeloAntecedentesMedicos;
     private JList<String> listaAntecedentesMedicos;
@@ -117,16 +114,16 @@ public class AltaPaciente extends JInternalFrame {
         lblEspecialidad.setBounds(30, 275, 150, 25);
         getContentPane().add(lblEspecialidad);
 
-        comboAntecedentesMedicos = new JComboBox<>();
-        comboAntecedentesMedicos.setBounds(190, 275, 300, 25);
-        getContentPane().add(comboAntecedentesMedicos);
+        txtAntecedenteMedico = new JTextField();
+        txtAntecedenteMedico.setBounds(190, 275, 200, 25);
+        getContentPane().add(txtAntecedenteMedico);
 
-        // Botón agregar AntecedentesMedicos
+        // Botón agregar Antecedente
         JButton btnAgregarAntecedenteMedico = new JButton("Agregar");
         btnAgregarAntecedenteMedico.setBounds(400, 275, 90, 25);
         getContentPane().add(btnAgregarAntecedenteMedico);
 
-        // Lista de AntecedentesMedicos seleccionados
+        // Modelo de antecedentes seleccionados
         JLabel lblSeleccionadas = new JLabel("Seleccionados:");
         lblSeleccionadas.setBounds(30, 315, 150, 25);
         getContentPane().add(lblSeleccionadas);
@@ -135,25 +132,27 @@ public class AltaPaciente extends JInternalFrame {
 
         listaAntecedentesMedicos = new JList<>(modeloAntecedentesMedicos);
 
-        JScrollPane scrollEspecialidades =
+        JScrollPane scrollAntecedentes =
                 new JScrollPane(listaAntecedentesMedicos);
 
-        scrollEspecialidades.setBounds(190, 310, 300, 70);
-        getContentPane().add(scrollEspecialidades);
+        scrollAntecedentes.setBounds(190, 310, 300, 70);
+        getContentPane().add(scrollAntecedentes);
 
-        // Agregar antecedentes medicos
+        // Agregar antecedente
         btnAgregarAntecedenteMedico.addActionListener(e -> {
 
-            String antecedentes =
-                    (String) comboAntecedentesMedicos.getSelectedItem();
+        	String antecedente =
+                    txtAntecedenteMedico.getText().trim();
 
-            if (antecedentes == null) {
+            if (antecedente.isEmpty()) {
                 return;
             }
 
+
             // Evitar duplicados
-            if (!modeloAntecedentesMedicos.contains(antecedentes)) {
-                modeloAntecedentesMedicos.addElement(antecedentes);
+            if (!modeloAntecedentesMedicos.contains(antecedente)) {
+                modeloAntecedentesMedicos.addElement(antecedente);
+                txtAntecedenteMedico.setText("");
             }
         });
         
@@ -186,20 +185,23 @@ public class AltaPaciente extends JInternalFrame {
             String correo = txtCorreo.getText();
 
             DTFecha fechaNacimiento =
-                    convertirFecha(txtFechaNacimiento.getText());
+                    convertirFecha(txtFechaNacimiento.getText().trim());
 
             int documento =
-                    Integer.parseInt(txtDocumento.getText());
+                    Integer.parseInt(txtDocumento.getText().trim());
 
             DTFecha fechaIngreso =
-                    convertirFecha(txtFechaIngreso.getText());
+                    convertirFecha(txtFechaIngreso.getText().trim());
 
-            Set<String> antecedentes =
-                    new HashSet<>();         
+         // Crear el conjunto de antecedentes
+            Set<String> antecedentes = new HashSet<>();
 
-            for (int i = 0; i < modeloAntecedentesMedicos.size(); i++) {
+            for (int i = 0;
+                 i < modeloAntecedentesMedicos.size();
+                 i++) {
+
                 String antecedente =
-                    modeloAntecedentesMedicos.getElementAt(i);
+                        modeloAntecedentesMedicos.getElementAt(i);
 
                 antecedentes.add(antecedente);
             }
