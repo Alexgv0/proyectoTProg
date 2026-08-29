@@ -1,5 +1,6 @@
 package controladores;
 
+import manejadores.ManejadorEspecialidades;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
 import clases.Usuario;
@@ -16,9 +17,11 @@ public class ControladorUsuarios {
     private static ControladorUsuarios instancia;
 
     private ManejadorUsuarios mu;
+    private ManejadorEspecialidades me;
 
     private ControladorUsuarios() {
         mu = ManejadorUsuarios.getInstancia();
+        me = ManejadorEspecialidades.getInstancia();
     }
 
     public static ControladorUsuarios getInstancia() {
@@ -108,7 +111,16 @@ public class ControladorUsuarios {
     
     //cu modificarDatosUsuario opcional
     
-    //alta de especialidad
+    // CU :: AltaEspecialidad
+    public boolean ingresarDatosAltaEspecialidad(String nombre, int porcentajeAdicional) {
+        if (me.existeEspecialidad(nombre)) {
+            return false;
+        }
+
+        me.altaEspecialidad(nombre, porcentajeAdicional);
+        return true;
+    }
+
     
     //alta de beneficio anual opcional
     

@@ -34,12 +34,17 @@ public class ManejadorEspecialidades {
     	return new HashSet<>(especialidades.values());
     }
     
-    //pueden ser utiles
+    // CU :: AltaEspecialidad
     
     public boolean existeEspecialidad(String nombre) {
         return especialidades.containsKey(nombre);
     }
 
+    public void altaEspecialidad(String nombre, int porcentajeAdicional) {
+    	Especialidad especialidad = new Especialidad(nombre, porcentajeAdicional);
+
+            especialidades.put(nombre, especialidad);
+    }
 
     public void agregarEspecialidad(Especialidad especialidad) {
         especialidades.put(
