@@ -1,7 +1,6 @@
 package controladores;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import manejadores.ManejadorClinicas;
@@ -43,10 +42,11 @@ public class ControladorClinicas {
     // CU :: Consulta de Clinica
     
     public Set<String> listarClinicas() {
-    	Map<String, Clinica> clinicas = mc.obtenerClinicas();
+    	Set<Clinica> clinicas = mc.listarClinicas();
+
     	Set<String> res = new HashSet<>();
     	
-    	for(Clinica c : clinicas.values()) {
+    	for(Clinica c : clinicas) {
     		res.add(c.getNombre());
     	}
     	

@@ -20,6 +20,10 @@ public class ManejadorClinicas {
 		if (instancia == null) instancia = new ManejadorClinicas();
 		return instancia;
 	}
+	
+	public Map<String, Clinica> getClinicas() {
+		return this.clinicas;
+	}
 
 	public Set<Clinica> listarClinicas() {
 		return new HashSet<>(clinicas.values());
