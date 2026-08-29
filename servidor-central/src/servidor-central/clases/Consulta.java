@@ -7,6 +7,7 @@ import java.util.Set;
 
 import datatypes.DTConsulta;
 import datatypes.DTFecha;
+import datatypes.DTReserva;
 import datatypes.DTUsuario;
 
 public class Consulta{
@@ -44,12 +45,34 @@ public class Consulta{
 	}
 	
 	public DTConsulta getDatosConsulta() {
-		return null;
+	String nombreMedico = "";
+	if (!this.medicos.isEmpty()) {
+		nombreMedico = this.medicos.values().iterator().next().getNickname();
 	}
+	Set<DTReserva> dtReservas = new HashSet<>();
+	for (Reserva r : this.reservas) {
+		dtReservas.add(new DTReserva(
+				r.getPaciente().getNickname(),
+				r.getFecha(),
+				r.getNumeroCliente(),
+				r.getCostoReserva()
+		));
+	}
+
+	return new DTConsulta(
+			this.nombre,
+			this.fecha,
+			this.numeroSala,
+			this.numsDisponibles,
+			nombreMedico,
+			this.costoConsulta,
+			dtReservas
+	);
+}
 	
 	public void agregarReserva(Reserva res) {
-		
-	}
+		this.reservas.add(res);
+	}	
 
 	public String getNombre() {
 		return this.nombre;

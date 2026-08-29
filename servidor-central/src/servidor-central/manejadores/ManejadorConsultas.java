@@ -27,5 +27,16 @@ public class ManejadorConsultas {
 	public Map<String, Consulta> getConsultas() {
 		return consultas;
 	}
-	
+
+	public boolean existeConsulta(String nombre) {
+	    return consultas.containsKey(nombre);
+    }
+
+    public void agregarConsulta(Consulta consulta) {
+	    consultas.put(consulta.getNombre(), consulta);
+    }
+
+    public Consulta buscarConsulta(String nombre) {
+	    return consultas.get(nombre);
+    }
 }

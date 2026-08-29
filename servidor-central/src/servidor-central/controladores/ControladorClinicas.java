@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import manejadores.ManejadorClinicas;
+import manejadores.ManejadorConsultas;
 import manejadores.ManejadorEspecialidades;
 import manejadores.ManejadorDiasConsulta;
 import clases.Clinica;
+import clases.Consulta;
 import clases.DiaConsulta;
 import clases.Especialidad;
 import datatypes.DTClinica;
@@ -23,11 +25,13 @@ public class ControladorClinicas {
     private ManejadorClinicas mc;
     private ManejadorEspecialidades me;
     private ManejadorDiasConsulta mdc;
+    private ManejadorConsultas mcons;
 
     private ControladorClinicas() {
         this.mc = ManejadorClinicas.getInstancia();
         this.me = ManejadorEspecialidades.getInstancia();
         this.mdc = ManejadorDiasConsulta.getInstancia();
+        this.mcons = ManejadorConsultas.getInstancia();
     }
 
     
@@ -60,11 +64,7 @@ public class ControladorClinicas {
     
     //consulta usuario
     public Set<DTConsulta> listarConsultas(DTUsuario u){
-    	return null; //todo
-    }
-    
-    public DTConsulta seleccionarConsulta(String nombreConsulta) {
-    	return null; //todo
+        return null; //todo
     }
     
     //ALTA DE dia de consulta
@@ -126,12 +126,35 @@ public class ControladorClinicas {
     }
     
     //alta de clinica
-    
+    public void altaClinica(
+		String nombre, String descripcion, String direccion,
+		String sitioWeb, float costoMedicamento, float costoConsulta) {
+
+	if (mc.obtenerClinica(nombre) != null) {
+		throw new IllegalArgumentException("Ya existe una clínica con ese nombre.");
+	}
+
+	Clinica nuevaClinica = new Clinica(nombre, descripcion, direccion, sitioWeb, costoMedicamento, costoConsulta);
+	mc.agregarClinica(nuevaClinica);
+}
     //consulta de clinica
-    
+
     //Consulta Día Consulta
     
     //Alta Consulta
     
     //Consulta Consulta
+    public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta) {
+	DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
+	Set<DTConsulta> res = new HashSet<>();
+	for (Consulta c : dc.getConsultas().values()) {
+		res.add(c.getDatosConsulta());
+	}
+	return res;
+}
+
+public DTConsulta seleccionarConsulta(String nombreConsulta) {
+	Consulta c = mcons.buscarConsulta(nombreConsulta);
+	return c.getDatosConsulta();
+}
 }
