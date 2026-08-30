@@ -1,5 +1,10 @@
 package controladores;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import interfaces.IControladorUsuarios;
 import manejadores.ManejadorEspecialidades;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
@@ -7,13 +12,9 @@ import clases.Usuario;
 import clases.Especialidad;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
-
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 import datatypes.DTUsuario;
 
-public class ControladorUsuarios {
+public class ControladorUsuarios implements IControladorUsuarios {
 
     private static ControladorUsuarios instancia;
 

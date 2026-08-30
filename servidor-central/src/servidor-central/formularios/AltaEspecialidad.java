@@ -6,16 +6,24 @@ import javax.swing.*;
 
 import controladores.ControladorUsuarios;
 import datatypes.DTEspecialidad;
+import interfaces.IControladorUsuarios;
 
 public class AltaEspecialidad extends JInternalFrame {
 
-    private JTextField txtNombre;
+	private static final long serialVersionUID = -746306758404459214L;
+	
+	private JTextField txtNombre;
     private JTextField txtPorcentaje;
     private JButton btnAceptar;
     private JButton btnCancelar;
+    
+    private IControladorUsuarios cu;
 
-    public AltaEspecialidad() {
-
+    public AltaEspecialidad(IControladorUsuarios cu) {
+    	// Inicializamos el Controlador
+    	this.cu = cu;
+    	
+    	// Propiedades de la ventana
         setTitle("Alta de Especialidad");
         setSize(400, 157);
         setMinimumSize(new Dimension(400, 157));
@@ -75,12 +83,38 @@ public class AltaEspecialidad extends JInternalFrame {
         }
 
         // Llama al controlador con nombre y porcentaje
-        ControladorUsuarios cu = ControladorUsuarios.getInstancia();
-        cu.ingresarDatosAltaEspecialidad(nombre, porcentaje);
-        // Prueba en consola
-        DTEspecialidad e = cu.obtenerDatosEspecialidad(nombre);
-        System.out.println("Especialidad creada exitosamente!\nNombre: " + e.getNombre() + "\nPorcentaje adicional de costo: " + e.getPorcentajeCostoConsultaAdicional());
-        
-        dispose();
+    	try {
+    		boolean creado = this.cu.ingresarDatosAltaEspecialidad(nombre, porcentaje);
+    		
+    	    if (creado) {
+
+    	        JOptionPane.showMessageDialog(
+    	            this,
+    	            "Especialidad creada correctamente.",
+    	            "Éxito",
+    	            JOptionPane.INFORMATION_MESSAGE
+    	        );
+
+    	        dispose();
+
+    	    } else {
+
+    	        JOptionPane.showMessageDialog(
+    	            this,
+    	            "Ya existe una especialidad con ese nombre.",
+    	            "Error",
+    	            JOptionPane.ERROR_MESSAGE
+    	        );
+    	    }
+    		
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 }

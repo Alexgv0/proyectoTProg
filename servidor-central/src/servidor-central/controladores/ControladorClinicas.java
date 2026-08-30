@@ -3,6 +3,7 @@ package controladores;
 import java.util.HashSet;
 import java.util.Set;
 
+import interfaces.IControladorClinicas;
 import manejadores.ManejadorClinicas;
 import manejadores.ManejadorConsultas;
 import manejadores.ManejadorEspecialidades;
@@ -16,10 +17,9 @@ import datatypes.DTConsulta;
 import datatypes.DTUsuario;
 import enums.Dia;
 
+public class ControladorClinicas implements IControladorClinicas {
 
-public class ControladorClinicas {
-
-    // private
+    // Private
 	private static ControladorClinicas instancia;
 	
     private ManejadorClinicas mc;
@@ -35,7 +35,7 @@ public class ControladorClinicas {
     }
 
     
-    // public
+    // Public
     public static ControladorClinicas getInstancia() {
         if (instancia == null) {
             instancia = new ControladorClinicas();
@@ -44,7 +44,6 @@ public class ControladorClinicas {
     }
     
     // CU :: Consulta de Clinica
-    
     public Set<String> listarClinicas() {
     	Set<Clinica> clinicas = mc.listarClinicas();
 
@@ -67,7 +66,7 @@ public class ControladorClinicas {
         return null; //todo
     }
     
-    //ALTA DE dia de consulta
+    // ALTA de Dia de Consulta
     public Set<String> listarEspecialidades() {
 
         Set<Especialidad> especialidades = me.listarEspecialidades();
@@ -129,14 +128,14 @@ public class ControladorClinicas {
     public void altaClinica(
 		String nombre, String descripcion, String direccion,
 		String sitioWeb, float costoMedicamento, float costoConsulta) {
-
-	if (mc.obtenerClinica(nombre) != null) {
-		throw new IllegalArgumentException("Ya existe una clínica con ese nombre.");
+	
+		if (mc.obtenerClinica(nombre) != null) {
+			throw new IllegalArgumentException("Ya existe una clínica con ese nombre.");
+		}
+	
+		Clinica nuevaClinica = new Clinica(nombre, descripcion, direccion, sitioWeb, costoMedicamento, costoConsulta);
+		mc.agregarClinica(nuevaClinica);
 	}
-
-	Clinica nuevaClinica = new Clinica(nombre, descripcion, direccion, sitioWeb, costoMedicamento, costoConsulta);
-	mc.agregarClinica(nuevaClinica);
-}
     //consulta de clinica
 
     //Consulta Día Consulta
@@ -145,16 +144,16 @@ public class ControladorClinicas {
     
     //Consulta Consulta
     public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta) {
-	DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
-	Set<DTConsulta> res = new HashSet<>();
-	for (Consulta c : dc.getConsultas().values()) {
-		res.add(c.getDatosConsulta());
+		DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
+		Set<DTConsulta> res = new HashSet<>();
+		for (Consulta c : dc.getConsultas().values()) {
+			res.add(c.getDatosConsulta());
+		}
+		return res;
 	}
-	return res;
-}
 
-public DTConsulta seleccionarConsulta(String nombreConsulta) {
-	Consulta c = mcons.buscarConsulta(nombreConsulta);
-	return c.getDatosConsulta();
-}
+	public DTConsulta seleccionarConsulta(String nombreConsulta) {
+		Consulta c = mcons.buscarConsulta(nombreConsulta);
+		return c.getDatosConsulta();
+	}
 }

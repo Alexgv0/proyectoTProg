@@ -1,12 +1,14 @@
 package controladores;
 
+import interfaces.IControladorReservas;
 import manejadores.ManejadorUsuarios;
 import clases.Paciente;
 import clases.Reserva;
 import datatypes.DTReserva;
+
 import java.util.Set;
 
-public class ControladorReservas {
+public class ControladorReservas implements IControladorReservas {
 
     private static ControladorReservas instancia;
 
