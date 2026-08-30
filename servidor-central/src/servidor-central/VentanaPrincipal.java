@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -23,20 +22,10 @@ import formularios.AltaClinica;
 import formularios.ConsultaClinica;
 
 public class VentanaPrincipal extends JFrame {
+	
 	private static final long serialVersionUID = 1L;
 
     private JDesktopPane desktopPane;
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                VentanaPrincipal frame = new VentanaPrincipal();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     public VentanaPrincipal() {
 
@@ -158,7 +147,7 @@ public class VentanaPrincipal extends JFrame {
             ventana.setVisible(true);
         });
 
-        menuDiaConsulta.add(itemConsultaBeneficio);
+        menuDiaConsulta.add(itemConsultaDiaConsulta);
         
         
         //Consult
