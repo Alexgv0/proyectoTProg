@@ -58,6 +58,7 @@ public class ControladorClinicas implements IControladorClinicas {
     
     public DTClinica obtenerDatosClinica(String nombre) {
 		Clinica c = mc.obtenerClinica(nombre);
+		if (c == null) return null;
     	return c.getDatosClinica();
     }
     

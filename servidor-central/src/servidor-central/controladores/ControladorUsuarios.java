@@ -161,6 +161,8 @@ public class ControladorUsuarios implements IControladorUsuarios {
     	Map<String, Paciente> pacientes = mu.obtenerPacientes();
     	Set<String> res = new HashSet<>();
     	
+    	if (pacientes == null) return null;
+    	
     	for(Paciente p : pacientes.values()) {
     		res.add(p.getNickname());
     	}
