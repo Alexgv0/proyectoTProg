@@ -21,6 +21,7 @@ public class ManejadorUsuarios {
 
     private ManejadorUsuarios() {
         usuarios = new HashMap<>();
+        pacientes = new HashMap<>();
     }
 
     public static ManejadorUsuarios getInstancia() {

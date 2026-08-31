@@ -4,29 +4,27 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-import controladores.ControladorUsuarios;
-import datatypes.DTEspecialidad;
 import interfaces.IControladorUsuarios;
 
 public class AltaEspecialidad extends JInternalFrame {
 
 	private static final long serialVersionUID = -746306758404459214L;
 	
+	private IControladorUsuarios cu;
+
 	private JTextField txtNombre;
     private JTextField txtPorcentaje;
     private JButton btnAceptar;
     private JButton btnCancelar;
     
-    private IControladorUsuarios cu;
-
     public AltaEspecialidad(IControladorUsuarios cu) {
     	// Inicializamos el Controlador
     	this.cu = cu;
     	
     	// Propiedades de la ventana
         setTitle("Alta de Especialidad");
-        setSize(400, 157);
-        setMinimumSize(new Dimension(400, 157));
+        setSize(400, 150);
+        setMinimumSize(new Dimension(400, 150));
         setResizable(true);
         setIconifiable(true);
         setMaximizable(true);
@@ -40,27 +38,26 @@ public class AltaEspecialidad extends JInternalFrame {
         lblNombre.setBounds(10, 11, 88, 24);
         panel.add(lblNombre);
 
-        txtNombre = new JTextField();
-        txtNombre.setBounds(111, 12, 263, 23);
+        this.txtNombre = new JTextField();
+        this.txtNombre.setBounds(111, 12, 263, 23);
         panel.add(txtNombre);
 
         JLabel lblPorcentaje = new JLabel("% costo adicional:");
         lblPorcentaje.setBounds(10, 46, 88, 23);
         panel.add(lblPorcentaje);
 
-        txtPorcentaje = new JTextField();
-        txtPorcentaje.setBounds(111, 46, 263, 23);
+        this.txtPorcentaje = new JTextField();
+        this.txtPorcentaje.setBounds(111, 46, 263, 23);
         panel.add(txtPorcentaje);
 
-        btnAceptar = new JButton("Aceptar");
-        btnAceptar.setBounds(188, 80, 88, 24);
-        panel.add(btnAceptar);
-        btnAceptar.addActionListener(e -> aceptar());
+        this.btnAceptar = new JButton("Aceptar");
+        this.btnAceptar.setBounds(188, 80, 88, 24);
+        this.btnAceptar.addActionListener(_ -> aceptar());
 
-        btnCancelar = new JButton("Cancelar");
-        btnCancelar.setBounds(286, 80, 88, 24);
+        this.btnCancelar = new JButton("Cancelar");
+        this.btnCancelar.setBounds(286, 80, 88, 24);
         panel.add(btnCancelar);
-        btnCancelar.addActionListener(e -> dispose());
+        this.btnCancelar.addActionListener(_ -> dispose());
 
         getContentPane().add(panel);
     }

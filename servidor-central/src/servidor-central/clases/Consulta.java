@@ -52,7 +52,6 @@ public class Consulta{
 	Set<DTReserva> dtReservas = new HashSet<>();
 	for (Reserva r : this.reservas) {
 		dtReservas.add(new DTReserva(
-				r.getPaciente().getNickname(),
 				r.getFecha(),
 				r.getNumeroCliente(),
 				r.getCostoReserva()
@@ -64,9 +63,7 @@ public class Consulta{
 			this.fecha,
 			this.numeroSala,
 			this.numsDisponibles,
-			nombreMedico,
-			this.costoConsulta,
-			dtReservas
+			this.costoConsulta
 	);
 }
 	
