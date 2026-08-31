@@ -152,6 +152,14 @@ public class ControladorClinicas {
 	}
 	return res;
 }
+public Set<String> listarDiasConsulta() {
+	Set<DiaConsulta> dias = mdc.obtenerDiasConsulta();
+	Set<String> res = new HashSet<>();
+	for (DiaConsulta d : dias) {
+		res.add(d.getNombre());
+	}
+	return res;
+}
 
 public DTConsulta seleccionarConsulta(String nombreConsulta) {
 	Consulta c = mcons.buscarConsulta(nombreConsulta);
