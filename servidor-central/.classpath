@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="src" path="src/servidor-central"/>
+	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
-	<classpathentry excluding="CSVs/" kind="src" path="src/servidor-central"/>
-	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-=======
-	<classpathentry kind="src" path="src/servidor-central"/>
-	<classpathentry kind="lib" path="com.miglayout.swing_11.4.3.jar"/>
-	<classpathentry kind="lib" path="com.miglayout.core_11.4.3.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.forms_1.9.0.v20240327-0800.jar"/>
-	<classpathentry kind="lib" path="com.jgoodies.common_1.8.1.v20240327-0800.jar"/>
->>>>>>> 5e89c3cdd2f53e73e00727c6a4596c1f7ac74658
 	<classpathentry kind="output" path="bin"/>
 </classpath>
