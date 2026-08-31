@@ -14,6 +14,10 @@ public class DTDiaConsulta {
         return nombreDia;
     }
     
+    public String getNombre() {
+        return nombreDia;
+    }
+    
     @Override
     public String toString() { return nombreDia; }
 
@@ -26,6 +30,4 @@ public class DTDiaConsulta {
 
     @Override
     public int hashCode() { return Objects.hash(nombreDia); }
-}
-
 }

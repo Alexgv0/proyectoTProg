@@ -32,4 +32,3 @@ public class BeneficioAnual{
         return new DTBeneficioAnual(anio, ticketsGratis, consultasGratis);
     }
 }
-}

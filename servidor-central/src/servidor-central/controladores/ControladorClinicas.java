@@ -33,8 +33,7 @@ import datatypes.DTDiaConsulta;
 public class ControladorClinicas implements IControladorClinicas {
 
     // Private
-	private static final ControladorClinicas instancia;
-	private final DTFecha fechaActual;
+	private static final ControladorClinicas instancia = new ControladorClinicas();
     private final ManejadorClinicas mc;
     private final ManejadorEspecialidades me;
     private final ManejadorDiasConsulta mdc;
@@ -52,9 +51,6 @@ public class ControladorClinicas implements IControladorClinicas {
     
     // Public
     public static ControladorClinicas getInstancia() {
-        if (instancia == null) {
-            instancia = new ControladorClinicas();
-        }
         return instancia;
     }
     

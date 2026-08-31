@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.LinkedHashSet;
 
 import datatypes.DTConsulta;
 import enums.Dia;

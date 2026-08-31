@@ -68,4 +68,4 @@ public class ControladorReservas implements IControladorReservas {
         consulta.agregarReserva(reserva);
         paciente.agregarReserva(reserva);
     }
-}}
+}

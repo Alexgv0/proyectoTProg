@@ -31,16 +31,19 @@ public class Reserva {
     }
 
 
-	private float calcularCostoReserva() {
-		if (beneficio != null) {
-			return 0.0f;
-		}
-		float costo = consulta.getCostoConsulta();
-		if (esPacienteMayorDe60()) {
-			costo = costo * 0.80f;
-		}
-		return costo;
-	}
+    private float calcularCostoReserva() {
+        if (beneficio != null) {
+            return 0f;
+        }
+
+        int edad = Period.between(paciente.getFecNacimiento().toLocalDate(), fecha.toLocalDate()).getYears();
+
+        if (edad > 60) {
+            return consulta.getCostoConsulta() * 0.80f;
+        }
+
+        return consulta.getCostoConsulta();
+    }
 
     public Consulta getConsulta() { return consulta; }
     

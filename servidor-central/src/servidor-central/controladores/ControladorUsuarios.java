@@ -222,4 +222,3 @@ public class ControladorUsuarios implements IControladorUsuarios {
         return beneficio.getDatos();
     }
 }
-}
