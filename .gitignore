@@ -14,3 +14,4 @@ bin/
 # Archivos de proyecto de Eclipse
 .classpath
 .project
+.DS_Store
