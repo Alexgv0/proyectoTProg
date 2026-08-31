@@ -9,14 +9,7 @@ public class DTClinica {
 	private float costoMedicamento;
 	private float costoConsulta;
 	
-	public DTClinica(
-			String nombre, 
-			String descripcion, 
-			String direccion, 
-			String sitioWeb,
-			float costoMedicamento, 
-			float costoConsulta
-			) {
+	public DTClinica(String nombre, String descripcion, String direccion, String sitioWeb, float costoMedicamento, float costoConsulta) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.direccion = direccion;
@@ -48,5 +41,8 @@ public class DTClinica {
 	public float getCostoConsulta() {
 		return costoConsulta;
 	}
+	
+	@Override
+    public String toString() { return nombre; }
 
 }

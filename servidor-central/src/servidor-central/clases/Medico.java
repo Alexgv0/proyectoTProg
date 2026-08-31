@@ -1,10 +1,14 @@
 package clases;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import datatypes.DTEspecialidad;
+import datatypes.DTMedico;
 
 public class Medico extends Usuario {
     private int registro;
@@ -12,24 +16,15 @@ public class Medico extends Usuario {
     private int porcentajeCostoConsulta;
     private String sitioWeb;
     private Set<Especialidad> especialidades;
-    private Map<String, Consulta> consultas;
+    private final Map<String, Consulta> consultas = new LinkedHashMap<>();
 
-    public Medico(String nickname,
-			String nombre,
-            String apellido,
-            String email,
-            int registro,
-            String mesLicencia,
-            String sitioWeb,
-            Set<DTEspecialidad> especialidades,
-            int porcentajeCostoConsulta) {
-        super(nickname, nombre, apellido, email);
-        this.setRegistro(registro);
-        this.setMesLicencia(mesLicencia);
-        this.setSitioWeb(sitioWeb);
-        this.setPorcentajeCostoConsulta(porcentajeCostoConsulta);
-        this.setEspecialidades(¡especialidades)¡);
-        this.consultas = new HashMap<>();
+    public Medico(String nickname, String nombre, String apellido, String correo, int registro, String mesLicencia, String sitioWeb, Set<Especialidad> especialidades, int porcentajeCostoConsulta) {
+        super(nickname, nombre, apellido, correo);
+        this.registro = registro;
+        this.mesLicencia = mesLicencia;
+        this.sitioWeb = sitioWeb;
+        this.especialidades = new LinkedHashSet<>(especialidades);
+        this.porcentajeCostoConsulta = porcentajeCostoConsulta;
     }
 
     public int getRegistro() {
@@ -65,18 +60,28 @@ public class Medico extends Usuario {
     }
 
     public Set<Especialidad> getEspecialidades() {
-        return especialidades;
+        return Collections.unmodifiableSet(especialidades);
     }
-
+    
     public void setEspecialidades(Set<Especialidad> especialidades) {
-        this.especialidades = especialidades;
+        this.especialidades = new LinkedHashSet<>(especialidades);
     }
-
+    
     public Map<String, Consulta> getConsultas() {
-        return consultas;
+        return Collections.unmodifiableMap(consultas);
     }
 
-    public void setConsultas(Map<String, Consulta> consultas) {
-        this.consultas = consultas;
+    public void agregarConsulta(Consulta consulta) {
+        consultas.put(consulta.getNombre(), consulta);
+    }
+    
+    public boolean tieneEspecialidad(String nombreEspecialidad) {
+        return especialidades.stream().anyMatch(e -> e.getNombre().equals(nombreEspecialidad));
+    }
+
+    @Override
+    public DTMedico getDatos() {
+        Set<DTEspecialidad> datosEspecialidades = especialidades.stream().map(Especialidad::getDatos).collect(Collectors.toCollection(LinkedHashSet::new));
+        return new DTMedico(getNickname(), getNombre(), getApellido(), getCorreo(), registro, mesLicencia, sitioWeb, datosEspecialidades, porcentajeCostoConsulta);
     }
 }

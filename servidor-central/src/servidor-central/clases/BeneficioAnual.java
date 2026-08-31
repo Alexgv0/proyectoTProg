@@ -1,4 +1,5 @@
 package clases;
+import datatypes.DTBeneficioAnual;
 
 public class BeneficioAnual{
 	private int anio;
@@ -11,25 +12,12 @@ public class BeneficioAnual{
         this.consultasGratis = consultasGratis;
     }
 
- 	public int getAnio() {
-        return anio;
-    }
-
-	public int getTicketsGratis() {
-		return ticketsGratis;
-	}	
-
-	public void setTicketsGratis(int ticketsGratis) {
-		this.ticketsGratis = ticketsGratis;
-	}
-
-	public int getConsultasGratis() {
-		return consultasGratis;
-	}
-
-	public void setConsultasGratis(int consultasGratis) {
-		this.consultasGratis = consultasGratis;
-	}
+ 	public int getAnio() {return anio;}
+	public int getTicketsGratis() {return ticketsGratis;}
+	public int getConsultasGratis() {return consultasGratis;}
+	
+	public void setTicketsGratis(int ticketsGratis) {this.ticketsGratis = ticketsGratis;}
+	public void setConsultasGratis(int consultasGratis) {this.consultasGratis = consultasGratis;}
 
 	public void consumirConsultaGratis() {
         if (consultasGratis <= 0) {
@@ -39,5 +27,9 @@ public class BeneficioAnual{
         }
 
         consultasGratis--;
+	}
+	public DTBeneficioAnual getDatos() {
+        return new DTBeneficioAnual(anio, ticketsGratis, consultasGratis);
     }
+}
 }

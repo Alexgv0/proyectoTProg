@@ -1,7 +1,10 @@
 package controladores;
 
+import java.time.DayOfWeek;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import interfaces.IControladorClinicas;
 import manejadores.ManejadorClinicas;
@@ -13,6 +16,7 @@ import clases.Clinica;
 import clases.Consulta;
 import clases.DiaConsulta;
 import clases.Especialidad;
+import clases.Medico;
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
 import datatypes.DTDatosConsulta;
@@ -29,13 +33,13 @@ import datatypes.DTDiaConsulta;
 public class ControladorClinicas implements IControladorClinicas {
 
     // Private
-	private static ControladorClinicas instancia;
-	private DTFecha fechaActual;
-    private ManejadorClinicas mc;
-    private ManejadorEspecialidades me;
-    private ManejadorDiasConsulta mdc;
-    private ManejadorConsultas mcons;
-    private ManejadorUsuarios mu;
+	private static final ControladorClinicas instancia;
+	private final DTFecha fechaActual;
+    private final ManejadorClinicas mc;
+    private final ManejadorEspecialidades me;
+    private final ManejadorDiasConsulta mdc;
+    private final ManejadorConsultas mcons;
+    private final ManejadorUsuarios mu;
 
     private ControladorClinicas() {
         this.mc = ManejadorClinicas.getInstancia();
@@ -57,178 +61,153 @@ public class ControladorClinicas implements IControladorClinicas {
     
     
     // CU :: Consulta de Clinica
+    
+    @Override
     public Set<String> listarClinicas() {
-    	Set<Clinica> clinicas = mc.listarClinicas();
-
-    	Set<String> res = new HashSet<>();
-    	
-    	for(Clinica c : clinicas) {
-    		res.add(c.getNombre());
-    	}
-    	
-    	return res;
+        return mc.listarClinicas().stream().map(Clinica::getNombre).sorted().collect(Collectors.toCollection(LinkedHashSet::new));
     }
     
+    @Override
     public DTClinica obtenerDatosClinica(String nombre) {
-		Clinica c = mc.obtenerClinica(nombre);
-    	return c.getDatosClinica();
+        Clinica clinica = mc.obtenerClinica(nombre);
+        if (clinica == null) throw new IllegalArgumentException("La clinica no existe.");
+        return clinica.getDatosClinica();
     }
     
-    public DTFecha getFechaActual() {
-    	return this.fechaActual;
-    }
-    
-    // CU ::consulta usuario                                                
-    public Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario u){
-        Map<String, Consulta> consultas = mcons.getConsultas();
-        Set<DTConsultaSoloConsulta> resultado = new HashSet<>();
-
-    for (Consulta c : consultas.values()) {
-        String nick = c.getNicknameMedico();  
-
-        if (nick.equals(u.getNickname())) {
-            DTConsultaSoloConsulta dtc = c.getDatosSoloConsulta();   //// solo los datos de la consulta no con las reservas
-            resultado.add(dtc);
+    @Override
+    public void altaClinica(String nombre, String descripcion, String direccion, String sitioWeb, float costoMedicamento, float costoConsulta) {
+        String nombreLimpio = Validaciones.texto(nombre, "nombre");
+        Validaciones.texto(descripcion, "descripcion");
+        Validaciones.texto(direccion, "direccion");
+        Validaciones.noNegativo(costoMedicamento, "costo del ticket");
+        Validaciones.noNegativo(costoConsulta, "costo de la orden");
+        if (mc.obtenerClinica(nombreLimpio) != null) {
+            throw new IllegalArgumentException("Ya existe una clinica con ese nombre.");
         }
+        mc.agregarClinica(new Clinica(nombreLimpio, descripcion.trim(), direccion.trim(),
+                sitioWeb == null ? "" : sitioWeb.trim(), costoMedicamento,
+                costoConsulta));
     }
-    return resultado;
+
+    @Override
+    public Set<String> listarEspecialidades() { /// A CHEQUEAR
+        return me.listarEspecialidades().stream().map(Especialidad::getNombre).sorted().collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-
-
-    public Set<DTReserva> listarReservasConsultas(String nickPaciente) {        // lista todas las reservas de un paciente
-        Paciente p = (Paciente) mu.obtenerPaciente(nickPaciente);
-        Set<DTReserva> resultado =   p.listarReservas();
-
-        return resultado;
-}
-
-
-
+    @Override
+    public void altaDiaConsulta(String nombre, String descripcion, Dia diaSemana,
+            int horaInicio, String especialidad, String clinica) {
+        String nombreLimpio = Validaciones.texto(nombre, "nombre");
+        Validaciones.texto(descripcion, "descripcion");
+        if (diaSemana == null) throw new IllegalArgumentException(
+                "Debe seleccionar un dia de la semana.");
+        if (horaInicio < 0 || horaInicio > 23) throw new IllegalArgumentException(
+                "La hora de inicio debe estar entre 0 y 23.");
+        if (mdc.existeDiaConsulta(nombreLimpio)) throw new IllegalArgumentException(
+                "Ya existe un dia de consulta con ese nombre.");
+        Clinica objetoClinica = mc.obtenerClinica(clinica);
+        if (objetoClinica == null) throw new IllegalArgumentException(
+                "La clinica indicada no existe.");
+        Especialidad objetoEspecialidad = me.obtenerEspecialidad(especialidad);
+        if (objetoEspecialidad == null) throw new IllegalArgumentException(
+                "La especialidad indicada no existe.");
+        float costo = objetoClinica.getCostoConsulta()
+                * (1 + objetoEspecialidad.getPorcentajeCostoConsultaAdicional() / 100.0f);
+        DiaConsulta nuevo = new DiaConsulta(nombreLimpio, descripcion.trim(), diaSemana,
+                horaInicio, objetoEspecialidad, objetoClinica, costo);
+        mdc.agregarDiaConsulta(nuevo);
+        objetoClinica.agregarDiaConsulta(nuevo);
     }
-    
-    // CU :: ALTA de Dia de Consulta
-    public Set<String> listarEspecialidades() {
 
-        Set<Especialidad> especialidades = me.listarEspecialidades();
-
-        Set<String> res = new HashSet<>();
-
-        for (Especialidad e : especialidades) {
-            res.add(e.getNombre());
-        }
-
-        return res;
+    @Override
+    public Set<DTDiaConsulta> listarDiasConsulta() { //// A CHEQUEAR
+        return mdc.obtenerDiasConsulta().stream().map(d -> new DTDiaConsulta(d.getNombre())).sorted((a, b) -> a.getNombre().compareToIgnoreCase(b.getNombre())).collect(Collectors.toCollection(LinkedHashSet::new));
     }
-    
-    public void altaDiaConsulta(
-            String nombre,
-            String descripcion,
-            Dia diaSemana,
-            int horaInicio,
-            String especialidad,
-            String clinica) {
 
-    	if (mdc.existeDiaConsulta(nombre)) {
-            throw new IllegalArgumentException(
-                "Ya existe un día de consulta con ese nombre."
-            );
-        }
+    @Override
+    public DTDiaConsultaCompleto obtenerDatosDiaConsulta(String nombre) {
+        DiaConsulta dia = mdc.buscarDiaConsulta(nombre);
+        if (dia == null) throw new IllegalArgumentException(
+                "El dia de consulta no existe.");
+        return dia.getDatosCompletos();
+    }
 
-    	Clinica c = mc.obtenerClinica(clinica);
-        if (c == null) {
-            throw new IllegalArgumentException(
-                "La clínica no existe."
-            );
-        }
+    @Override
+    public void altaConsulta(String nombre, DTFecha fecha, int numeroSala, int cantidadNumeros, String nombreDiaConsulta, String nicknameMedico) {
+        	String nombreLimpio = Validaciones.texto(nombre, "nombre");
+        	if (fecha == null) throw new IllegalArgumentException("La fecha es obligatoria.");
+        	
+        	Validaciones.positivo(numeroSala, "numero de sala");
+        	Validaciones.positivo(cantidadNumeros, "cantidad de numeros");
         
-        Especialidad e = me.obtenerEspecialidad(especialidad);
-        if (e == null) {
-            throw new IllegalArgumentException(
-                "La especialidad no existe."
-            );
+        	if (mcons.existeConsulta(nombreLimpio)) throw new IllegalArgumentException("Ya existe una consulta con ese nombre.");
+        	DiaConsulta dia = mdc.buscarDiaConsulta(nombreDiaConsulta);
+        	
+        	if (dia == null) throw new IllegalArgumentException("El dia de consulta indicado no existe.");
+        	Medico medico = mu.obtenerMedico(nicknameMedico);
+        	
+        	if (medico == null) throw new IllegalArgumentException("El medico no existe.");
+        	
+        	if (!medico.tieneEspecialidad(dia.getEspecialidad().getNombre())) {
+        		throw new IllegalArgumentException("El medico no tiene la especialidad asociada al dia de consulta.");
+        	}
+        	
+        	if (convertirDia(fecha.toLocalDate().getDayOfWeek()) != dia.getDia()) {
+        		throw new IllegalArgumentException("La fecha no corresponde al dia de la semana seleccionado.");
+        	}
+        	
+        	Consulta consulta = new Consulta(nombreLimpio, fecha, numeroSala,
+                cantidadNumeros, dia, medico);
+        mcons.agregarConsulta(consulta);
+        dia.agregarConsulta(consulta);
+        medico.agregarConsulta(consulta);
+    }
+
+    private Dia convertirDia(DayOfWeek dia) {
+        switch (dia) {
+        case MONDAY: return Dia.LUNES;
+        case TUESDAY: return Dia.MARTES;
+        case WEDNESDAY: return Dia.MIERCOLES;
+        case THURSDAY: return Dia.JUEVES;
+        case FRIDAY: return Dia.VIERNES;
+        case SATURDAY: return Dia.SABADO;
+        case SUNDAY: return Dia.DOMINGO;
+        default: throw new IllegalArgumentException("Dia de la semana invalido.");
         }
+    }
+
+    @Override
+    public Set<DTConsultaSoloConsulta> listarConsultasDia(String nombreDiaConsulta) {
+        DiaConsulta dia = mdc.buscarDiaConsulta(nombreDiaConsulta);
+        if (dia == null) throw new IllegalArgumentException(
+                "El dia de consulta no existe.");
+        return dia.listarConsultas();
+    }
+
+    @Override
+    public Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario usuario) {
         
-        float costo = c.getCostoConsulta()
-                * (1 + e.getPorcentajeCostoConsultaAdicional() / 100.0f);
-
-        DiaConsulta nuevoDiaConsulta = new DiaConsulta(
-                nombre,
-                descripcion,
-                diaSemana,
-                horaInicio,
-                e,
-                c,
-                costo
-            );
-
-        mdc.agregarDiaConsulta(nuevoDiaConsulta);
-    }
-    
-    // CU ::alta de clinica
-    public void altaClinica(
-		String nombre, String descripcion, String direccion,
-		String sitioWeb, float costoMedicamento, float costoConsulta) {
-	
-		if (mc.obtenerClinica(nombre) != null) {
-			throw new IllegalArgumentException("Ya existe una clínica con ese nombre.");
-		}
-	
-		Clinica nuevaClinica = new Clinica(nombre, descripcion, direccion, sitioWeb, costoMedicamento, costoConsulta);
-		mc.agregarClinica(nuevaClinica);
-	}
-    // CU ::consulta de clinica /////////////////////////////////////////////////////
-
-    // CU ::Consulta Día Consulta
-
-    public Set<DTDiaConsulta> listarDiasConsulta() {
-    Set<DTDiaConsulta> resultado = new HashSet<>();
-
-    for (DiaConsulta d : mdc.getDiasConsulta().values()) {
-        String nombre = d.getNombre();
-        resultado.add(new DTDiaConsulta(nombre));
+    	if (usuario == null) throw new IllegalArgumentException("El usuario es obligatorio.");
+        
+    	Medico medico = mu.obtenerMedico(usuario.getNickname());
+        
+        if (medico == null) return new LinkedHashSet<>();
+        
+        return medico.getConsultas().values().stream().map(Consulta::getDatosSoloConsulta).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
-    return resultado;
-}
-
-    public DTDiaConsultaCompleto obtenerDatosDiaConsulta(String nombre) {       //lista incluyendo el listado de consultas asociadas
-    DiaConsulta d = mdc. buscarDiaConsulta(nombre);
-
-    if (d!= null){
-     DTDiaConsultaCompleto res = new DTDiaConsultaCompleto(
-            d.getNombre(),
-            d.getDescripcion(),
-            d.getDia(),
-            d.getHoraInicio(),
-            d.getCostoConsulta()
-        );
-        return res; 
-    }
-    else return null;
-
-   
-}
-
-    // CU ::Alta Consulta
-    
-    // CU ::Consulta Consulta
+    @Override
     public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta) {
-		DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
-		Set<DTConsulta> res = new HashSet<>();
-		for (Consulta c : dc.getConsultas().values()) {
-			res.add(c.getDatosConsulta());
-		}
-		return res;
-	}
+        DiaConsulta dia = mdc.buscarDiaConsulta(nombreDiaConsulta);
+        if (dia == null) throw new IllegalArgumentException("El dia de consulta no existe.");
+        
+        return dia.getConsultas().values().stream().map(Consulta::getDatosConsulta).collect(Collectors.toCollection(LinkedHashSet::new));
+    }
 
-	public DTConsulta seleccionarConsulta(String nombreConsulta) {
-		Consulta c = mcons.buscarConsulta(nombreConsulta);
-		return c.getDatosConsulta();
-	}
-
-
-
-    
+    @Override
+    public DTConsulta seleccionarConsulta(String nombreConsulta) {
+        Consulta consulta = mcons.buscarConsulta(nombreConsulta);
+        if (consulta == null) throw new IllegalArgumentException("La consulta no existe.");
+        return consulta.getDatosConsulta();
+    }
 }
-

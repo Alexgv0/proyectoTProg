@@ -1,7 +1,12 @@
 package clases;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+
 import datatypes.DTFecha;
 import datatypes.DTReserva;
 import clases.BeneficioAnual;
@@ -10,49 +15,30 @@ import datatypes.DTPaciente;
 import clases.Reserva;
 
 public class Paciente extends Usuario {
-
     private DTFecha fecNacimiento;
     private DTFecha fechaIngreso;
     private int documento;
     private Set<String> antecedentesMed;
+    private final Map<Integer, BeneficioAnual> beneficios = new LinkedHashMap<>();
+    private final Map<String, Reserva> reservas = new LinkedHashMap<>();
     
-    private Set<BeneficioAnual> beneficios;
-    private Set<Reserva> reservas;
     
-    
-    public Paciente(String nickname, String nombre, String apellido, String email, DTFecha fecNacimiento, int documento, DTFecha fechaIngreso, Set<String> antecedentesMed) {
-		super(nickname, nombre, apellido, email);
-        this.setFecNacimiento(fecNacimiento);
-        this.setDocumento(documento);
-        this.setFechaIngreso(fechaIngreso);
-        this.setAntecedentesMed(antecedentesMed);
-        
-        this.setBeneficios(new HashSet<>());
-        this.reservas = new HashSet<>();
+    public Paciente(String nickname, String nombre, String apellido, String correo,
+            DTFecha fecNacimiento, int documento, DTFecha fechaIngreso,
+            Set<String> antecedentesMed) {
+        super(nickname, nombre, apellido, correo);
+        this.fecNacimiento = fecNacimiento;
+        this.documento = documento;
+        this.fechaIngreso = fechaIngreso;
+        this.antecedentesMed = new LinkedHashSet<>(antecedentesMed);
     }
 
-
-	public Set<DTReservaConsulta> listarReservas() {
-    	Set<DTReservaConsulta> resultado = new HashSet<>();
-		for (Reserva reserva : reservas) {
-			DTReservaConsulta datos = reserva.getDatosReservaConsulta();
-			resultado.add(datos);
-    	}
-		return resultado;
+    public Set<DTReservaConsulta> listarReservas() {
+        return reservas.values().stream().map(Reserva::getDatosReservaConsulta).collect(Collectors.toCollection(LinkedHashSet::new));
     }
-
-    return resultado;
-}
-	}
 
 	public DTPaciente obtenerDTPaciente() {
-		 DTPaciente dtp = new DTPaciente(
-			        this.getNickname(),
-			        this.getNombre(),
-			        this.getApellido(),
-			        this.getCorreo(),
-			        this.getFecNacimiento()
-			    );
+		 DTPaciente dtp = new DTPaciente(this.getNickname(), this.getNombre(), this.getApellido(), this.getCorreo(), this.getFecNacimiento());
 		 return dtp;
 	}
 	
@@ -122,19 +108,14 @@ public void agregarReserva(Reserva reserva) {
     reservas.add(reserva);
 }
 
-public BeneficioAnual obtenerBeneficioConsultaDisponible(int anioActual) { ///selecciona el beneficio mas antiguo que todavia tenga cupos
+public BeneficioAnual obtenerBeneficioConsultaDisponible(int anioActual) {
     BeneficioAnual seleccionado = null;
-
     for (BeneficioAnual beneficio : beneficios) {
-        boolean corresponde =
-                beneficio.getAnio() <= anioActual
+        boolean corresponde = beneficio.getAnio() <= anioActual
                 && beneficio.getConsultasGratis() > 0;
 
-        if (corresponde
-                && (seleccionado == null
-                || beneficio.getAnio() < seleccionado.getAnio())) {
-
-            seleccionado = beneficio;
+        if (corresponde && (seleccionado == null|| beneficio.getAnio() < seleccionado.getAnio())) {
+        	seleccionado = beneficio;
         }
     }
 
