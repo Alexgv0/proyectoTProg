@@ -69,9 +69,7 @@ public class VentanaPrincipal extends JFrame {
     			new JMenuItem("Alta de Usuario");
     	
     	itemAltaUsuario.addActionListener(_ -> {
-    		AltaUsuario ventana = new AltaUsuario(
-    				// Ingresar Controlador con Fabrica
-    				);
+    		AltaUsuario ventana = new AltaUsuario(fabrica.getControladorUsuarios());
     		desktopPane.add(ventana);
     		ventana.setVisible(true);
     	});
@@ -177,9 +175,7 @@ public class VentanaPrincipal extends JFrame {
     			new JMenuItem("Alta de Dia de Consulta");
     	
     	itemAltaDiaConsulta.addActionListener(_ -> {
-    		AltaDiaConsulta ventana = new AltaDiaConsulta(
-    				// Ingresar Controlador con Fabrica
-    				);
+    		AltaDiaConsulta ventana = new AltaDiaConsulta(fabrica.getControladorClinicas());
     		desktopPane.add(ventana);
     		ventana.setVisible(true);
     	});

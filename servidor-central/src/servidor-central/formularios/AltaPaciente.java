@@ -12,8 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JList;
 
-import controladores.ControladorUsuarios;
 import datatypes.DTFecha;
+import interfaces.IControladorUsuarios;
+import utilidades.UtilidadesSwing;
 
 public class AltaPaciente extends JInternalFrame {
 
@@ -31,9 +32,11 @@ public class AltaPaciente extends JInternalFrame {
     private DefaultListModel<String> modeloAntecedentesMedicos;
     private JList<String> listaAntecedentesMedicos;
     
-    private ControladorUsuarios controlador;
+    private IControladorUsuarios controlador;
 
-    public AltaPaciente() {
+    public AltaPaciente(IControladorUsuarios cu) {
+    	
+    	this.controlador = cu;
 
         setTitle("Alta de Paciente");
         setSize(550, 500);
@@ -41,8 +44,6 @@ public class AltaPaciente extends JInternalFrame {
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
-
-        controlador = ControladorUsuarios.getInstancia();
         
         getContentPane().setLayout(null);
 
@@ -185,13 +186,13 @@ public class AltaPaciente extends JInternalFrame {
             String correo = txtCorreo.getText();
 
             DTFecha fechaNacimiento =
-                    convertirFecha(txtFechaNacimiento.getText().trim());
+            		UtilidadesSwing.convertirFecha(txtFechaNacimiento.getText().trim());
 
             int documento =
                     Integer.parseInt(txtDocumento.getText().trim());
 
             DTFecha fechaIngreso =
-                    convertirFecha(txtFechaIngreso.getText().trim());
+                    UtilidadesSwing.convertirFecha(txtFechaIngreso.getText().trim());
 
          // Crear el conjunto de antecedentes
             Set<String> antecedentes = new HashSet<>();
@@ -243,22 +244,5 @@ public class AltaPaciente extends JInternalFrame {
                     JOptionPane.ERROR_MESSAGE
             );
         }
-    }
-
-    private DTFecha convertirFecha(String texto) {
-
-        String[] partes = texto.split("/");
-
-        if (partes.length != 3) {
-            throw new IllegalArgumentException(
-                    "La fecha debe tener el formato dd/mm/aaaa."
-            );
-        }
-
-        int dia = Integer.parseInt(partes[0]);
-        int mes = Integer.parseInt(partes[1]);
-        int anio = Integer.parseInt(partes[2]);
-
-        return new DTFecha(dia, mes, anio);
     }
 }

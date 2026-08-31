@@ -3,7 +3,6 @@ package formularios;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -14,8 +13,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import controladores.ControladorUsuarios;
 import datatypes.DTEspecialidad;
+import interfaces.IControladorUsuarios;
+import utilidades.UtilidadesSwing;
 
 public class AltaMedico extends JInternalFrame {
 
@@ -35,9 +35,11 @@ public class AltaMedico extends JInternalFrame {
     private DefaultListModel<String> modeloEspecialidades;
     private JList<String> listaEspecialidades;
     
-    private ControladorUsuarios controlador;
+    private IControladorUsuarios controlador;
     
-    public AltaMedico() {
+    public AltaMedico(IControladorUsuarios cu) {
+
+    	controlador = cu;
 
         setTitle("Alta de Médico");
         setSize(550, 550);
@@ -45,8 +47,6 @@ public class AltaMedico extends JInternalFrame {
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
-        
-        controlador = ControladorUsuarios.getInstancia();
         
         getContentPane().setLayout(null);
         
@@ -169,7 +169,7 @@ public class AltaMedico extends JInternalFrame {
             String especialidad =
                     (String) comboEspecialidad.getSelectedItem();
 
-            if (especialidad == null) {
+            if (!comboEspecialidad.isEnabled() || especialidad == null) {
                 return;
             }
 
@@ -192,11 +192,7 @@ public class AltaMedico extends JInternalFrame {
         Set<String> especialidades =
                 controlador.listarEspecialidades();
 
-        comboEspecialidad.setModel(
-                new DefaultComboBoxModel<>(
-                        especialidades.toArray(new String[0])
-                )
-        );
+        UtilidadesSwing.cargarComboBox(comboEspecialidad, especialidades, "No existen especialidades.");
     }
     
     private void altaMedico() {

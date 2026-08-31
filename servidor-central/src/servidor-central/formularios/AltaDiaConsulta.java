@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 //import clases.DiaConsulta;
-import controladores.ControladorClinicas;
+import interfaces.IControladorClinicas;
+import utilidades.UtilidadesSwing;
 import enums.Dia;
 
 public class AltaDiaConsulta extends JInternalFrame {
@@ -31,17 +32,17 @@ public class AltaDiaConsulta extends JInternalFrame {
     private JButton btnAceptar;
     private JButton btnCancelar;
 
-    private ControladorClinicas controlador;
+    private IControladorClinicas controlador;
 
-    public AltaDiaConsulta() {
-        setTitle("Alta de Dia de Consulta");
+    public AltaDiaConsulta(IControladorClinicas cc) {
+    	controlador = cc;
+
+    	setTitle("Alta de Dia de Consulta");
         setSize(400, 300);
         setClosable(true);
         setMaximizable(true);
         setIconifiable(true);
         setResizable(true);
-        
-        controlador = ControladorClinicas.getInstancia();
 
         inicializarComponentes();
     }
@@ -105,18 +106,14 @@ public class AltaDiaConsulta extends JInternalFrame {
 
     	Set<String> clinicas = controlador.listarClinicas();
 
-        for (String nombre : clinicas) {
-            comboClinica.addItem(nombre);
-        }
+        UtilidadesSwing.cargarComboBox(comboClinica, clinicas, "No existen clinicas.");
     }
 
     private void cargarEspecialidades() {
     	Set<String> especialidades =
                 controlador.listarEspecialidades();
 
-        for (String nombre : especialidades) {
-            comboEspecialidad.addItem(nombre);
-        }
+        UtilidadesSwing.cargarComboBox(comboEspecialidad, especialidades, "No existen especialidades.");
     }
 
     private void aceptar() {

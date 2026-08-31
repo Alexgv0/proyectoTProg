@@ -5,6 +5,9 @@ import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
+
+import interfaces.IControladorUsuarios;
+
 import javax.swing.JOptionPane;
 
 public class AltaUsuario extends JInternalFrame {
@@ -14,8 +17,8 @@ public class AltaUsuario extends JInternalFrame {
     private JRadioButton radioPaciente;
     private JRadioButton radioMedico;
 
-    public AltaUsuario() {
-
+    public AltaUsuario(IControladorUsuarios cu) {
+    	
         setTitle("Alta de Usuario");
         setSize(400, 300);
         setClosable(true);
@@ -67,7 +70,7 @@ public class AltaUsuario extends JInternalFrame {
 
             if (radioPaciente.isSelected()) {
 
-                AltaPaciente ventana = new AltaPaciente();
+                AltaPaciente ventana = new AltaPaciente(cu);
 
                 getDesktopPane().add(ventana);
 
@@ -75,7 +78,7 @@ public class AltaUsuario extends JInternalFrame {
 
             } else if (radioMedico.isSelected()) {
 
-                AltaMedico ventana = new AltaMedico();
+                AltaMedico ventana = new AltaMedico(cu);
 
                 getDesktopPane().add(ventana);
 
