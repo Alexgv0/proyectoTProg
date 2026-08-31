@@ -37,8 +37,9 @@ public class ManejadorDiasConsulta {
     }
     
     //puede ser util
-    public Set<DiaConsulta> obtenerDiasConsulta() {
-        return new HashSet<>(diasConsulta.values());
-    }
+    
+    public Map<String, DiaConsulta> getDiasConsulta() {
+    return diasConsulta;
+}
     
 }

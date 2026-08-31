@@ -4,6 +4,8 @@ import java.util.Set;
 import java.util.HashSet;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
+import clases.BeneficioAnual;
+import clases.Reserva;
 
 public class Paciente extends Usuario {
 
@@ -95,12 +97,37 @@ public class Paciente extends Usuario {
 	}
 
 
-	public Set<BeneficioAnual> getBeneficios() {
-		return beneficios;
+	public boolean usaConsultaGratis() {
+		for (BeneficioAnual b : this.beneficios) {
+			if (b.getConsultasGratis() > 0) {
+				b.setConsultasGratis(b.getConsultasGratis() - 1);
+				return true;
+			}
+		}
+		return false;
 	}
-
 
 	public void setBeneficios(Set<BeneficioAnual> beneficios) {
 		this.beneficios = beneficios;
+	}
+	
+	public boolean tieneReservaConsulta(String nombreConsulta) {
+		for (Reserva r : this.reservas) {
+			if (r.getConsulta().getNombre().equals(nombreConsulta)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Reserva nuevaReserva(int num, float cost, DTFecha fechaActual) {
+		boolean usa = false;
+		if (this.usaConsultaGratis()) {
+			cost = 0;
+			usa = true;
+		}
+		Reserva r = new Reserva(fechaActual, num, cost, usa);
+		this.reservas.add(r);
+		return r;
 	}
 }

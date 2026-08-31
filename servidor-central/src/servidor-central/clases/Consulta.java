@@ -9,10 +9,12 @@ import datatypes.DTConsulta;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
 import datatypes.DTUsuario;
+import datatypes.DTDatosConsulta;
+import datatypes.DTConsultaSoloConsulta;
 
 public class Consulta{
 	private DiaConsulta diaConsulta;
-	private Map<String, Medico> medicos;
+	private Medico medico;                               ///// cambiarlo entero el map medicos
 	private Set<Reserva> reservas;
 	
 	private String nombre;
@@ -30,25 +32,25 @@ public class Consulta{
 			DiaConsulta diaConsulta
 			) {
 		this.nombre = nombre;
-		this.setFecha(fecha);
-		this.setNumeroSala(numeroSala);
-		this.setNumsDisponibles(numsDisponibles);
-		this.setCostoConsulta(costoConsulta);
+		this.fecha= fecha;
+		this.numeroSala = numeroSala;
+		this.numsDisponibles = numsDisponibles;
+		this.costoConsulta = costoConsulta;
 		
-		this.setDiaConsulta(diaConsulta);
-		this.medicos = new HashMap<>();
+		this.diaConsulta = diaConsulta;
 		this.reservas = new HashSet<>();
 	}
 	
-	public boolean perteneceMedicoConsulta(DTUsuario u) {
-		return false;
+	public boolean perteneceMedicoConsulta(String nick ) {
+    if (medico.getNickname().equals(nick)) {
+        return true;
+    }
+    return false;
+}
 	}
 	
-	public DTConsulta getDatosConsulta() {
-	String nombreMedico = "";
-	if (!this.medicos.isEmpty()) {
-		nombreMedico = this.medicos.values().iterator().next().getNickname();
-	}
+	public DTConsulta getDatosConsulta() { 
+	String nombreMedico = medico.getNickname();
 	Set<DTReserva> dtReservas = new HashSet<>();
 	for (Reserva r : this.reservas) {
 		dtReservas.add(new DTReserva(
@@ -69,6 +71,17 @@ public class Consulta{
 			dtReservas
 	);
 }
+	public DTConsultaSoloConsulta getDatosSoloConsulta(){
+		DTConsultaSoloConsulta res = new DTConsultaSoloConsulta(
+			this.getNombre(),
+			this.getFecha(),
+			this.getNumeroSala(),
+			this.getNumsDisponibles(),
+			this.medico.getNickname(),
+			this.getCostoConsulta());
+		return res;
+	}
+	
 	
 	public void agregarReserva(Reserva res) {
 		this.reservas.add(res);
@@ -86,8 +99,8 @@ public class Consulta{
 		this.diaConsulta = diaConsulta;
 	}
 
-	public Map<String, Medico> getMedicos() {
-		return medicos;
+	public string getNicknameMedico() {
+		return medico.getNickname();
 	}
 
 	public Set<Reserva> getReservas() {
@@ -124,5 +137,13 @@ public class Consulta{
 
 	public void setCostoConsulta(float costoConsulta) {
 		this.costoConsulta = costoConsulta;
+	}
+	
+	public DTDatosConsulta obtenerDatosConsulta(String nombreConsulta) {
+		return new DTDatosConsulta(this.getNumsDisponibles(), this.getCostoConsulta());
+	}
+	
+	public void nuevaReservaConsulta(Reserva r) {
+		this.reservas.add(r);
 	}
 }

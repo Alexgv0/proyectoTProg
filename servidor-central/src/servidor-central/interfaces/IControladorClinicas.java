@@ -1,4 +1,5 @@
 package interfaces;
+import datatypes.DTConsultaSoloConsulta;
 
 import java.util.Set;
 import datatypes.DTClinica;
@@ -14,7 +15,7 @@ public interface IControladorClinicas {
 	    public DTClinica obtenerDatosClinica(String nombre);
 	    
 	    //consulta usuario
-	    public Set<DTConsulta> listarConsultas(DTUsuario u);
+	    public Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario u);
 	    
 	    //ALTA DE dia de consulta
 	    public Set<String> listarEspecialidades();

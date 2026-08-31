@@ -10,6 +10,7 @@ import java.util.Set;
 //import java.util.HashSet;
 import datatypes.DTEspecialidad;
 import datatypes.DTFecha;
+import datatypes.DTUsuario;
 
 
 public class ManejadorUsuarios {
@@ -17,7 +18,6 @@ public class ManejadorUsuarios {
     private static ManejadorUsuarios instancia;
 
     private Map<String, Usuario> usuarios;
-    private Map<String, Paciente> pacientes;
 
     private ManejadorUsuarios() {
         usuarios = new HashMap<>();
@@ -43,6 +43,24 @@ public class ManejadorUsuarios {
             }
         }
         return false;
+    }
+
+    public Set<DTUsuario> obtenerDatos(){                          /// Lista todos los usuarios como DTUsuario 
+        Set<DTUsuario> r = new HashSet<>();
+
+        for (Usuario u : usuarios.values()) {
+            r.add(u.getDatos());
+    }
+        return r;
+    }
+    public DTUsuario obtenerDatosUsuario(String nickname){                  // lista el DTUsuario 
+       Usuario u = usuarios.get(nickname);
+
+    if (u == null) {
+        return null;
+    }
+
+    return u.getDatos();
     }
     
     public Medico crearMedico(
@@ -115,12 +133,9 @@ public class ManejadorUsuarios {
         return usuarios;
     }
 
-	public Map<String, Paciente> obtenerPacientes() {
-		return pacientes;
-	}
-
 	public Paciente obtenerPaciente(String nickPaciente) {
-		return pacientes.get(nickPaciente);
+	    Usuario u = usuarios.get(nickPaciente);
+	    return (Paciente) u;
 	}
     
     //implementar funciones de los manejadores

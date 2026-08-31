@@ -1,4 +1,6 @@
 package controladores;
+import datatypes.DTConsulta;
+import datatypes.DTUsuario;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -12,7 +14,7 @@ import clases.Usuario;
 import clases.Especialidad;
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
-import datatypes.DTUsuario;
+
 
 public class ControladorUsuarios implements IControladorUsuarios {
 
@@ -149,24 +151,20 @@ public class ControladorUsuarios implements IControladorUsuarios {
     }
     
     //cu consultaUsuario
-    public Set<DTUsuario> listarUsuarios(){
-    	return null;//todo
+    public Set<DTUsuario> listarUsuarios(){ 
+        Set<DTUsuario> ret = new HashSet<>();
+        ManejadorUsuarios m = ManejadorUsuarios.getInstancia();
+        ret = m. obtenerDatos();                                   
+        return ret;
+    }
+   
+    public DTUsuario seleccionarUs(String nickname){       
+        return mu.obtenerDatosUsuario(nickname);    
+    
     }
     
-    public Set<DTUsuario> seleccionarUsuario(String nickname){
-    	return null;//todo
-    }
     
-    public Set<String> listarPacientes() {
-    	Map<String, Paciente> pacientes = mu.obtenerPacientes();
-    	Set<String> res = new HashSet<>();
-    	
-    	for(Paciente p : pacientes.values()) {
-    		res.add(p.getNickname());
-    	}
-    	
-    	return res;
-    }
+   
     
     //cu modificarDatosUsuario opcional
     

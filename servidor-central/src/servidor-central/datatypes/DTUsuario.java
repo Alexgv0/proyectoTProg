@@ -4,13 +4,13 @@ public class DTUsuario {
 	private String nickname;
 	private String nombre;
 	private String apellido;
-	private String email;
+	private String correo;
 	
-	public DTUsuario(String nickname, String nombre, String apellido, String email) {
+	public DTUsuario(String nickname, String nombre, String apellido, String correo) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.email = email;
+		this.correo = correo;
 	}
 	
 	public String getNickname() {
@@ -25,7 +25,7 @@ public class DTUsuario {
 		return apellido;
 	}
 	
-	public String getEmail() {
-		return email;
+	public String getCorreo() {
+		return correo;
 	}
 }

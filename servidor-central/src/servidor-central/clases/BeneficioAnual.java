@@ -11,7 +11,7 @@ public class BeneficioAnual{
 
 	public int getTicketsGratis() {
 		return ticketsGratis;
-	}
+	}	
 
 	public void setTicketsGratis(int ticketsGratis) {
 		this.ticketsGratis = ticketsGratis;

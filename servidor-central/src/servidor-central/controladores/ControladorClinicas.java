@@ -7,6 +7,7 @@ import interfaces.IControladorClinicas;
 import manejadores.ManejadorClinicas;
 import manejadores.ManejadorConsultas;
 import manejadores.ManejadorEspecialidades;
+import manejadores.ManejadorUsuarios;
 import manejadores.ManejadorDiasConsulta;
 import clases.Clinica;
 import clases.Consulta;
@@ -14,24 +15,33 @@ import clases.DiaConsulta;
 import clases.Especialidad;
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
+import datatypes.DTDatosConsulta;
+import datatypes.DTConsultaSoloConsulta;
+import datatypes.DTReserva;
+import datatypes.DTFecha;
 import datatypes.DTUsuario;
+import clases.Paciente;
+import clases.Reserva;
 import enums.Dia;
+import datatypes.DTDiaConsulta;
 
 public class ControladorClinicas implements IControladorClinicas {
 
     // Private
 	private static ControladorClinicas instancia;
-	
+	private DTFecha fechaActual;
     private ManejadorClinicas mc;
     private ManejadorEspecialidades me;
     private ManejadorDiasConsulta mdc;
     private ManejadorConsultas mcons;
+    private ManejadorUsuarios mu;
 
     private ControladorClinicas() {
         this.mc = ManejadorClinicas.getInstancia();
         this.me = ManejadorEspecialidades.getInstancia();
         this.mdc = ManejadorDiasConsulta.getInstancia();
         this.mcons = ManejadorConsultas.getInstancia();
+        this.mu = ManejadorUsuarios.getInstancia();
     }
 
     
@@ -42,6 +52,8 @@ public class ControladorClinicas implements IControladorClinicas {
         }
         return instancia;
     }
+    
+    
     
     // CU :: Consulta de Clinica
     public Set<String> listarClinicas() {
@@ -61,9 +73,37 @@ public class ControladorClinicas implements IControladorClinicas {
     	return c.getDatosClinica();
     }
     
-    //consulta usuario
-    public Set<DTConsulta> listarConsultas(DTUsuario u){
-        return null; //todo
+    public DTFecha getFechaActual() {
+    	return this.fechaActual;
+    }
+    
+    //consulta usuario                                                (no esta seleccionarConsulta ni seleccionarReservaConsulta)
+    public Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario u){
+        Map<String, Consulta> consultas = mcons.getConsultas());
+        Set<DTConsultaSoloConsulta> resultado = new HashSet<>();
+
+    for (Consulta c : consultas.values()) {
+        String nick = c.getNicknameMedico();  
+
+        if (nick.equals(u.getNickname())) {
+            DTConsultaSoloConsulta dtc = c.getDatosSoloConsulta();   //// solo los datos de la consulta no con las reservas
+            resultado.add(dtc);
+        }
+    }
+    return resultado;
+    }
+
+
+
+    public Set<DTReserva> listarReservasConsultas(String nickPaciente) {        // lista todas las reservas de un paciente
+        Paciente p = (Paciente) mu.obtenerPaciente(nickPaciente);
+        Set<DTReserva> resultado =   p.listarReservas();
+
+        return resultado;
+}
+
+
+
     }
     
     // ALTA de Dia de Consulta
@@ -139,7 +179,17 @@ public class ControladorClinicas implements IControladorClinicas {
     //consulta de clinica
 
     //Consulta Día Consulta
-    
+
+    public Set<DTDiaConsulta> listarDiasConsulta() {
+    Set<DTDiaConsulta> resultado = new HashSet<>();
+
+    for (DiaConsulta d : mdc.getDiasConsulta().values()) {
+        String nombre = d.getNombre();
+        resultado.add(new DTDiaConsulta(nombre));
+    }
+
+    return resultado;
+}
     //Alta Consulta
     
     //Consulta Consulta
@@ -156,4 +206,23 @@ public class ControladorClinicas implements IControladorClinicas {
 		Consulta c = mcons.buscarConsulta(nombreConsulta);
 		return c.getDatosConsulta();
 	}
+
+	//Alta Reserva
+	public void altaReserva(String nickPaciente, String nombreConsulta) {
+		Consulta c = mcons.buscarConsulta(nombreConsulta);
+		DTDatosConsulta datos = c.obtenerDatosConsulta(nombreConsulta);
+		if(datos.getNums() > 0) {
+			Paciente p = mu.obtenerPaciente(nickPaciente);
+			boolean t = p.tieneReservaConsulta(nombreConsulta);
+			if (!t) {
+				Reserva re = p.nuevaReserva(datos.getNums(), datos.getCost(), this.getFechaActual());
+				c.nuevaReservaConsulta(re);
+			}
+		}
+	}
+
+
+
+    
 }
+
