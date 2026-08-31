@@ -1,0 +1,5 @@
+Ref;Nombre;Descripcion;DiaSemana;HoraInicio;Especialidad;Clinica;Costo
+DC01;Cardiología - Lunes;Atención cardiológica semanal;Lunes;09:00;ES01;CL01;1440
+DC02;Pediatría - Martes;Atención pediátrica semanal;Martes;14:00;ES02;CL02;1045
+DC03;Medicina General Central - Miércoles;Consulta general semanal;Miércoles;10:30;ES03;CL01;1200
+DC04;Cardiología - Jueves;Atención cardiológica semanal;Jueves;16:00;ES01;CL02;1140

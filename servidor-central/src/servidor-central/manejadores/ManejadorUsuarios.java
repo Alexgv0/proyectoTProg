@@ -116,7 +116,7 @@ public class ManejadorUsuarios {
     }
 
 	public Map<String, Paciente> obtenerPacientes() {
-		return pacientes;
+		return pacientes;//posible error
 	}
 
 	public Paciente obtenerPaciente(String nickPaciente) {
