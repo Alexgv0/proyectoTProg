@@ -58,12 +58,12 @@ public class AltaUsuario extends JInternalFrame {
         getContentPane().add(btnCancelar);
 
         // Evento del botón Cancelar
-        btnCancelar.addActionListener(e -> {
+        btnCancelar.addActionListener(_ -> {
             dispose();
         });
         
      // Evento del botón Continuar
-        btnContinuar.addActionListener(e -> {
+        btnContinuar.addActionListener(_ -> {
 
             if (radioPaciente.isSelected()) {
 

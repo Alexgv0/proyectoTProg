@@ -96,9 +96,9 @@ public class AltaDiaConsulta extends JInternalFrame {
         cargarClinicas();
         cargarEspecialidades();
 
-        btnAceptar.addActionListener(e -> aceptar());
+        btnAceptar.addActionListener(_ -> aceptar());
 
-        btnCancelar.addActionListener(e -> dispose());
+        btnCancelar.addActionListener(_ -> dispose());
     }
 
     private void cargarClinicas() {

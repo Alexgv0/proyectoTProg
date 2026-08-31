@@ -164,7 +164,7 @@ public class AltaMedico extends JInternalFrame {
         cargarEspecialidades();
         
      // Agregar especialidad
-        btnAgregarEspecialidad.addActionListener(e -> {
+        btnAgregarEspecialidad.addActionListener(_ -> {
 
             String especialidad =
                     (String) comboEspecialidad.getSelectedItem();
@@ -180,11 +180,11 @@ public class AltaMedico extends JInternalFrame {
         });
         
         // Evento Cancelar
-        btnCancelar.addActionListener(e -> {
+        btnCancelar.addActionListener(_ -> {
             dispose();
         });
      // Evento Dar de alta
-        btnAlta.addActionListener(e -> altaMedico());
+        btnAlta.addActionListener(_ -> altaMedico());
     }
     
     private void cargarEspecialidades() {

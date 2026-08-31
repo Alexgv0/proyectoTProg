@@ -139,7 +139,7 @@ public class AltaPaciente extends JInternalFrame {
         getContentPane().add(scrollAntecedentes);
 
         // Agregar antecedente
-        btnAgregarAntecedenteMedico.addActionListener(e -> {
+        btnAgregarAntecedenteMedico.addActionListener(_ -> {
 
         	String antecedente =
                     txtAntecedenteMedico.getText().trim();
@@ -167,12 +167,12 @@ public class AltaPaciente extends JInternalFrame {
         getContentPane().add(btnCancelar);
 
         // Evento Cancelar
-        btnCancelar.addActionListener(e -> {
+        btnCancelar.addActionListener(_ -> {
             dispose();
         });
         
      // Evento Dar de alta
-        btnAlta.addActionListener(e -> altaPaciente());
+        btnAlta.addActionListener(_ -> altaPaciente());
     }
     
     private void altaPaciente() {

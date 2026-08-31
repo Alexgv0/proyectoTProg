@@ -68,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemAltaUsuario =
     			new JMenuItem("Alta de Usuario");
     	
-    	itemAltaUsuario.addActionListener(e -> {
+    	itemAltaUsuario.addActionListener(_ -> {
     		AltaUsuario ventana = new AltaUsuario(
     				// Ingresar Controlador con Fabrica
     				);
@@ -84,7 +84,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemModificarUsuario =
     			new JMenuItem("Modificar Usuario");
     	
-    	itemModificarUsuario.addActionListener(e -> {
+    	itemModificarUsuario.addActionListener(_ -> {
     		ModificarUsuario ventana = new ModificarUsuario(
     				// Ingresar Controlador con Fabrica
     				);
@@ -100,7 +100,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaUsuario =
     			new JMenuItem("Consulta de Usuario");
     	
-    	itemConsultaUsuario.addActionListener(e -> {
+    	itemConsultaUsuario.addActionListener(_ -> {
     		ConsultaUsuario ventana = new ConsultaUsuario(
     				// Ingresar Controlador con Fabrica
     				);
@@ -116,7 +116,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemAltaEspecialidad =
     			new JMenuItem("Alta de Especialidad");
     	
-    	itemAltaEspecialidad.addActionListener(e -> {
+    	itemAltaEspecialidad.addActionListener(_ -> {
     		AltaEspecialidad ventana = new AltaEspecialidad(fabrica.getControladorUsuarios());
     		desktopPane.add(ventana);
     		ventana.setVisible(true);
@@ -137,7 +137,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemAltaBeneficio =
     			new JMenuItem("Alta de Beneficio");
     	
-    	itemAltaBeneficio.addActionListener(e -> {
+    	itemAltaBeneficio.addActionListener(_ -> {
     		AltaBeneficio ventana = new AltaBeneficio(
     				// Ingresar Controlador con Fabrica
     				);
@@ -153,7 +153,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaBeneficio =
     			new JMenuItem("Consulta de Beneficio");
     	
-    	itemConsultaBeneficio.addActionListener(e -> {
+    	itemConsultaBeneficio.addActionListener(_ -> {
     		ConsultaBeneficio ventana = new ConsultaBeneficio(
     				// Ingresar Controlador con Fabrica
     				);
@@ -176,7 +176,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemAltaDiaConsulta =
     			new JMenuItem("Alta de Dia de Consulta");
     	
-    	itemAltaDiaConsulta.addActionListener(e -> {
+    	itemAltaDiaConsulta.addActionListener(_ -> {
     		AltaDiaConsulta ventana = new AltaDiaConsulta(
     				// Ingresar Controlador con Fabrica
     				);
@@ -192,7 +192,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaDiaConsulta =
     			new JMenuItem("Consulta de Dia de Consulta");
     	
-    	itemConsultaDiaConsulta.addActionListener(e -> {
+    	itemConsultaDiaConsulta.addActionListener(_ -> {
     		ConsultaDiaConsulta ventana = new ConsultaDiaConsulta(
     				// Ingresar Controlador con Fabrica
     				);
@@ -214,7 +214,7 @@ public class VentanaPrincipal extends JFrame {
     	//
     	JMenuItem itemAltaConsulta = new JMenuItem("Alta de Consulta");
     	
-    	itemAltaConsulta.addActionListener(e -> {
+    	itemAltaConsulta.addActionListener(_ -> {
     		AltaConsulta ventana = new AltaConsulta(
     				// Ingresar Controlador con Fabrica
     				);
@@ -230,7 +230,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaConsulta =
     			new JMenuItem("Consulta de Consulta");
     	
-    	itemConsultaConsulta.addActionListener(e -> {
+    	itemConsultaConsulta.addActionListener(_ -> {
     		ConsultaConsulta ventana = new ConsultaConsulta(
     				// Ingresar Controlador con Fabrica
     				);
@@ -246,7 +246,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemReservaConsulta =
     			new JMenuItem("Reserva de Consulta");
     	
-    	itemReservaConsulta.addActionListener(e -> {
+    	itemReservaConsulta.addActionListener(_ -> {
     		ReservaConsulta ventana = new ReservaConsulta(
     				// Ingresar Controlador con Fabrica
     				);
@@ -262,7 +262,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaReservaConsulta =
     			new JMenuItem("Consulta de Reserva de Consulta");
     	
-    	itemConsultaReservaConsulta.addActionListener(e -> {
+    	itemConsultaReservaConsulta.addActionListener(_ -> {
     		ConsultaReservaConsulta ventana = new ConsultaReservaConsulta(fabrica.getControladorUsuarios(), fabrica.getControladorReservas());
     		desktopPane.add(ventana);
     		ventana.setVisible(true);
@@ -283,7 +283,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemAltaClinica =
     			new JMenuItem("Alta de Clinica");
     	
-    	itemAltaClinica.addActionListener(e -> {
+    	itemAltaClinica.addActionListener(_ -> {
     		AltaClinica ventana = new AltaClinica(
     				// Ingresar Controlador con Fabrica
     				);
@@ -299,7 +299,7 @@ public class VentanaPrincipal extends JFrame {
     	JMenuItem itemConsultaClinica =
     			new JMenuItem("Consulta de Clinica");
     	
-    	itemConsultaClinica.addActionListener(e -> {
+    	itemConsultaClinica.addActionListener(_ -> {
     		ConsultaClinica ventana = new ConsultaClinica(fabrica.getControladorClinicas());
     		desktopPane.add(ventana);
     		ventana.setVisible(true);
