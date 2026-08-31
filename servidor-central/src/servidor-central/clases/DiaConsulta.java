@@ -6,6 +6,7 @@ import java.util.Set;
 
 import datatypes.DTConsulta;
 import enums.Dia;
+import datatypes.DTConsultaSoloConsulta;
 
 public class DiaConsulta{
 	
@@ -40,9 +41,16 @@ public class DiaConsulta{
 		this.consultas = new HashMap<>();
 	}
 	
-	public Set<DTConsulta> listarConsultas() {
-		return null;
-		// TODO
+	public Set<DTConsultaSoloConsulta> listarConsultas() {
+    Set<DTConsultaSoloConsulta> resultado = new HashSet<>();
+
+    for (Consulta c : consultas.values()) {
+        resultado.add(c.getDatosSoloConsulta();
+    }
+
+    return resultado;
+}
+	
 	}
 	
 	public String getNombre() {

@@ -163,10 +163,20 @@ public class ControladorUsuarios implements IControladorUsuarios {
     
     }
     
-    
+  
    
     
     //cu modificarDatosUsuario opcional
+    
+    public Set<DTPaciente> listadoDePacientes(){
+    	Set<DTPaciente> ps = mu.obtenerPacientes();
+    	for (Paciente p : ps) {
+    		DTPaciente dtp = p.obtenerDTPaciente();
+    		ps.add(dtp);
+    	}
+    	return ps;
+    }
+    
     
     // CU :: AltaEspecialidad
     public boolean ingresarDatosAltaEspecialidad(String nombre, int porcentajeAdicional) {
@@ -178,6 +188,8 @@ public class ControladorUsuarios implements IControladorUsuarios {
         return true;
     }
 
+    
+    // cu Reserva de Consulta
     
     //alta de beneficio anual opcional
     

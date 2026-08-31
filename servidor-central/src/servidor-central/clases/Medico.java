@@ -1,88 +1,82 @@
 package clases;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import datatypes.DTEspecialidad;
 
 public class Medico extends Usuario {
-
     private int registro;
     private String mesLicencia;
-    private int porcentajeConsultas;
+    private int porcentajeCostoConsulta;
     private String sitioWeb;
-
-    private Set<DTEspecialidad> especialidades;
+    private Set<Especialidad> especialidades;
     private Map<String, Consulta> consultas;
-    
-    public Medico(
-            String nickname,
-            String nombre,
+
+    public Medico(String nickname,
+			String nombre,
             String apellido,
             String email,
             int registro,
             String mesLicencia,
             String sitioWeb,
             Set<DTEspecialidad> especialidades,
-            int porcentajeConsultas) {
-
+            int porcentajeCostoConsulta) {
         super(nickname, nombre, apellido, email);
-
         this.setRegistro(registro);
         this.setMesLicencia(mesLicencia);
         this.setSitioWeb(sitioWeb);
-        this.setPorcentajeConsultas(porcentajeConsultas);
-
-        this.setEspecialidades(especialidades);
+        this.setPorcentajeCostoConsulta(porcentajeCostoConsulta);
+        this.setEspecialidades(¡especialidades)¡);
         this.consultas = new HashMap<>();
     }
 
-	public int getRegistro() {
-		return registro;
-	}
+    public int getRegistro() {
+        return registro;
+    }
 
-	public void setRegistro(int registro) {
-		this.registro = registro;
-	}
+    public void setRegistro(int registro) {
+        this.registro = registro;
+    }
 
-	public String getMesLicencia() {
-		return mesLicencia;
-	}
+    public String getMesLicencia() {
+        return mesLicencia;
+    }
 
-	public void setMesLicencia(String mesLicencia) {
-		this.mesLicencia = mesLicencia;
-	}
+    public void setMesLicencia(String mesLicencia) {
+        this.mesLicencia = mesLicencia;
+    }
 
-	public int getPorcentajeConsultas() {
-		return porcentajeConsultas;
-	}
+    public int getPorcentajeCostoConsulta() {
+        return porcentajeCostoConsulta;
+    }
 
-	public void setPorcentajeConsultas(int porcentajeConsultas) {
-		this.porcentajeConsultas = porcentajeConsultas;
-	}
+    public void setPorcentajeCostoConsulta(int porcentajeCostoConsulta) {
+        this.porcentajeCostoConsulta = porcentajeCostoConsulta;
+    }
 
-	public String getSitioWeb() {
-		return sitioWeb;
-	}
+    public String getSitioWeb() {
+        return sitioWeb;
+    }
 
-	public void setSitioWeb(String sitioWeb) {
-		this.sitioWeb = sitioWeb;
-	}
+    public void setSitioWeb(String sitioWeb) {
+        this.sitioWeb = sitioWeb;
+    }
 
-	public Set<DTEspecialidad> getEspecialidades() {
-		return especialidades;
-	}
+    public Set<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
 
-	public void setEspecialidades(Set<DTEspecialidad> especialidades) {
-		this.especialidades = especialidades;
-	}
+    public void setEspecialidades(Set<Especialidad> especialidades) {
+        this.especialidades = especialidades;
+    }
 
-	public Map<String, Consulta> getConsultas() {
-		return consultas;
-	}
+    public Map<String, Consulta> getConsultas() {
+        return consultas;
+    }
 
-	public void setConsultas(Map<String, Consulta> consultas) {
-		this.consultas = consultas;
-	}
-
+    public void setConsultas(Map<String, Consulta> consultas) {
+        this.consultas = consultas;
+    }
 }

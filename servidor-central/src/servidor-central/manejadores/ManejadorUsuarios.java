@@ -7,17 +7,16 @@ import clases.Usuario;
 import clases.Medico;
 import clases.Paciente;
 import java.util.Set;
-//import java.util.HashSet;
+import java.util.HashSet;
 import datatypes.DTEspecialidad;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
 
 
 public class ManejadorUsuarios {
-
     private static ManejadorUsuarios instancia;
-
-    private Map<String, Usuario> usuarios;
+    private Map<String, Usuario> usuarios = new HashMap<>();
+   
 
     private ManejadorUsuarios() {
         usuarios = new HashMap<>();
@@ -36,9 +35,9 @@ public class ManejadorUsuarios {
     	return usuarios.containsKey(nickname);
     }
     
-    public boolean existeEmail(String email) {
+    public boolean existeCorreo(String correo) {
         for (Usuario usuario : usuarios.values()) {
-            if (usuario.getEmail().equals(email)) {
+            if (usuario.getCorreo().equals(correo)) {
                 return true;
             }
         }
@@ -137,7 +136,16 @@ public class ManejadorUsuarios {
 	    Usuario u = usuarios.get(nickPaciente);
 	    return (Paciente) u;
 	}
-    
+	
+	public Set<Paciente> obtenerPacientes() {
+	    Set<Paciente> pacientes = new HashSet<>();
+	    for (Usuario u : this.usuarios.values()) {
+	        if (u instanceof Paciente) {
+	            pacientes.add((Paciente) u);
+	        }
+	    }
+	    return pacientes;
+	}
     //implementar funciones de los manejadores
 
 }

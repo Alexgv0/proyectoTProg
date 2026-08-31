@@ -1,17 +1,21 @@
 package interfaces;
 
 import java.util.Set;
+import datatypes.DTReservaConsulta;
 
-import datatypes.DTReserva;
 
 public interface IControladorReservas {
 
     // CU :: consultaUsuario y CU :: Consulta de Reserva de Consulta
-    public Set<DTReserva> listarReservasConsultas(String nickPaciente);
+    public Set<DTReservaConsulta> listarReservasConsultas(String nickPaciente);
     
-    public DTReserva seleccionarReservaConsulta(String nickPaciente, String nombreConsulta);
+    public DTReservaConsulta seleccionarReservaConsulta(String nickPaciente, String nombreConsulta);
    
+
     //reserva de consulta
-    
+
+    public void altaReservaConsulta(String nickPaciente, String nombreConsulta);
     //consulta de reserva de consulta
+    
+
 }

@@ -20,6 +20,7 @@ import datatypes.DTConsultaSoloConsulta;
 import datatypes.DTReserva;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
+import datatypes.DTDiaConsultaCompleto;
 import clases.Paciente;
 import clases.Reserva;
 import enums.Dia;
@@ -77,9 +78,9 @@ public class ControladorClinicas implements IControladorClinicas {
     	return this.fechaActual;
     }
     
-    //consulta usuario                                                (no esta seleccionarConsulta ni seleccionarReservaConsulta)
+    // CU ::consulta usuario                                                
     public Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario u){
-        Map<String, Consulta> consultas = mcons.getConsultas());
+        Map<String, Consulta> consultas = mcons.getConsultas();
         Set<DTConsultaSoloConsulta> resultado = new HashSet<>();
 
     for (Consulta c : consultas.values()) {
@@ -106,7 +107,7 @@ public class ControladorClinicas implements IControladorClinicas {
 
     }
     
-    // ALTA de Dia de Consulta
+    // CU :: ALTA de Dia de Consulta
     public Set<String> listarEspecialidades() {
 
         Set<Especialidad> especialidades = me.listarEspecialidades();
@@ -164,7 +165,7 @@ public class ControladorClinicas implements IControladorClinicas {
         mdc.agregarDiaConsulta(nuevoDiaConsulta);
     }
     
-    //alta de clinica
+    // CU ::alta de clinica
     public void altaClinica(
 		String nombre, String descripcion, String direccion,
 		String sitioWeb, float costoMedicamento, float costoConsulta) {
@@ -176,9 +177,9 @@ public class ControladorClinicas implements IControladorClinicas {
 		Clinica nuevaClinica = new Clinica(nombre, descripcion, direccion, sitioWeb, costoMedicamento, costoConsulta);
 		mc.agregarClinica(nuevaClinica);
 	}
-    //consulta de clinica
+    // CU ::consulta de clinica /////////////////////////////////////////////////////
 
-    //Consulta Día Consulta
+    // CU ::Consulta Día Consulta
 
     public Set<DTDiaConsulta> listarDiasConsulta() {
     Set<DTDiaConsulta> resultado = new HashSet<>();
@@ -190,9 +191,28 @@ public class ControladorClinicas implements IControladorClinicas {
 
     return resultado;
 }
-    //Alta Consulta
+
+    public DTDiaConsultaCompleto obtenerDatosDiaConsulta(String nombre) {       //lista incluyendo el listado de consultas asociadas
+    DiaConsulta d = mdc. buscarDiaConsulta(nombre);
+
+    if (d!= null){
+     DTDiaConsultaCompleto res = new DTDiaConsultaCompleto(
+            d.getNombre(),
+            d.getDescripcion(),
+            d.getDia(),
+            d.getHoraInicio(),
+            d.getCostoConsulta()
+        );
+        return res; 
+    }
+    else return null;
+
+   
+}
+
+    // CU ::Alta Consulta
     
-    //Consulta Consulta
+    // CU ::Consulta Consulta
     public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta) {
 		DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
 		Set<DTConsulta> res = new HashSet<>();
@@ -205,20 +225,6 @@ public class ControladorClinicas implements IControladorClinicas {
 	public DTConsulta seleccionarConsulta(String nombreConsulta) {
 		Consulta c = mcons.buscarConsulta(nombreConsulta);
 		return c.getDatosConsulta();
-	}
-
-	//Alta Reserva
-	public void altaReserva(String nickPaciente, String nombreConsulta) {
-		Consulta c = mcons.buscarConsulta(nombreConsulta);
-		DTDatosConsulta datos = c.obtenerDatosConsulta(nombreConsulta);
-		if(datos.getNums() > 0) {
-			Paciente p = mu.obtenerPaciente(nickPaciente);
-			boolean t = p.tieneReservaConsulta(nombreConsulta);
-			if (!t) {
-				Reserva re = p.nuevaReserva(datos.getNums(), datos.getCost(), this.getFechaActual());
-				c.nuevaReservaConsulta(re);
-			}
-		}
 	}
 
 
