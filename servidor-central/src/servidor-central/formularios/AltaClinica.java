@@ -58,8 +58,8 @@ public class AltaClinica extends JInternalFrame {
 		JButton btnDarAlta = new JButton("Dar de alta");
 		JButton btnCancelar = new JButton("Cancelar");
 
-		btnDarAlta.addActionListener(e -> darAlta());
-		btnCancelar.addActionListener(e -> dispose());
+		btnDarAlta.addActionListener(_ -> darAlta());
+		btnCancelar.addActionListener(_ -> dispose());
 
 		JPanel panelBotones = new JPanel(new FlowLayout());
 		panelBotones.add(btnDarAlta);

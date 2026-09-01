@@ -11,10 +11,8 @@ import java.awt.GridLayout;
 import java.util.Set;
 
 import controladores.ControladorClinicas;
-import datatypes.DTConsulta;
 import datatypes.DTConsultaCompleta;
-import datatypes.DTReserva;
-import datatypes.DTReservaCompleta;
+import datatypes.DTReservaConsulta;
 
 public class ConsultaConsulta extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -89,9 +87,9 @@ public class ConsultaConsulta extends JInternalFrame {
 		sb.append("Números disponibles: ").append(c.getCantidadNumeros()).append("\n");
 		sb.append("Costo: ").append(c.getCosto()).append("\n");
 		sb.append("Reservas:\n");
-		for (DTReservaCompleta r : c.getReservas()) {
+		for (DTReservaConsulta r : c.getReservas()) {
 			sb.append("  - ").append(r.getNickPaciente())
-			  .append(" | num ").append(r.getNumeroClient())
+			  .append(" | num ").append(r.getNumeroCliente())
 			  .append(" | costo ").append(r.getCostoReserva()).append("\n");
 		}
 		areaDetalle.setText(sb.toString());
