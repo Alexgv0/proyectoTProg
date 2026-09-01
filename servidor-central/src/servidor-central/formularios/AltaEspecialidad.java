@@ -53,11 +53,12 @@ public class AltaEspecialidad extends JInternalFrame {
         this.btnAceptar = new JButton("Aceptar");
         this.btnAceptar.setBounds(188, 80, 88, 24);
         this.btnAceptar.addActionListener(_ -> aceptar());
+        panel.add(btnAceptar);
 
         this.btnCancelar = new JButton("Cancelar");
         this.btnCancelar.setBounds(286, 80, 88, 24);
-        panel.add(btnCancelar);
         this.btnCancelar.addActionListener(_ -> dispose());
+        panel.add(btnCancelar);
 
         getContentPane().add(panel);
     }
