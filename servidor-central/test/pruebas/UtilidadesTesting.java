@@ -6,7 +6,10 @@ import java.time.format.ResolverStyle;
 import datatypes.DTFecha;
 
 public class UtilidadesTesting {
-
+	private UtilidadesTesting() {
+		
+	}
+	
     public static DTFecha ingresarFecha(String texto) {
         LocalDate fecha = LocalDate.parse(
             texto.trim(),
