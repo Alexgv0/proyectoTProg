@@ -23,7 +23,7 @@ public class ReservaConsulta extends FormularioBase {
         recargar(dia, clinicas.listarDiasConsulta().stream()
                 .map(DTDiaConsulta::getNombreDia).toList());
         recargar(paciente, usuarios.listarPacientes());
-        dia.addActionListener(e -> ejecutarSeguro(() -> {
+        dia.addActionListener(_ -> ejecutarSeguro(() -> {
             consulta.removeAllItems();
             if (dia.getSelectedItem() != null) {
                 clinicas.listarConsultasDia(dia.getSelectedItem().toString()).stream()

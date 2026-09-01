@@ -37,7 +37,7 @@ public class ConsultaConsulta extends FormularioBase {
         detalleReserva.setEditable(false);
         Map<String, DTReserva> reservasActuales = new LinkedHashMap<>();
 
-        dias.addActionListener(e -> ejecutarSeguro(() -> {
+        dias.addActionListener(_ -> ejecutarSeguro(() -> {
             modeloConsultas.clear();
             if (dias.getSelectedItem() != null) {
                 controlador.listarConsultasDia(dias.getSelectedItem().toString()).stream()

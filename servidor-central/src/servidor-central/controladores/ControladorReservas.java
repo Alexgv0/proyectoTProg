@@ -10,7 +10,6 @@ import clases.Consulta;
 import clases.Paciente;
 import clases.Reserva;
 import clases.BeneficioAnual;
-import datatypes.DTReserva;
 import datatypes.DTReservaConsulta;
 import datatypes.DTFecha;
 

@@ -1,9 +1,7 @@
 package clases;
 
-import java.time.LocalDate;
 import java.time.Period;
 import datatypes.DTReservaConsulta;
-import datatypes.DTFecha;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
 

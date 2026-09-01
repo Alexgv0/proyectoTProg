@@ -1,7 +1,6 @@
 package controladores;
 
 import java.time.DayOfWeek;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,14 +18,10 @@ import clases.Especialidad;
 import clases.Medico;
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
-import datatypes.DTDatosConsulta;
 import datatypes.DTConsultaSoloConsulta;
-import datatypes.DTReserva;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
 import datatypes.DTDiaConsultaCompleto;
-import clases.Paciente;
-import clases.Reserva;
 import enums.Dia;
 import datatypes.DTDiaConsulta;
 

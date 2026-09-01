@@ -77,7 +77,7 @@ public class ModificarUsuario extends FormularioBase {
         agregarCampo(formulario, 5, "Datos especificos:", panelEspecifico);
         final DTUsuario[] actual = new DTUsuario[1];
 
-        usuarios.addActionListener(e -> ejecutarSeguro(() -> {
+        usuarios.addActionListener(_ -> ejecutarSeguro(() -> {
             if (usuarios.getSelectedItem() == null) return;
             DTUsuario dato = controlador.seleccionarUsuario(
                     usuarios.getSelectedItem().toString());

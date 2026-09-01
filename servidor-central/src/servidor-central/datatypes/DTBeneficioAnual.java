@@ -1,5 +1,4 @@
 package datatypes;
-import java.util.Objects;
 
 public final class DTBeneficioAnual {
     private final int anio;

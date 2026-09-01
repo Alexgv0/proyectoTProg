@@ -7,17 +7,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import interfaces.IControladorClinicas;
-import utilidades.UtilidadesSwing;
-
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 public class ConsultaClinica extends FormularioBase {
     private static final long serialVersionUID = 1L;
@@ -30,7 +19,7 @@ public class ConsultaClinica extends FormularioBase {
         detalle.setEditable(false);
         detalle.setLineWrap(true);
         detalle.setWrapStyleWord(true);
-        clinicas.addActionListener(e -> ejecutarSeguro(() -> {
+        clinicas.addActionListener(_ -> ejecutarSeguro(() -> {
             if (clinicas.getSelectedItem() != null) {
                 detalle.setText(Formato.clinica(controlador.obtenerDatosClinica(
                         clinicas.getSelectedItem().toString())));

@@ -35,7 +35,7 @@ public class ConsultaUsuario extends FormularioBase {
         detalleAsociado.setEditable(false);
         final DTUsuario[] usuarioActual = new DTUsuario[1];
 
-        selector.addActionListener(e -> ejecutarSeguro(() -> {
+        selector.addActionListener(_ -> ejecutarSeguro(() -> {
             if (selector.getSelectedItem() == null) return;
             DTUsuario usuario = usuarios.seleccionarUsuario(
                     selector.getSelectedItem().toString());

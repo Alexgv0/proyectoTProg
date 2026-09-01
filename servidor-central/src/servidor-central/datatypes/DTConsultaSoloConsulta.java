@@ -1,7 +1,5 @@
 package datatypes;
 
-import java.util.Objects;
-
 public class DTConsultaSoloConsulta {
     private final String nombreConsulta;
     private final DTFecha fecha;

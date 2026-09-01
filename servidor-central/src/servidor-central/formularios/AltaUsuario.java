@@ -31,7 +31,7 @@ public class AltaUsuario extends FormularioBase {
         JPanel botones = new JPanel();
         JButton continuar = new JButton("Continuar");
         JButton cancelar = new JButton("Cancelar");
-        continuar.addActionListener(e -> {
+        continuar.addActionListener(_ -> {
             if (getDesktopPane() == null) return;
             FormularioBase ventana = paciente.isSelected()
                     ? new AltaPaciente(controlador) : new AltaMedico(controlador);
@@ -39,7 +39,7 @@ public class AltaUsuario extends FormularioBase {
             ventana.setVisible(true);
             dispose();
         });
-        cancelar.addActionListener(e -> dispose());
+        cancelar.addActionListener(_ -> dispose());
         botones.add(continuar);
         botones.add(cancelar);
         ocuparCentro(opciones);

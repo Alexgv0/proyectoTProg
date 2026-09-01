@@ -12,21 +12,6 @@ import javax.swing.JTextArea;
 import datatypes.DTReservaConsulta;
 import interfaces.IControladorReservas;
 import interfaces.IControladorUsuarios;
-import utilidades.UtilidadesSwing;
-import datatypes.DTFecha;
-import datatypes.DTReserva;
-import datatypes.DTReservaDetallada;
-
-import javax.swing.JInternalFrame;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JTextPane;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
 
 public class ConsultaReservaConsulta extends FormularioBase {
     private static final long serialVersionUID = 1L;
@@ -40,7 +25,7 @@ public class ConsultaReservaConsulta extends FormularioBase {
         JList<String> lista = new JList<>(modelo);
         JTextArea detalle = new JTextArea();
         detalle.setEditable(false);
-        pacientes.addActionListener(e -> ejecutarSeguro(() -> {
+        pacientes.addActionListener(_ -> ejecutarSeguro(() -> {
             modelo.clear();
             if (pacientes.getSelectedItem() != null) {
                 reservas.listarReservasConsultas(pacientes.getSelectedItem().toString())
