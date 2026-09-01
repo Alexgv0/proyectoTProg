@@ -17,6 +17,7 @@ import datatypes.DTConsulta;
 import datatypes.DTConsultaSoloConsulta;
 import datatypes.DTDiaConsulta;
 import datatypes.DTDiaConsultaCompleto;
+import clases.Consulta;
 
 
 public class ControladorClinicasTest {
@@ -111,7 +112,7 @@ public class ControladorClinicasTest {
                 "Hospital Británico"
         );
 
-        DTDiaConsulta dia =
+        DTDiaConsultaCompleto dia =
                 controladorClinicas.obtenerDatosDiaConsulta(
                         "Cardiología - Lunes Test"
                 );
@@ -189,7 +190,7 @@ public class ControladorClinicasTest {
 
         assertEquals(
                 "Consulta Test",
-                consulta.getNombre()
+                consulta.getNombreConsulta()
         );
     }
     
@@ -250,7 +251,7 @@ public class ControladorClinicasTest {
 
         assertEquals(
                 "Cardiología 240826",
-                consulta.getNombre()
+                consulta.getNombreConsulta()
         );
     }
 }
