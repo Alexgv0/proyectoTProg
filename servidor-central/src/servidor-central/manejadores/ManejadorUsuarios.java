@@ -78,7 +78,9 @@ public class ManejadorUsuarios {
     }
 
     public Paciente crearPaciente(String nickname, String nombre, String apellido, String correo, DTFecha nacimiento, int documento, DTFecha ingreso, Set<String> antecedentes) {
-        return new Paciente(nickname, nombre, apellido, correo, nacimiento, documento, ingreso, antecedentes);
+        Paciente paciente = new Paciente(nickname, nombre, apellido, correo, nacimiento, documento, ingreso, antecedentes);
+        agregarUsuario(paciente);
+        return paciente;
     }
 
     public void eliminarUsuario(String nickname) { usuarios.remove(nickname); }

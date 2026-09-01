@@ -92,48 +92,48 @@ public class ControladorUsuariosTest {
     			);
     	
     	Usuario m1 = controladorUsuarios.altaMedico(
-    			"ana.perez",
+    			"ana.perez.test",
     			"Ana",
     			"Pérez",
-    			"ana.perez@tuclinica.com",
-    			1001 ,
-    			"Enero", 
+    			"ana.perez.test@tuclinica.com",
+    			2001 ,
+    			"Enero",
     			"https://www.hospitalbritanico.org.uy/",
     			especialidades1,
     			15);
-    	
+
     	assertNotNull(m1);
-    	
-    	assertEquals("ana.perez", m1.getNickname());
+
+    	assertEquals("ana.perez.test", m1.getNickname());
     	assertEquals("Ana", m1.getNombre());
     	assertEquals("Pérez", m1.getApellido());
-    	assertEquals("ana.perez@tuclinica.com", m1.getCorreo());
-    	
-    	
+    	assertEquals("ana.perez.test@tuclinica.com", m1.getCorreo());
+
+
     	Set<DTEspecialidad> especialidades2 = new HashSet<>();
     	especialidades2.add(
     			controladorUsuarios.obtenerDatosEspecialidad("Pediatría")
     			);
-    	
+
     	Usuario m2 = controladorUsuarios.altaMedico(
-    			"bsilva",
+    			"bsilva.test",
     			"Bruno",
     			"Silva",
-    			"bruno.silva@hospital.com",
-    			1002 ,
-    			"Julio", 
+    			"bruno.silva.test@hospital.com",
+    			2002 ,
+    			"Julio",
     			"",
     			especialidades2,
     			5);
-    	
+
     	assertNotNull(m2);
-    	
-    	assertEquals("bsilva", m2.getNickname());
+
+    	assertEquals("bsilva.test", m2.getNickname());
     	assertEquals("Bruno", m2.getNombre());
     	assertEquals("Silva", m2.getApellido());
-    	assertEquals("bruno.silva@hospital.com", m2.getCorreo());
-    	
-    	
+    	assertEquals("bruno.silva.test@hospital.com", m2.getCorreo());
+
+
     	Set<DTEspecialidad> especialidades3 = new HashSet<>();
     	especialidades3.add(
     			controladorUsuarios.obtenerDatosEspecialidad("Cardiología")
@@ -141,24 +141,24 @@ public class ControladorUsuariosTest {
     	especialidades3.add(
     			controladorUsuarios.obtenerDatosEspecialidad("Medicina General")
     			);
-    	
+
     	Usuario m3 = controladorUsuarios.altaMedico(
-    			"carla.rodriguez",
+    			"carla.rodriguez.test",
     			"Carla",
     			"Rodríguez",
-    			"carla.rodriguez@hospital.com",
-    			1003 ,
-    			"Febrero", 
+    			"carla.rodriguez.test@hospital.com",
+    			2003 ,
+    			"Febrero",
     			"https://www.hospitalbritanico.org.uy/",
     			especialidades3,
     			10);
-    	
+
     	assertNotNull(m3);
-    	
-    	assertEquals("carla.rodriguez", m3.getNickname());
+
+    	assertEquals("carla.rodriguez.test", m3.getNickname());
     	assertEquals("Carla", m3.getNombre());
     	assertEquals("Rodríguez", m3.getApellido());
-    	assertEquals("carla.rodriguez@hospital.com", m3.getCorreo());
+    	assertEquals("carla.rodriguez.test@hospital.com", m3.getCorreo());
     }
     
     @Test
@@ -168,65 +168,65 @@ public class ControladorUsuariosTest {
     	antecedentes1.add("Sin antecedentes relevantes.");
     	
     	Usuario p1 = controladorUsuarios.altaPaciente(
-    			"lgomez",
+    			"lgomez.test",
     			"Laura",
     			"Gómez",
-    			"laura.gomez@gmail.com",
+    			"laura.gomez.test@gmail.com",
     			new DTFecha(12, 4, 1990),
-    			45678901,
+    			45678902,
     			new DTFecha(1, 3, 2024),
     			antecedentes1
     			);
-    	
+
     	assertNotNull(p1);
-    	assertEquals("lgomez", p1.getNickname());
+    	assertEquals("lgomez.test", p1.getNickname());
     	assertEquals("Laura", p1.getNombre());
     	assertEquals("Gómez", p1.getApellido());
-    	assertEquals("laura.gomez@gmail.com", p1.getCorreo());
-    	
-    	
+    	assertEquals("laura.gomez.test@gmail.com", p1.getCorreo());
+
+
     	Set<String> antecedentes2 = new HashSet<>();
     	antecedentes2.add(
     			"Hipertensión arterial diagnosticada en 2018, actualmente controlada con tratamiento farmacológico. Antecedentes de colesterol elevado y episodios ocasionales de migraña. En 2022 fue intervenido quirúrgicamente por una hernia inguinal, sin complicaciones posteriores."
     			);
-    	
+
     	Usuario p2 = controladorUsuarios.altaPaciente(
-    			"mar.fernandez",
+    			"mar.fernandez.test",
     			"Mario",
     			"Fernández",
-    			"mario.fernandez@hotmail.com",
+    			"mario.fernandez.test@hotmail.com",
     			new DTFecha(8, 11, 1955),
-    			32145678,
+    			32145679,
     			new DTFecha(15, 6, 2022),
     			antecedentes2
     			);
-    	
+
     	assertNotNull(p2);
-    	assertEquals("mar.fernandez", p2.getNickname());
+    	assertEquals("mar.fernandez.test", p2.getNickname());
     	assertEquals("Mario", p2.getNombre());
     	assertEquals("Fernández", p2.getApellido());
-    	assertEquals("mario.fernandez@hotmail.com", p2.getCorreo());
-    	
-    	
+    	assertEquals("mario.fernandez.test@hotmail.com", p2.getCorreo());
+
+
     	Set<String> antecedentes3 = new HashSet<>();
     	antecedentes3.add("Alergia a penicilina.");
-    	
+
     	Usuario p3 = controladorUsuarios.altaPaciente(
-    			"s.lopez",
+    			"s.lopez.test",
     			"Sofía",
     			"López",
-    			"sofia.lopez@gmail.com",
+    			"sofia.lopez.test@gmail.com",
     			new DTFecha(20, 9, 2014),
-    			58963214,
+    			58963215,
     			new DTFecha(10, 2, 2025),
     			antecedentes3
     			);
-    	
+
     	assertNotNull(p3);
-    	assertEquals("s.lopez", p3.getNickname());
+    	assertEquals("s.lopez.test", p3.getNickname());
     	assertEquals("Sofía", p3.getNombre());
     	assertEquals("López", p3.getApellido());
-    	assertEquals("sofia.lopez@gmail.com", p3.getCorreo());
+    	assertEquals("sofia.lopez.test@gmail.com", p3.getCorreo());
     }
     
     //datos propios

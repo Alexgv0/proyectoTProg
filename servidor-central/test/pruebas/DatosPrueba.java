@@ -10,7 +10,10 @@ import java.util.Set;
 
 import datatypes.DTFecha;
 import datatypes.DTEspecialidad;
+import enums.Dia;
 import fabrica.Fabrica;
+import interfaces.IControladorClinicas;
+import interfaces.IControladorReservas;
 import interfaces.IControladorUsuarios;
 
 public class DatosPrueba {
@@ -21,9 +24,20 @@ public class DatosPrueba {
     private static final IControladorUsuarios controladorUsuarios =
             Fabrica.getInstancia().getControladorUsuarios();
 
+    private static final IControladorClinicas controladorClinicas =
+            Fabrica.getInstancia().getControladorClinicas();
+
+    private static final IControladorReservas controladorReservas =
+            Fabrica.getInstancia().getControladorReservas();
+
     // Ref -> datos básicos del usuario
     private static final Map<String, String[]> usuarios =
             new HashMap<>();
+
+    // Ref -> nombre real ya dado de alta (para poder referenciarlos desde otros CSV)
+    private static final Map<String, String> clinicasPorRef = new HashMap<>();
+    private static final Map<String, String> diasConsultaPorRef = new HashMap<>();
+    private static final Map<String, String> consultasPorRef = new HashMap<>();
 
 
     public static void cargarEspecialidades() {
@@ -287,6 +301,307 @@ public class DatosPrueba {
     }
 
     /**
+     * Carga las clínicas oficiales.
+     */
+    public static void cargarClinicas() {
+
+        String ruta = RUTA_CSV + "2026Clinicas.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+            br.readLine(); // encabezado
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                linea = linea.trim();
+
+                if (linea.isEmpty()) {
+                    continue;
+                }
+
+                String[] datos = linea.split(";");
+
+                String ref = datos[0];
+                String nombre = datos[1];
+                String descripcion = datos[2];
+                String direccion = datos[3];
+                String sitioWeb = datos[4];
+                float costoTicketMedicamento = Float.parseFloat(datos[5]);
+                float costoOrdenConsulta = Float.parseFloat(datos[6]);
+
+                controladorClinicas.altaClinica(
+                        nombre,
+                        descripcion,
+                        direccion,
+                        sitioWeb,
+                        costoTicketMedicamento,
+                        costoOrdenConsulta
+                );
+
+                clinicasPorRef.put(ref, nombre);
+            }
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(
+                    "No se pudo leer 2026Clinicas.csv",
+                    e
+            );
+        }
+    }
+
+    /**
+     * Carga los días de consulta oficiales.
+     */
+    public static void cargarDiasConsulta() {
+
+        String ruta = RUTA_CSV + "2026DiaConsulta.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+            br.readLine();
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                linea = linea.trim();
+
+                if (linea.isEmpty()) {
+                    continue;
+                }
+
+                String[] datos = linea.split(";");
+
+                String ref = datos[0];
+                String nombre = datos[1];
+                String descripcion = datos[2];
+                Dia diaSemana = convertirDia(datos[3]);
+                int horaInicio = convertirHora(datos[4]);
+                String nombreEspecialidad = obtenerNombreEspecialidad(datos[5]);
+                String nombreClinica = clinicasPorRef.get(datos[6]);
+
+                if (nombreClinica == null) {
+                    throw new IllegalArgumentException(
+                            "No existe la clínica asociada a la referencia: " + datos[6]
+                    );
+                }
+
+                // datos[7] (Costo) no se usa: el costo del día de consulta
+                // se calcula solo a partir del costo de la clínica y el
+                // porcentaje adicional de la especialidad.
+
+                controladorClinicas.altaDiaConsulta(
+                        nombre,
+                        descripcion,
+                        diaSemana,
+                        horaInicio,
+                        nombreEspecialidad,
+                        nombreClinica
+                );
+
+                diasConsultaPorRef.put(ref, nombre);
+            }
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(
+                    "No se pudo leer 2026DiaConsulta.csv",
+                    e
+            );
+        }
+    }
+
+    /**
+     * Carga las consultas oficiales.
+     */
+    public static void cargarConsultas() {
+
+        String ruta = RUTA_CSV + "2026Consultas.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+            br.readLine();
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                linea = linea.trim();
+
+                if (linea.isEmpty()) {
+                    continue;
+                }
+
+                String[] datos = linea.split(";");
+
+                String ref = datos[0];
+                String nombre = datos[1];
+                DTFecha fecha = convertirFecha(datos[2]);
+                int nroSala = Integer.parseInt(datos[3]);
+                int cantNumeros = Integer.parseInt(datos[4]);
+
+                String nombreDiaConsulta = diasConsultaPorRef.get(datos[5]);
+
+                if (nombreDiaConsulta == null) {
+                    throw new IllegalArgumentException(
+                            "No existe el día de consulta asociado a la referencia: " + datos[5]
+                    );
+                }
+
+                String[] datosMedico = usuarios.get(datos[6]);
+
+                if (datosMedico == null) {
+                    throw new IllegalArgumentException(
+                            "No existe el médico asociado a la referencia: " + datos[6]
+                    );
+                }
+
+                String nicknameMedico = datosMedico[0];
+
+                // datos[7] (Costo) no se usa: se calcula solo a partir del
+                // costo del día de consulta y el porcentaje del médico.
+
+                controladorClinicas.altaConsulta(
+                        nombre,
+                        fecha,
+                        nroSala,
+                        cantNumeros,
+                        nombreDiaConsulta,
+                        nicknameMedico
+                );
+
+                consultasPorRef.put(ref, nombre);
+            }
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(
+                    "No se pudo leer 2026Consultas.csv",
+                    e
+            );
+        }
+    }
+
+    /**
+     * Carga las reservas oficiales.
+     */
+    public static void cargarReservas() {
+
+        String ruta = RUTA_CSV + "2026Reservas.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+            br.readLine();
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                linea = linea.trim();
+
+                if (linea.isEmpty()) {
+                    continue;
+                }
+
+                String[] datos = linea.split(";");
+
+                DTFecha fechaReserva = convertirFecha(datos[1]);
+                // datos[2] (Numero) no se usa: el número de cliente lo
+                // calcula el sistema solo (menor número disponible).
+
+                String[] datosPaciente = usuarios.get(datos[3]);
+
+                if (datosPaciente == null) {
+                    throw new IllegalArgumentException(
+                            "No existe el paciente asociado a la referencia: " + datos[3]
+                    );
+                }
+
+                String nickPaciente = datosPaciente[0];
+
+                String nombreConsulta = consultasPorRef.get(datos[4]);
+
+                if (nombreConsulta == null) {
+                    throw new IllegalArgumentException(
+                            "No existe la consulta asociada a la referencia: " + datos[4]
+                    );
+                }
+
+                // datos[5] (Costo) no se usa: se calcula solo.
+
+                controladorReservas.altaReservaConsulta(
+                        nickPaciente,
+                        nombreConsulta,
+                        fechaReserva
+                );
+            }
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(
+                    "No se pudo leer 2026Reservas.csv",
+                    e
+            );
+        }
+    }
+
+    /**
+     * Carga los beneficios anuales oficiales.
+     */
+    public static void cargarBeneficiosAnuales() {
+
+        String ruta = RUTA_CSV + "2026BeneficiosAnuales.csv";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
+
+            br.readLine(); // encabezado
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+
+                linea = linea.trim();
+
+                if (linea.isEmpty()) {
+                    continue;
+                }
+
+                String[] datos = linea.split(";");
+
+                String[] datosPaciente = usuarios.get(datos[1]);
+
+                if (datosPaciente == null) {
+                    throw new IllegalArgumentException(
+                            "No existe el paciente asociado a la referencia: " + datos[1]
+                    );
+                }
+
+                String nickPaciente = datosPaciente[0];
+                int anio = Integer.parseInt(datos[2]);
+                int cantConsultas = Integer.parseInt(datos[3]);
+                int cantMedicamentos = Integer.parseInt(datos[4]);
+
+                controladorUsuarios.altaBeneficioAnual(
+                        nickPaciente,
+                        anio,
+                        cantConsultas,
+                        cantMedicamentos
+                );
+            }
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(
+                    "No se pudo leer 2026BeneficiosAnuales.csv",
+                    e
+            );
+        }
+    }
+
+    /**
      * Convierte una fecha DD/MM/YYYY a DTFecha.
      */
     private static DTFecha convertirFecha(String fecha) {
@@ -298,6 +613,41 @@ public class DatosPrueba {
         int anio = Integer.parseInt(partes[2]);
 
         return new DTFecha(dia, mes, anio);
+    }
+
+    /**
+     * Convierte "09:00" / "14:00" / "10:30" a la hora entera (9, 14, 10).
+     */
+    private static int convertirHora(String hora) {
+        String[] partes = hora.split(":");
+        return Integer.parseInt(partes[0]);
+    }
+
+    /**
+     * Convierte "Lunes".."Domingo" (con o sin tilde) al enum Dia.
+     */
+    private static Dia convertirDia(String diaSemana) {
+
+        String normalizado = diaSemana.trim().toUpperCase()
+                .replace("Á", "A")
+                .replace("É", "E")
+                .replace("Í", "I")
+                .replace("Ó", "O")
+                .replace("Ú", "U");
+
+        switch (normalizado) {
+            case "LUNES": return Dia.LUNES;
+            case "MARTES": return Dia.MARTES;
+            case "MIERCOLES": return Dia.MIERCOLES;
+            case "JUEVES": return Dia.JUEVES;
+            case "VIERNES": return Dia.VIERNES;
+            case "SABADO": return Dia.SABADO;
+            case "DOMINGO": return Dia.DOMINGO;
+            default:
+                throw new IllegalArgumentException(
+                        "Día de la semana desconocido: " + diaSemana
+                );
+        }
     }
 
     /**
@@ -324,260 +674,7 @@ public class DatosPrueba {
                 );
         }
     }
-    
-    public static void cargarClinicas() {
 
-        String ruta = RUTA_CSV + "2026Clinicas.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-
-            br.readLine(); // encabezado
-
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.trim();
-
-                if (linea.isEmpty()) {
-                    continue;
-                }
-
-                String[] datos = linea.split(";");
-
-                String ref = datos[0];
-                String nombre = datos[1];
-                String descripcion = datos[2];
-                String direccion = datos[3];
-                String sitioWeb = datos[4];
-                String costoTicketMedicamento = datos[5];
-                String costoOrdenConsulta = datos[6];
-
-                usuarios.put(
-                        ref,
-                        new String[]{
-                                ref,
-                                nombre,
-                                descripcion,
-                                direccion,
-                                sitioWeb,
-                                costoTicketMedicamento,
-                                costoOrdenConsulta
-                        }
-                );
-            }
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo leer 2026Clinicas.csv",
-                    e
-            );
-        }
-    }
-    
-    public static void cargarDiasConsulta() {
-
-        String ruta = RUTA_CSV + "2026DiaConsulta.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-
-            br.readLine();
-
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.trim();
-
-                if (linea.isEmpty()) {
-                    continue;
-                }
-
-                String[] datos = linea.split(";");
-
-                String ref = datos[0];
-                String nombre = datos[1];
-                String descripcion = datos[2];
-                String diaSemana = datos[3];
-                String horaInicio = datos[4];
-                String especialidad = datos[5];
-                String clinica = datos[6];
-                String costo = datos[7];
-
-                usuarios.put(
-                        ref,
-                        new String[]{
-                                ref,
-                                nombre,
-                                descripcion,
-                                diaSemana,
-                                horaInicio,
-                                especialidad,
-                                clinica,
-                                costo
-                        }
-                );
-            }
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo leer 2026DiaConsulta.csv",
-                    e
-            );
-        }
-    }
-    
-    public static void cargarConsultas() {
-
-        String ruta = RUTA_CSV + "2026Consultas.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-
-            br.readLine();
-
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.trim();
-
-                if (linea.isEmpty()) {
-                    continue;
-                }
-
-                String[] datos = linea.split(";");
-
-                String ref = datos[0];
-                String nombre = datos[1];
-                String fecha = datos[2];
-                String nroSala = datos[3];
-                String cantNumeros = datos[4];
-                String diaConsulta = datos[5];
-                String medico = datos[6];
-                String costo = datos[7];
-
-                usuarios.put(
-                        ref,
-                        new String[]{
-                                ref,
-                                nombre,
-                                fecha,
-                                nroSala,
-                                cantNumeros,
-                                diaConsulta,
-                                medico,
-                                costo
-                        }
-                );
-            }
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo leer 2026Consultas.csv",
-                    e
-            );
-        }
-    }
-    
-    public static void cargarReservas() {
-
-        String ruta = RUTA_CSV + "2026Reservas.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-
-            br.readLine();
-
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.trim();
-
-                if (linea.isEmpty()) {
-                    continue;
-                }
-
-                String[] datos = linea.split(";");
-
-                String ref = datos[0];
-                String fechaReserva = datos[1];
-                String numero = datos[2];
-                String paciente = datos[3];
-                String consulta = datos[4];
-                String costo = datos[5];
-
-                usuarios.put(
-                        ref,
-                        new String[]{
-                                ref,
-                                fechaReserva,
-                                numero,
-                                paciente,
-                                consulta ,
-                                costo,
-                        }
-                );
-            }
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo leer 2026Reservas.csv",
-                    e
-            );
-        }
-    }
-    
-    public static void cargarBeneficiosAnuales() {
-
-        String ruta = RUTA_CSV + "2026BeneficiosAnuales.csv";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
-
-            br.readLine(); // encabezado
-
-            String linea;
-
-            while ((linea = br.readLine()) != null) {
-
-                linea = linea.trim();
-
-                if (linea.isEmpty()) {
-                    continue;
-                }
-
-                String[] datos = linea.split(";");
-
-                String ref = datos[0];
-                String paciente = datos[1];
-                String anio = datos[2];
-                String cantConsultas = datos[3];
-                String cantMedicamentos = datos[4];
-
-                usuarios.put(
-                        ref,
-                        new String[]{
-                                ref,
-                                paciente,
-                                anio,
-                                cantConsultas,
-                                cantMedicamentos,
-                        }
-                );
-            }
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(
-                    "No se pudo leer 2026BeneficiosAnuales.csv",
-                    e
-            );
-        }
-    }
-    
     public static void cargarTodosLosDatos() {
 
         cargarEspecialidades();

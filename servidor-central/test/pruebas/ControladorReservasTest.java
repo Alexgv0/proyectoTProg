@@ -1,3 +1,6 @@
+package pruebas;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,9 +12,9 @@ import fabrica.Fabrica;
 import interfaces.IControladorReservas;
 
 public class ControladorReservasTest {
-	
+
 	private static IControladorReservas controlador;
-	
+
 	@BeforeAll
 	static void iniciar() {
 
@@ -21,81 +24,97 @@ public class ControladorReservasTest {
 
         DatosPrueba.cargarTodosLosDatos();
     }
-	
+
 	@Test
 	void testListarReservasConsultas() {
 
-	    String nickPaciente = "";
+	    // RC01 y RC04: lgomez tiene reserva en Cardiología 240826 y en Pediatría 080926
+	    Set<DTReservaConsulta> reservasLGomez =
+	        controlador.listarReservasConsultas("lgomez");
 
-	    Set<DTReservaConsulta> res =
-	        controlador.listarReservasConsultas(nickPaciente);
+	    assertNotNull(reservasLGomez);
 
-	    assertNotNull(res);
+	    assertTrue(
+	        reservasLGomez.stream()
+	            .anyMatch(r -> r.getNombreConsulta().equals("Cardiología 240826"))
+	    );
+	    assertTrue(
+	        reservasLGomez.stream()
+	            .anyMatch(r -> r.getNombreConsulta().equals("Pediatría 080926"))
+	    );
 
-	    boolean existeLGomez = false;
-	    boolean existeMarFernandez = false;
-	    boolean existeSLopez = false;
+	    // RC02 y RC05: mar.fernandez tiene reserva en Cardiología 240826 y en Medicina General 090926
+	    Set<DTReservaConsulta> reservasMarFernandez =
+	        controlador.listarReservasConsultas("mar.fernandez");
 
-	    for (DTReservaConsulta reserva : res) {
-	        if (reserva.getNickPaciente().equals("lgomez")) {
-	            existeLGomez = true;
-	        }
+	    assertNotNull(reservasMarFernandez);
 
-	        if (reserva.getNickPaciente().equals("mar.fernandez")) {
-	            existeMarFernandez = true;
-	        }
+	    assertTrue(
+	        reservasMarFernandez.stream()
+	            .anyMatch(r -> r.getNombreConsulta().equals("Cardiología 240826"))
+	    );
+	    assertTrue(
+	        reservasMarFernandez.stream()
+	            .anyMatch(r -> r.getNombreConsulta().equals("Medicina General 090926"))
+	    );
 
-	        if (reserva.getNickPaciente().equals("s.lopez")) {
-	            existeSLopez = true;
-	        }
-	    }
+	    // RC03: s.lopez tiene reserva en Pediatría 080926
+	    Set<DTReservaConsulta> reservasSLopez =
+	        controlador.listarReservasConsultas("s.lopez");
 
-	    assertTrue(existeLGomez);
-	    assertTrue(existeMarFernandez);
-	    assertTrue(existeSLopez);
+	    assertNotNull(reservasSLopez);
+
+	    assertTrue(
+	        reservasSLopez.stream()
+	            .anyMatch(r -> r.getNombreConsulta().equals("Pediatría 080926"))
+	    );
 	}
-	
+
 	@Test
 	void testSeleccionarReservaConsulta() {
 
+	    // RC01
 	    DTReservaConsulta reserva1 = controlador.seleccionarReservaConsulta("lgomez", "Cardiología 240826");
 
 	    assertNotNull(reserva1);
 	    assertEquals("Cardiología 240826", reserva1.getNombreConsulta());
 	    assertEquals("lgomez", reserva1.getNickPaciente());
 
-
-	    DTReservaConsulta reserva2 = controlador.seleccionarReservaConsulta("lgomez", "Cardiología 240826");
+	    // RC02
+	    DTReservaConsulta reserva2 = controlador.seleccionarReservaConsulta("mar.fernandez", "Cardiología 240826");
 
 	    assertNotNull(reserva2);
 	    assertEquals("Cardiología 240826", reserva2.getNombreConsulta());
 	    assertEquals("mar.fernandez", reserva2.getNickPaciente());
 
-	    DTReservaConsulta reserva3 = controlador.seleccionarReservaConsulta("lgomez", "Pediatría 080926");
-	    
+	    // RC03
+	    DTReservaConsulta reserva3 = controlador.seleccionarReservaConsulta("s.lopez", "Pediatría 080926");
+
 	    assertNotNull(reserva3);
 	    assertEquals("Pediatría 080926", reserva3.getNombreConsulta());
 	    assertEquals("s.lopez", reserva3.getNickPaciente());
-	    
+
+	    // RC04
 	    DTReservaConsulta reserva4 = controlador.seleccionarReservaConsulta("lgomez", "Pediatría 080926");
-	    
+
 	    assertNotNull(reserva4);
 	    assertEquals("Pediatría 080926", reserva4.getNombreConsulta());
 	    assertEquals("lgomez", reserva4.getNickPaciente());
 
-
-	    DTReservaConsulta reserva5 = controlador.seleccionarReservaConsulta("lgomez", "Medicina General 090926");
+	    // RC05
+	    DTReservaConsulta reserva5 = controlador.seleccionarReservaConsulta("mar.fernandez", "Medicina General 090926");
 
 	    assertNotNull(reserva5);
 	    assertEquals("Medicina General 090926", reserva5.getNombreConsulta());
 	    assertEquals("mar.fernandez", reserva5.getNickPaciente());
 	}
-	
+
 	@Test
 	void testAltaReservaConsulta1() {
 
-	    String nickPaciente = "alex";
-	    String nombreConsulta = "Medicina General";
+	    // s.lopez todavia no tiene reserva en Cardiología 240826 (le queda 1 numero libre: 3 cupos, 2 ocupados)
+	    String nickPaciente = "s.lopez";
+	    String nombreConsulta = "Cardiología 240826";
 
 	    controlador.altaReservaConsulta(nickPaciente, nombreConsulta);
 
@@ -106,13 +125,14 @@ public class ControladorReservasTest {
 	    assertEquals(nickPaciente, res.getNickPaciente());
 	    assertEquals(nombreConsulta, res.getNombreConsulta());
 	}
-	
+
 	@Test
 	public void testAltaReservaConsulta2() {
 
-	    String nickPaciente = "Agustin";
-	    String nombreConsulta = "Cardiología";
-	    DTFecha fecha = UtilidadesTesting.ingresarFecha("01/09/2026");
+	    // lgomez todavia no tiene reserva en Cardiología 130826 (2 cupos, 0 ocupados)
+	    String nickPaciente = "lgomez";
+	    String nombreConsulta = "Cardiología 130826";
+	    DTFecha fecha = UtilidadesTesting.ingresarFecha("01/08/2026");
 
 	    controlador.altaReservaConsulta(
 	        nickPaciente,
@@ -131,5 +151,5 @@ public class ControladorReservasTest {
 	    assertEquals(nickPaciente, res.getNickPaciente());
 	    assertEquals(nombreConsulta, res.getNombreConsulta());
 	}
-	
+
 }

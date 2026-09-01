@@ -77,7 +77,9 @@ public class ControladorUsuarios implements IControladorUsuarios {
             
             especialidadesDominio.add(especialidad);
         }
-        return new Medico(nickname.trim(), nombre.trim(), apellido.trim(), correo.trim(), registro, mesLicencia.trim(), sitioWeb == null ? "" : sitioWeb.trim(), especialidadesDominio, porcentajeConsultas);
+        Medico medico = new Medico(nickname.trim(), nombre.trim(), apellido.trim(), correo.trim(), registro, mesLicencia.trim(), sitioWeb == null ? "" : sitioWeb.trim(), especialidadesDominio, porcentajeConsultas);
+        mu.agregarUsuario(medico);
+        return medico;
     }
 
     

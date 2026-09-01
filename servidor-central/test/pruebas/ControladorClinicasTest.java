@@ -5,19 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import clases.Usuario;
 import fabrica.Fabrica;
 import interfaces.IControladorClinicas;
 
-import java.util.HashSet;
 import java.util.Set;
 import datatypes.DTClinica;
-import datatypes.DTEspecialidad;
 import datatypes.DTConsulta;
 import datatypes.DTConsultaSoloConsulta;
 import datatypes.DTDiaConsulta;
 import datatypes.DTDiaConsultaCompleto;
-import clases.Consulta;
 
 
 public class ControladorClinicasTest {
