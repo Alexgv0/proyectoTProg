@@ -1,27 +1,22 @@
 package datatypes;
 
-public class DTConsulta {
-	private String nombreConsulta;
-	private DTFecha fecha;
-	private int nroSala;
-	private int cantidadNumeros;
-	private float costo;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-	public DTConsulta(String nombreConsulta, DTFecha fecha, int nroSala, int cantidadNumeros, float costo) {
-		this.nombreConsulta = nombreConsulta;
-		this.fecha = fecha;
-		this.nroSala = nroSala;
-		this.cantidadNumeros = cantidadNumeros;
-		this.costo = costo; //TODO:
-	}
+public final class DTConsulta extends DTConsultaSoloConsulta {
+    private final Set<DTReserva> reservas;
 
-	public String getNombreConsulta() { return nombreConsulta; }
+    public DTConsulta(String nombreConsulta, DTFecha fecha, int nroSala, int cantidadNumeros) {
+        this(nombreConsulta, fecha, nroSala, cantidadNumeros, "", 0f,
+                Collections.emptySet());
+    }
 
-	public DTFecha getFecha() { return fecha; }
+    public DTConsulta(String nombreConsulta, DTFecha fecha, int nroSala, int cantidadNumeros,
+            String nombreMedico, float costo, Set<DTReserva> reservas) {
+        super(nombreConsulta, fecha, nroSala, cantidadNumeros, nombreMedico, costo);
+        this.reservas = Collections.unmodifiableSet(new LinkedHashSet<>(reservas));
+    }
 
-	public int getNroSala() { return nroSala; }
-
-	public int getCantidadNumeros() { return cantidadNumeros; }
-
-	public float getCosto() { return costo; }
+    public Set<DTReserva> getReservas() { return reservas; }
 }

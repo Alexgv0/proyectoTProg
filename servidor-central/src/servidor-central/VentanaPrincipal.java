@@ -1,307 +1,118 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import fabrica.Fabrica;
+import formularios.AltaBeneficio;
+import formularios.AltaClinica;
+import formularios.AltaConsulta;
+import formularios.AltaDiaConsulta;
 import formularios.AltaEspecialidad;
 import formularios.AltaUsuario;
-import formularios.ModificarUsuario;
-import formularios.ConsultaUsuario;
-import formularios.AltaBeneficio;
 import formularios.ConsultaBeneficio;
-import formularios.AltaDiaConsulta;
-import formularios.ConsultaDiaConsulta;
-import formularios.AltaConsulta;
-import formularios.ConsultaConsulta;
-import formularios.ReservaConsulta;
-import formularios.ConsultaReservaConsulta;
-import formularios.AltaClinica;
 import formularios.ConsultaClinica;
-
-import fabrica.Fabrica;
+import formularios.ConsultaConsulta;
+import formularios.ConsultaDiaConsulta;
+import formularios.ConsultaReservaConsulta;
+import formularios.ConsultaUsuario;
+import formularios.ModificarUsuario;
+import formularios.ReservaConsulta;
+import interfaces.IControladorClinicas;
+import interfaces.IControladorReservas;
+import interfaces.IControladorUsuarios;
 
 public class VentanaPrincipal extends JFrame {
-	
-	
-	private static final long serialVersionUID = 1L;
-
-    private JDesktopPane desktopPane;
-    
-    private Fabrica fabrica;
+    private static final long serialVersionUID = 1L;
+    private final JDesktopPane escritorio = new JDesktopPane();
+    private final IControladorUsuarios usuarios;
+    private final IControladorClinicas clinicas;
+    private final IControladorReservas reservas;
 
     public VentanaPrincipal() {
-    	
-    	// Inicializamos la fabrica
-    	this.fabrica = Fabrica.getInstancia();
-    	
-    	// Propiedades de la Ventana Principal
-        setTitle("salud.uy");
+        Fabrica fabrica = Fabrica.getInstancia();
+        usuarios = fabrica.getControladorUsuarios();
+        clinicas = fabrica.getControladorClinicas();
+        reservas = fabrica.getControladorReservas();
+        setTitle("salud.uy - Estacion de Trabajo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 900, 650);
+        setMinimumSize(new Dimension(950, 650));
+        setSize(1100, 760);
+        setLocationRelativeTo(null);
+        getContentPane().add(escritorio, BorderLayout.CENTER);
+        setJMenuBar(crearMenu());
+    }
 
-        // DesktopPane
-        desktopPane = new JDesktopPane();
-        getContentPane().add(desktopPane, BorderLayout.CENTER);
+    private JMenuBar crearMenu() {
+        JMenuBar barra = new JMenuBar();
 
-        // menuBar
-        JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
-        
-        // Menus
-        crearMenuUsuario(menuBar);
-        crearMenuBeneficioAnual(menuBar);
-        crearMenuDiaConsulta(menuBar);
-        crearMenuConsulta(menuBar);
-        crearMenuClinica(menuBar);
-        	
+        JMenu menuUsuarios = new JMenu("Usuarios");
+        agregar(menuUsuarios, "Alta de Usuario", () -> new AltaUsuario(usuarios));
+        agregar(menuUsuarios, "Consulta de Usuario",
+                () -> new ConsultaUsuario(usuarios, clinicas, reservas));
+        agregar(menuUsuarios, "Modificar Datos de Usuario",
+                () -> new ModificarUsuario(usuarios));
+        agregar(menuUsuarios, "Alta de Especialidad",
+                () -> new AltaEspecialidad(usuarios));
+        barra.add(menuUsuarios);
+
+        JMenu menuClinicas = new JMenu("Clinicas");
+        agregar(menuClinicas, "Alta de Clinica", () -> new AltaClinica(clinicas));
+        agregar(menuClinicas, "Consulta de Clinica", () -> new ConsultaClinica(clinicas));
+        barra.add(menuClinicas);
+
+        JMenu menuDias = new JMenu("Dias de Consulta");
+        agregar(menuDias, "Alta de Dia de Consulta", () -> new AltaDiaConsulta(clinicas));
+        agregar(menuDias, "Consulta de Dia de Consulta",
+                () -> new ConsultaDiaConsulta(clinicas));
+        barra.add(menuDias);
+
+        JMenu menuConsultas = new JMenu("Consultas");
+        agregar(menuConsultas, "Alta de Consulta",
+                () -> new AltaConsulta(clinicas, usuarios));
+        agregar(menuConsultas, "Consulta de Consulta",
+                () -> new ConsultaConsulta(clinicas));
+        agregar(menuConsultas, "Reserva de Consulta",
+                () -> new ReservaConsulta(clinicas, usuarios, reservas));
+        agregar(menuConsultas, "Consulta de Reserva de Consulta",
+                () -> new ConsultaReservaConsulta(usuarios, reservas));
+        barra.add(menuConsultas);
+
+        JMenu menuBeneficios = new JMenu("Beneficios Anuales");
+        agregar(menuBeneficios, "Alta de Beneficio Anual",
+                () -> new AltaBeneficio(usuarios));
+        agregar(menuBeneficios, "Consulta de Beneficio Anual",
+                () -> new ConsultaBeneficio(usuarios));
+        barra.add(menuBeneficios);
+        return barra;
+    }
+
+    private void agregar(JMenu menu, String texto, CreadorVentana creador) {
+        JMenuItem item = new JMenuItem(texto);
+        item.addActionListener(e -> abrir(creador.crear()));
+        menu.add(item);
+    }
+
+    private void abrir(JInternalFrame ventana) {
+        escritorio.add(ventana);
+        int x = Math.max(0, (escritorio.getWidth() - ventana.getWidth()) / 2);
+        int y = Math.max(0, (escritorio.getHeight() - ventana.getHeight()) / 2);
+        ventana.setLocation(x, y);
+        ventana.setVisible(true);
+        try {
+            ventana.setSelected(true);
+        } catch (java.beans.PropertyVetoException ignorada) {
+            // La ventana igualmente queda visible.
         }
-    
-    // Menu Usuario
-    private void crearMenuUsuario(JMenuBar menuBar) {	
-    	JMenu menuUsuario = new JMenu("Usuario");
-    	menuBar.add(menuUsuario);
-    	
-    	//
-    	// CU :: AltaUsuario
-    	//
-    	JMenuItem itemAltaUsuario =
-    			new JMenuItem("Alta de Usuario");
-    	
-    	itemAltaUsuario.addActionListener(_ -> {
-    		AltaUsuario ventana = new AltaUsuario(fabrica.getControladorUsuarios());
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuUsuario.add(itemAltaUsuario);
-    	
-    	//
-    	// CU :: ModificarUsuario
-    	//
-    	JMenuItem itemModificarUsuario =
-    			new JMenuItem("Modificar Usuario");
-    	
-    	itemModificarUsuario.addActionListener(_ -> {
-    		ModificarUsuario ventana = new ModificarUsuario(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuUsuario.add(itemModificarUsuario);
-    	
-    	//
-    	// CU :: ConsultaUsuario
-    	//
-    	JMenuItem itemConsultaUsuario =
-    			new JMenuItem("Consulta de Usuario");
-    	
-    	itemConsultaUsuario.addActionListener(_ -> {
-    		ConsultaUsuario ventana = new ConsultaUsuario(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuUsuario.add(itemConsultaUsuario);
-    	
-    	//
-    	// CU :: AltaEspecialidad
-    	//
-    	JMenuItem itemAltaEspecialidad =
-    			new JMenuItem("Alta de Especialidad");
-    	
-    	itemAltaEspecialidad.addActionListener(_ -> {
-    		AltaEspecialidad ventana = new AltaEspecialidad(fabrica.getControladorUsuarios());
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuUsuario.add(itemAltaEspecialidad);
     }
-    
-    
-    // Menu BeneficioAnual
-    private void crearMenuBeneficioAnual (JMenuBar menuBar) {
-    	JMenu menuBeneficioAnual = new JMenu("Beneficio Anual");
-    	menuBar.add(menuBeneficioAnual);
-    	
-    	//
-    	// CU :: AltaBeneficio
-    	//
-    	JMenuItem itemAltaBeneficio =
-    			new JMenuItem("Alta de Beneficio");
-    	
-    	itemAltaBeneficio.addActionListener(_ -> {
-    		AltaBeneficio ventana = new AltaBeneficio(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuBeneficioAnual.add(itemAltaBeneficio);
-    	
-    	//
-    	// CU :: ConsultaBeneficio
-    	//
-    	JMenuItem itemConsultaBeneficio =
-    			new JMenuItem("Consulta de Beneficio");
-    	
-    	itemConsultaBeneficio.addActionListener(_ -> {
-    		ConsultaBeneficio ventana = new ConsultaBeneficio(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuBeneficioAnual.add(itemConsultaBeneficio);	
-    }
-    
-    
-    // Menu DiaConsulta
-    private void crearMenuDiaConsulta(JMenuBar menuBar) {
-    	JMenu menuDiaConsulta = new JMenu("Dia Consulta");
-    	menuBar.add(menuDiaConsulta);
-    	
-    	//
-    	// CU :: AltaDiaConsulta
-    	//
-    	JMenuItem itemAltaDiaConsulta =
-    			new JMenuItem("Alta de Dia de Consulta");
-    	
-    	itemAltaDiaConsulta.addActionListener(_ -> {
-    		AltaDiaConsulta ventana = new AltaDiaConsulta(fabrica.getControladorClinicas());
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuDiaConsulta.add(itemAltaDiaConsulta);
-    	
-    	//
-    	// CU :: ConsultaDiaConsulta
-    	//
-    	JMenuItem itemConsultaDiaConsulta =
-    			new JMenuItem("Consulta de Dia de Consulta");
-    	
-    	itemConsultaDiaConsulta.addActionListener(_ -> {
-    		ConsultaDiaConsulta ventana = new ConsultaDiaConsulta(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuDiaConsulta.add(itemConsultaDiaConsulta);    	
-    }
-    
-    
-    // Menu Consulta
-    private void crearMenuConsulta(JMenuBar menuBar) {
-    	JMenu menuConsulta = new JMenu("Consulta");
-    	menuBar.add(menuConsulta);
-    	
-    	//
-    	// CU :: AltaConsulta
-    	//
-    	JMenuItem itemAltaConsulta = new JMenuItem("Alta de Consulta");
-    	
-    	itemAltaConsulta.addActionListener(_ -> {
-    		AltaConsulta ventana = new AltaConsulta(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuConsulta.add(itemAltaConsulta);
-    	
-    	//
-    	// CU :: ConsultaConsulta
-    	//
-    	JMenuItem itemConsultaConsulta =
-    			new JMenuItem("Consulta de Consulta");
-    	
-    	itemConsultaConsulta.addActionListener(_ -> {
-    		ConsultaConsulta ventana = new ConsultaConsulta(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuConsulta.add(itemConsultaConsulta);
-    	
-    	//
-    	// CU :: ReservaConsulta
-    	//
-    	JMenuItem itemReservaConsulta =
-    			new JMenuItem("Reserva de Consulta");
-    	
-    	itemReservaConsulta.addActionListener(_ -> {
-    		ReservaConsulta ventana = new ReservaConsulta(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuConsulta.add(itemReservaConsulta);
-    	
-    	//
-    	// CU :: ConsultaReservaConsulta
-    	//
-    	JMenuItem itemConsultaReservaConsulta =
-    			new JMenuItem("Consulta de Reserva de Consulta");
-    	
-    	itemConsultaReservaConsulta.addActionListener(_ -> {
-    		ConsultaReservaConsulta ventana = new ConsultaReservaConsulta(fabrica.getControladorUsuarios(), fabrica.getControladorReservas());
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuConsulta.add(itemConsultaReservaConsulta);
-    }
-    
-    
-    // Menu Clinica
-    private void crearMenuClinica(JMenuBar menuBar) {
-    	JMenu menuClinica = new JMenu("Clinica");
-    	menuBar.add(menuClinica);
-    	
-    	//
-    	// CU :: AltaClinica
-    	//
-    	JMenuItem itemAltaClinica =
-    			new JMenuItem("Alta de Clinica");
-    	
-    	itemAltaClinica.addActionListener(_ -> {
-    		AltaClinica ventana = new AltaClinica(
-    				// Ingresar Controlador con Fabrica
-    				);
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuClinica.add(itemAltaClinica);
-    	
-    	//
-    	// CU :: ConsultaClinica
-    	//
-    	JMenuItem itemConsultaClinica =
-    			new JMenuItem("Consulta de Clinica");
-    	
-    	itemConsultaClinica.addActionListener(_ -> {
-    		ConsultaClinica ventana = new ConsultaClinica(fabrica.getControladorClinicas());
-    		desktopPane.add(ventana);
-    		ventana.setVisible(true);
-    	});
-    	
-    	menuClinica.add(itemConsultaClinica);
+
+    @FunctionalInterface
+    private interface CreadorVentana {
+        JInternalFrame crear();
     }
 }

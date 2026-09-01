@@ -1,44 +1,24 @@
 package manejadores;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import clases.DiaConsulta;
 
 public class ManejadorDiasConsulta {
+    private static final ManejadorDiasConsulta INSTANCIA = new ManejadorDiasConsulta();
+    private final Map<String, DiaConsulta> diasConsulta = new LinkedHashMap<>();
+    private ManejadorDiasConsulta() { }
 
-    private static ManejadorDiasConsulta instancia;
+    public static ManejadorDiasConsulta getInstancia() { return INSTANCIA; }
 
-    private Map<String, DiaConsulta> diasConsulta;
-
-    private ManejadorDiasConsulta() {
-        diasConsulta = new HashMap<>();
-    }
-
-    public static ManejadorDiasConsulta getInstancia() {
-        if (instancia == null) {
-            instancia = new ManejadorDiasConsulta();
-        }
-        return instancia;
-    }
-    
-    public boolean existeDiaConsulta(String nombreDiaConsulta) {
-	    return diasConsulta.containsKey(nombreDiaConsulta);
-	}
-    
-    public void agregarDiaConsulta(DiaConsulta diaConsulta) {
-        diasConsulta.put(diaConsulta.getNombre(), diaConsulta);
-    }
-
-    public DiaConsulta buscarDiaConsulta(String nombre) {
-        return diasConsulta.get(nombre);
-    }
-    
-    //puede ser util
-    public Set<DiaConsulta> obtenerDiasConsulta() {
-        return new HashSet<>(diasConsulta.values());
-    }
-    
+    public boolean existeDiaConsulta(String nombre) { return diasConsulta.containsKey(nombre); }
+    public void agregarDiaConsulta(DiaConsulta dia) { diasConsulta.put(dia.getNombre(), dia); }
+    public DiaConsulta buscarDiaConsulta(String nombre) { return diasConsulta.get(nombre); }
+    public Map<String, DiaConsulta> getDiasConsulta() {return Collections.unmodifiableMap(diasConsulta);}
+    public Set<DiaConsulta> obtenerDiasConsulta() {return new LinkedHashSet<>(diasConsulta.values());}
+    public void limpiar() { diasConsulta.clear(); }  
 }

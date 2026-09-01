@@ -1,46 +1,30 @@
 package interfaces;
 
 import java.util.Set;
+
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
-import datatypes.DTConsultaCompleta;
+import datatypes.DTConsultaSoloConsulta;
+import datatypes.DTDiaConsulta;
+import datatypes.DTDiaConsultaCompleto;
+import datatypes.DTFecha;
 import datatypes.DTUsuario;
 import enums.Dia;
 
 public interface IControladorClinicas {    
-	    
-	    // CU :: Consulta de Clinica
-	    public Set<String> listarClinicas();
-	    
-	    public DTClinica obtenerDatosClinica(String nombre);
-	    
-	    //consulta usuario
-	    public Set<DTConsulta> listarConsultas(DTUsuario u);
-	    
-	    //ALTA DE dia de consulta
-	    public Set<String> listarEspecialidades();
-	    
-	    public void altaDiaConsulta(
-	            String nombre,
-	            String descripcion,
-	            Dia diaSemana,
-	            int horaInicio,
-	            String especialidad,
-	            String clinica);
-	    
-	    //alta de clinica
-	    public void altaClinica(
-			String nombre, String descripcion, String direccion,
-			String sitioWeb, float costoMedicamento, float costoConsulta);
-	    
-	    //consulta de clinica
+	void altaClinica(String nombre, String descripcion, String direccion,String sitioWeb, float costoMedicamento, float costoConsulta);
+	Set<String> listarClinicas();
+    DTClinica obtenerDatosClinica(String nombre);
 
-	    //Consulta Día Consulta
-	    
-	    //Alta Consulta
-	    
-	    //Consulta Consulta
-	    public Set<DTConsultaCompleta> seleccionarDiaConsulta(String nombreDiaConsulta);
+    Set<String> listarEspecialidades();
 
-	public DTConsultaCompleta seleccionarConsulta(String nombreConsulta);
+    void altaDiaConsulta(String nombre, String descripcion, Dia diaSemana,int horaInicio, String especialidad, String clinica);
+    Set<DTDiaConsulta> listarDiasConsulta();
+    DTDiaConsultaCompleto obtenerDatosDiaConsulta(String nombre);
+	Set<DTConsultaSoloConsulta> listarConsultasDia(String nombreDiaConsulta); //devuelve todas las consultas asociadas a un dia de consulta 
+	Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta);
+
+    void altaConsulta(String nombre, DTFecha fecha, int numeroSala, int cantidadNumeros, String nombreDiaConsulta, String nicknameMedico);
+    Set<DTConsultaSoloConsulta> listarConsultas(DTUsuario usuario);
+    DTConsulta seleccionarConsulta(String nombreConsulta);
 }

@@ -1,55 +1,24 @@
 package manejadores;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import clases.Especialidad;
 
 public class ManejadorEspecialidades {
+    private static final ManejadorEspecialidades INSTANCIA = new ManejadorEspecialidades();
+    private final Map<String, Especialidad> especialidades = new LinkedHashMap<>();
+    private ManejadorEspecialidades() { }
 
-    private static ManejadorEspecialidades instancia;
+    public static ManejadorEspecialidades getInstancia() { return INSTANCIA; }
 
-    private Map<String, Especialidad> especialidades;
+    public Especialidad obtenerEspecialidad(String nombre) { return especialidades.get(nombre); }
+    public Set<Especialidad> listarEspecialidades() {return new LinkedHashSet<>(especialidades.values());}
+    public boolean existeEspecialidad(String nombre) { return especialidades.containsKey(nombre); }
+    public void altaEspecialidad(String nombre, int porcentaje) {agregarEspecialidad(new Especialidad(nombre, porcentaje));}
+    public void agregarEspecialidad(Especialidad especialidad) {especialidades.put(especialidad.getNombre(), especialidad);}
+    public void limpiar() { especialidades.clear(); }
 
-    private ManejadorEspecialidades() {
-        especialidades = new HashMap<>();
-    }
-
-    public static ManejadorEspecialidades getInstancia() {
-
-        if (instancia == null) {
-            instancia = new ManejadorEspecialidades();
-        }
-
-        return instancia;
-    }
-
-    public Especialidad obtenerEspecialidad(String nombre) {
-        return especialidades.get(nombre);
-    }
-    
-    public Set<Especialidad> listarEspecialidades() {
-    	return new HashSet<>(especialidades.values());
-    }
-    
-    // CU :: AltaEspecialidad
-    
-    public boolean existeEspecialidad(String nombre) {
-        return especialidades.containsKey(nombre);
-    }
-
-    public void altaEspecialidad(String nombre, int porcentajeAdicional) {
-    	Especialidad especialidad = new Especialidad(nombre, porcentajeAdicional);
-
-            especialidades.put(nombre, especialidad);
-    }
-
-    public void agregarEspecialidad(Especialidad especialidad) {
-        especialidades.put(
-            especialidad.getNombre(),
-            especialidad
-        );
-    }
 }

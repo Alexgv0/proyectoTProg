@@ -1,31 +1,35 @@
 package datatypes;
 
 public class DTUsuario {
-	private String nickname;
-	private String nombre;
-	private String apellido;
-	private String email;
+	private final String nickname;
+	private final String nombre;
+	private final String apellido;
+	private final String correo;
 	
-	public DTUsuario(String nickname, String nombre, String apellido, String email) {
+	public DTUsuario(String nickname, String nombre, String apellido, String correo) {
 		this.nickname = nickname;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.email = email;
+		this.correo = correo;
 	}
 	
-	public String getNickname() {
-		return nickname;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-	
-	public String getApellido() {
-		return apellido;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
+	public String getNickname() {return nickname;}
+	public String getNombre() {return nombre;}
+	public String getApellido() {return apellido;}
+	public String getCorreo() {return correo;}
+    public String getTipo() { return "Usuario"; }
+
+	 @Override
+    public String toString() { return nickname; }
+
+    /*@Override
+    public boolean equals(Object objeto) {
+        if (this == objeto) return true;
+        if (!(objeto instanceof DTUsuario)) return false;
+        return Objects.equals(nickname, ((DTUsuario) objeto).nickname);
+    }
+
+    @Override
+    public int hashCode() { return Objects.hash(nickname); }
+ */ 
 }

@@ -1,129 +1,87 @@
 package manejadores;
 
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
-import clases.Usuario;
 import clases.Medico;
 import clases.Paciente;
-import java.util.Set;
-//import java.util.HashSet;
-import datatypes.DTEspecialidad;
+import clases.Usuario;
 import datatypes.DTFecha;
-
+import datatypes.DTUsuario;
 
 public class ManejadorUsuarios {
+    private static final ManejadorUsuarios INSTANCIA = new ManejadorUsuarios();
+    
+    private final Map<String, Usuario> usuarios = new LinkedHashMap<>();
 
-    private static ManejadorUsuarios instancia;
+    private ManejadorUsuarios() { }
+    
+    public static ManejadorUsuarios getInstancia() { return INSTANCIA; }
 
-    private Map<String, Usuario> usuarios;
-    private Map<String, Paciente> pacientes;
-
-    private ManejadorUsuarios() {
-        usuarios = new HashMap<>();
-        pacientes = new HashMap<>();
-    }
-
-    public static ManejadorUsuarios getInstancia() {
-
-        if (instancia == null) {
-            instancia = new ManejadorUsuarios();
-        }
-
-        return instancia;
+    public boolean existeUsuario(String nickname) { return usuarios.containsKey(nickname); }
+    
+    public boolean existeCorreo(String correo) {
+        return usuarios.values().stream().anyMatch(u -> u.getCorreo().equalsIgnoreCase(correo));
     }
     
-    public boolean existeUsuario(String nickname) {
-    	return usuarios.containsKey(nickname);
-    }
-    
-    public boolean existeEmail(String email) {
-        for (Usuario usuario : usuarios.values()) {
-            if (usuario.getEmail().equals(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public Medico crearMedico(
-    		String nickname, 
-    		String nombre, 
-    		String apellido, 
-    		String email, 
-    		int registro, 
-    		String mesLicencia, 
-    		String sitioWeb, 
-    		Set<DTEspecialidad> especialidades, 
-    		int porcentajeConsultas) {
-    	Medico medico = new Medico(
-                nickname,
-                nombre,
-                apellido,
-                email,
-                registro,
-                mesLicencia,
-                sitioWeb,
-                especialidades,
-                porcentajeConsultas
-        );
-    	usuarios.put(nickname, medico);
-    	return medico;
-    }
-    
-    public Paciente crearPaciente(
-    		String nickname, 
-    		String nombre, 
-    		String apellido, 
-    		String email, 
-    		DTFecha fecNacimiento, 
-    		int documento, 
-    		DTFecha fechaIngreso, 
-    		Set<String> antecedentesMed) {
-    	Paciente paciente = new Paciente(
-                nickname,
-                nombre,
-                apellido,
-                email,
-                fecNacimiento,
-                documento,
-                fechaIngreso,
-                antecedentesMed
-        );
-    	usuarios.put(nickname, paciente);
-    	return paciente;
-    }
-    
+    public boolean existeEmail(String correo) { return existeCorreo(correo); }
+
     public void agregarUsuario(Usuario usuario) {
         usuarios.put(usuario.getNickname(), usuario);
     }
     
-    public void cancelarUsuario(Usuario u) {
-        usuarios.remove(u.getNickname());
+    public void cancelarUsuario(Usuario usuario) {
+        if (usuario != null) usuarios.remove(usuario.getNickname(), usuario);
     }
-
-    //operaciones q pueden ser utiles
-    public Usuario buscarUsuario(String nickname) {
-        return usuarios.get(nickname);
+    public Usuario buscarUsuario(String nickname) { return usuarios.get(nickname); }
+    
+    public Paciente obtenerPaciente(String nickname) {
+        Usuario usuario = usuarios.get(nickname);
+        return usuario instanceof Paciente ? (Paciente) usuario : null;
     }
     
-
-    public void eliminarUsuario(String nickname) {
-        usuarios.remove(nickname);
+    public Medico obtenerMedico(String nickname) {
+        Usuario usuario = usuarios.get(nickname);
+        return usuario instanceof Medico ? (Medico) usuario : null;
     }
-
+    
+    public Set<Paciente> obtenerPacientes() {
+        Set<Paciente> pacientes = new LinkedHashSet<>();
+        usuarios.values().stream().filter(Paciente.class::isInstance)
+                .map(Paciente.class::cast).forEach(pacientes::add);
+        return pacientes;
+    }
+    
+    public Set<Medico> obtenerMedicos() {
+        Set<Medico> medicos = new LinkedHashSet<>();
+        usuarios.values().stream().filter(Medico.class::isInstance)
+                .map(Medico.class::cast).forEach(medicos::add);
+        return medicos;
+    }
+    
+    public Set<DTUsuario> obtenerDatos() {
+        Set<DTUsuario> datos = new LinkedHashSet<>();
+        usuarios.values().stream().map(Usuario::getDatos).forEach(datos::add);
+        return datos;
+    }
+    
+    public DTUsuario obtenerDatosUsuario(String nickname) {
+        Usuario usuario = buscarUsuario(nickname);
+        return usuario == null ? null : usuario.getDatos();
+    }
+    
     public Map<String, Usuario> getUsuarios() {
-        return usuarios;
+        return Collections.unmodifiableMap(usuarios);
     }
 
-	public Map<String, Paciente> obtenerPacientes() {
-		return pacientes;//posible error
-	}
+    public Paciente crearPaciente(String nickname, String nombre, String apellido, String correo, DTFecha nacimiento, int documento, DTFecha ingreso, Set<String> antecedentes) {
+        return new Paciente(nickname, nombre, apellido, correo, nacimiento, documento, ingreso, antecedentes);
+    }
 
-	public Paciente obtenerPaciente(String nickPaciente) {
-		return pacientes.get(nickPaciente);
-	}
+    public void eliminarUsuario(String nickname) { usuarios.remove(nickname); }
     
-    //implementar funciones de los manejadores
-
+    public void limpiar() { usuarios.clear(); }
 }

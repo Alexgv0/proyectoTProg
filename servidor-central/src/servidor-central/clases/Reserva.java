@@ -1,83 +1,67 @@
 package clases;
 
+import java.time.LocalDate;
+import java.time.Period;
+import datatypes.DTReservaConsulta;
+import datatypes.DTFecha;
 import datatypes.DTFecha;
 import datatypes.DTReserva;
 
-public class Reserva{
-	private Consulta consulta;
-	private Paciente paciente;
-	private BeneficioAnual beneficio;
-	
-	private DTFecha fecha;
-	private int numeroCliente;
-	private float costoReserva;
-	
-	public Reserva(
-			DTFecha fecha, 
-			int numCli, 
-			float costoRes, 
-			Consulta consulta, 
-			Paciente paciente, 
-			BeneficioAnual beneficio
-			) {
-		this.setFecha(fecha);
-		this.setNumeroCliente(numCli);
-		this.setCostoReserva(costoRes);
-		this.setConsulta(consulta); 
-		this.setPaciente(paciente); 
-		this.setBeneficio(beneficio);
-	}
+public class Reserva {
+    private final Consulta consulta;
+    private final Paciente paciente;
+    private final BeneficioAnual beneficio;
+    private final DTFecha fecha;
+    private final int numeroCliente;
+    private final float costoReserva;
 
-	public Consulta getConsulta() {
-		return consulta;
-	}
+    public Reserva(DTFecha fecha, Consulta consulta, Paciente paciente) {
+        this(fecha, consulta, paciente, null);
+    }
 
-	public void setConsulta(Consulta consulta) {
-		this.consulta = consulta;
-	}
+    public Reserva(DTFecha fecha, Consulta consulta, Paciente paciente,
+            BeneficioAnual beneficio) {
+        this.fecha = fecha;
+        this.consulta = consulta;
+        this.paciente = paciente;
+        this.beneficio = beneficio;
+        this.numeroCliente = consulta.obtenerMenorNumeroDisponible();
+        this.costoReserva = calcularCostoReserva();
+        if (beneficio != null) beneficio.consumirConsultaGratis();
+    }
 
-	public Paciente getPaciente() {
-		return paciente;
-	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
+    private float calcularCostoReserva() {
+        if (beneficio != null) {
+            return 0f;
+        }
 
-	public BeneficioAnual getBeneficio() {
-		return beneficio;
-	}
+        int edad = Period.between(paciente.getFecNacimiento().toLocalDate(), fecha.toLocalDate()).getYears();
 
-	public void setBeneficio(BeneficioAnual beneficio) {
-		this.beneficio = beneficio;
-	}
+        if (edad > 60) {
+            return consulta.getCostoConsulta() * 0.80f;
+        }
 
-	public DTFecha getFecha() {
-		return fecha;
-	}
+        return consulta.getCostoConsulta();
+    }
 
-	public void setFecha(DTFecha fecha) {
-		this.fecha = fecha;
-	}
-
-	public int getNumeroCliente() {
-		return numeroCliente;
-	}
-
-	public void setNumeroCliente(int numeroCliente) {
-		this.numeroCliente = numeroCliente;
-	}
-
-	public float getCostoReserva() {
-		return costoReserva;
-	}
-
-	public void setCostoReserva(float costoReserva) {
-		this.costoReserva = costoReserva;
-	}
-
-	public DTReserva crearDTReserva() {
-		return new DTReserva(fecha, numeroCliente, costoReserva);
-	}
-	
+    public Consulta getConsulta() { return consulta; }
+    
+    public Paciente getPaciente() { return paciente; }
+    
+    public BeneficioAnual getBeneficio() { return beneficio; }
+    
+    public DTFecha getFecha() { return fecha; }
+    
+    public int getNumeroCliente() { return numeroCliente; }
+    
+    public float getCostoReserva() { return costoReserva; }
+    
+    public DTReserva crearDTReserva() {
+        return new DTReserva(paciente.getNickname(), fecha, numeroCliente, costoReserva);
+    }
+    
+    public DTReservaConsulta getDatosReservaConsulta() {
+        return new DTReservaConsulta(consulta.getNombre(), paciente.getNickname(), fecha, numeroCliente, costoReserva);
+    }
 }

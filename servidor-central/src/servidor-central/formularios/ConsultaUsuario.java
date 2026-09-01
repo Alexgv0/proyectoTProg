@@ -1,48 +1,99 @@
 package formularios;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 
-public class ConsultaUsuario extends JInternalFrame {
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
 
+import datatypes.DTConsultaSoloConsulta;
+import datatypes.DTMedico;
+import datatypes.DTPaciente;
+import datatypes.DTReservaConsulta;
+import datatypes.DTUsuario;
+import interfaces.IControladorClinicas;
+import interfaces.IControladorReservas;
+import interfaces.IControladorUsuarios;
+
+public class ConsultaUsuario extends FormularioBase {
     private static final long serialVersionUID = 1L;
 
-    private JList<String> listaUsuarios;
+    public ConsultaUsuario(IControladorUsuarios usuarios, IControladorClinicas clinicas,
+            IControladorReservas reservas) {
+        super("Consulta de Usuario", 800, 500);
+        JComboBox<String> selector = new JComboBox<>();
+        recargar(selector, usuarios.listarUsuarios().stream()
+                .map(DTUsuario::getNickname).toList());
+        JTextArea detalleUsuario = new JTextArea();
+        detalleUsuario.setEditable(false);
+        DefaultListModel<String> modeloAsociados = new DefaultListModel<>();
+        JList<String> asociados = new JList<>(modeloAsociados);
+        JTextArea detalleAsociado = new JTextArea();
+        detalleAsociado.setEditable(false);
+        final DTUsuario[] usuarioActual = new DTUsuario[1];
 
-    public ConsultaUsuario() {
+        selector.addActionListener(e -> ejecutarSeguro(() -> {
+            if (selector.getSelectedItem() == null) return;
+            DTUsuario usuario = usuarios.seleccionarUsuario(
+                    selector.getSelectedItem().toString());
+            usuarioActual[0] = usuario;
+            detalleUsuario.setText(Formato.usuario(usuario));
+            modeloAsociados.clear();
+            if (usuario instanceof DTMedico) {
+                clinicas.listarConsultas(usuario).stream()
+                        .map(DTConsultaSoloConsulta::getNombreConsulta).sorted()
+                        .forEach(modeloAsociados::addElement);
+            } else if (usuario instanceof DTPaciente) {
+                reservas.listarReservasConsultas(usuario.getNickname()).stream()
+                        .map(DTReservaConsulta::getNombreConsulta).sorted()
+                        .forEach(modeloAsociados::addElement);
+            }
+            detalleAsociado.setText("");
+        }));
+        asociados.addListSelectionListener(e -> {
+            if (e.getValueIsAdjusting() || asociados.getSelectedValue() == null
+                    || usuarioActual[0] == null) return;
+            ejecutarSeguro(() -> {
+                if (usuarioActual[0] instanceof DTMedico) {
+                    detalleAsociado.setText(Formato.consulta(
+                            clinicas.seleccionarConsulta(asociados.getSelectedValue())));
+                } else {
+                    detalleAsociado.setText(Formato.reserva(
+                            reservas.seleccionarReservaConsulta(
+                                    usuarioActual[0].getNickname(),
+                                    asociados.getSelectedValue())));
+                }
+            });
+        });
 
-        setTitle("Consulta de Usuario");
-        setSize(400, 300);
-        setClosable(true);
-        setMaximizable(true);
-        setIconifiable(true);
-        setResizable(true);
-
-        // Título
-        JLabel lblUsuarios = new JLabel("Seleccione un usuario:");
-
-        // Lista de usuarios
-        String[] usuarios = {
-            "u1",
-            "u2",
-            "u3"
-        };
-
-        listaUsuarios = new JList<>(usuarios);
-
-        // Scroll para la lista
-        JScrollPane scrollUsuarios = new JScrollPane(listaUsuarios);
-
-        // Panel principal
-        JPanel panel = new JPanel(new BorderLayout());
-
-        panel.add(lblUsuarios, BorderLayout.NORTH);
-        panel.add(scrollUsuarios, BorderLayout.CENTER);
-
-        add(panel);
+        javax.swing.JPanel superior = new javax.swing.JPanel(new BorderLayout(8, 8));
+        superior.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 4, 8));
+        superior.add(new javax.swing.JLabel("Usuario:"), BorderLayout.WEST);
+        superior.add(selector, BorderLayout.CENTER);
+        getContentPane().add(superior, BorderLayout.NORTH);
+        JScrollPane scrollAsociados = new JScrollPane(asociados);
+        scrollAsociados.setBorder(javax.swing.BorderFactory.createTitledBorder(
+                "Consultas / reservas"));
+        JScrollPane scrollDetalleAsociado = new JScrollPane(detalleAsociado);
+        scrollDetalleAsociado.setBorder(javax.swing.BorderFactory.createTitledBorder(
+                "Detalle seleccionado"));
+        JScrollPane scrollUsuario = new JScrollPane(detalleUsuario);
+        scrollUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(
+                "Datos del usuario"));
+        JSplitPane asociadosYDetalle = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+                scrollAsociados, scrollDetalleAsociado);
+        asociadosYDetalle.setResizeWeight(0.45);
+        JSplitPane centro = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+                scrollUsuario, asociadosYDetalle);
+        centro.setResizeWeight(0.5);
+        ocuparCentro(centro);
+        getContentPane().add(crearBotones(this::dispose), BorderLayout.SOUTH);
+        if (selector.getItemCount() > 0) {
+            selector.setSelectedIndex(-1);
+            selector.setSelectedIndex(0);
+        }
     }
 }

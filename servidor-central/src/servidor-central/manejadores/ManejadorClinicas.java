@@ -1,45 +1,35 @@
 package manejadores;
 
-import java.util.HashSet;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 import clases.Clinica;
 
 public class ManejadorClinicas {
-	private static ManejadorClinicas instancia;
-	
-	private Map<String, Clinica> clinicas;
-	
-	private ManejadorClinicas() {
-		clinicas = new HashMap<>();
-	};
-	
-	public static ManejadorClinicas getInstancia() {
-		if (instancia == null) instancia = new ManejadorClinicas();
-		return instancia;
-	}
-	
-	public Map<String, Clinica> getClinicas() {
-		return this.clinicas;
-	}
+    private static final ManejadorClinicas instancia = new ManejadorClinicas();
+    private final Map<String, Clinica> clinicas =new LinkedHashMap<>();
+    private ManejadorClinicas() {}
 
-	public Set<Clinica> listarClinicas() {
-		return new HashSet<>(clinicas.values());
-	}
-
-	public Clinica obtenerClinica(String nombre) {
-		return clinicas.get(nombre);
-	}
-	
-	//PUEDE SER UTIL
-	public void agregarClinica(Clinica clinica) {
-        clinicas.put(clinica.getNombre(), clinica);
+    public static ManejadorClinicas getInstancia() {
+        return instancia;
     }
 
-	public Map<String, Clinica> obtenerClinicas() {
-		return this.clinicas;
-	}
 
+	public Set<Clinica> listarClinicas() {
+        return new LinkedHashSet<>(clinicas.values());}
+
+    public Clinica obtenerClinica(String nombre) {
+        return clinicas.get(nombre);}
+
+    public void agregarClinica(Clinica clinica) {
+        clinicas.put(clinica.getNombre(), clinica);}
+
+    public Map<String, Clinica> getClinicas() {
+        return Collections.unmodifiableMap(clinicas);}
+
+    public void limpiar() {
+        clinicas.clear();}
 }
