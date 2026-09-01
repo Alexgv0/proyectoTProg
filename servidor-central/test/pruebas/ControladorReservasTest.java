@@ -151,5 +151,125 @@ public class ControladorReservasTest {
 	    assertEquals(nickPaciente, res.getNickPaciente());
 	    assertEquals(nombreConsulta, res.getNombreConsulta());
 	}
+	
+	@Test
+	void testListarReservasConsultasPacienteInexistente() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.listarReservasConsultas("pacienteInexistente")
+	    );
+
+	    assertEquals("El paciente no existe.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testSeleccionarReservaConsultaPacienteInexistente() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.seleccionarReservaConsulta(
+	            "pacienteInexistente",
+	            "Cardiología 240826"
+	        )
+	    );
+
+	    assertEquals("El paciente no existe.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testSeleccionarReservaConsultaReservaInexistente() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.seleccionarReservaConsulta(
+	            "lgomez",
+	            "ReservaInexistente"
+	        )
+	    );
+
+	    assertEquals("La reserva no existe.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testAltaReservaConsultaPacienteInexistente() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.altaReservaConsulta(
+	            "pacienteInexistente",
+	            "Cardiología 240826",
+	            new DTFecha(24, 8, 2026)
+	        )
+	    );
+
+	    assertEquals("El paciente no existe.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testAltaReservaConsultaConsultaInexistente() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.altaReservaConsulta(
+	            "lgomez",
+	            "ConsultaInexistente",
+	            new DTFecha(24, 8, 2026)
+	        )
+	    );
+
+	    assertEquals("La consulta no existe.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testAltaReservaConsultaFechaNula() {
+
+	    IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.altaReservaConsulta(
+	            "lgomez",
+	            "Cardiología 240826",
+	            null
+	        )
+	    );
+
+	    assertEquals("La fecha de reserva es obligatoria.", excepcion.getMessage());
+	}
+	
+	@Test
+	void testAltaReservaConsultaReservaDuplicada() {
+
+	    IllegalStateException excepcion = assertThrows(
+	        IllegalStateException.class,
+	        () -> controlador.altaReservaConsulta(
+	            "lgomez",
+	            "Cardiología 240826",
+	            new DTFecha(24, 8, 2026)
+	        )
+	    );
+
+	    assertEquals(
+	        "El paciente ya tiene una reserva para esta consulta.",
+	        excepcion.getMessage()
+	    );
+	}
+	
+	@Test
+	void testAltaReservaConsultaConsultaCompleta() {
+
+	    IllegalStateException excepcion = assertThrows(
+	        IllegalStateException.class,
+	        () -> controlador.altaReservaConsulta(
+	            "s.lopez",
+	            "NOMBRE_DE_CONSULTA_COMPLETA",
+	            new DTFecha(8, 9, 2026)
+	        )
+	    );
+
+	    assertEquals(
+	        "La consulta no tiene numeros disponibles.",
+	        excepcion.getMessage()
+	    );
+	}
 
 }
