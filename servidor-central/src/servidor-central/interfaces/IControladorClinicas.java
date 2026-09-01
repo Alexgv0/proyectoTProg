@@ -3,6 +3,7 @@ package interfaces;
 import java.util.Set;
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
+import datatypes.DTConsultaCompleta;
 import datatypes.DTUsuario;
 import enums.Dia;
 
@@ -39,7 +40,7 @@ public interface IControladorClinicas {
 	    //Alta Consulta
 	    
 	    //Consulta Consulta
-	    public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta);
+	    public Set<DTConsultaCompleta> seleccionarDiaConsulta(String nombreDiaConsulta);
 
-	public DTConsulta seleccionarConsulta(String nombreConsulta);
+	public DTConsultaCompleta seleccionarConsulta(String nombreConsulta);
 }

@@ -1,7 +1,6 @@
 package datatypes;
 
 public class DTReserva {
-
 	private DTFecha fecha;
 	private int numeroCliente;
 	private float costoReserva;
@@ -12,15 +11,7 @@ public class DTReserva {
 		this.costoReserva = costoRes;
 	}
 
-	public DTFecha getFecha() { 
-		return this.fecha; 
-		}
-
-	public int getNumeroCliente() { 
-		return this.numeroCliente; 
-		}
-
-	public float getCostoReserva() { 
-		return this.costoReserva; 
-		}
+	public DTFecha getFecha() { return this.fecha; }
+	public int getNumeroCliente() { return this.numeroCliente; }
+	public float getCostoReserva() { return this.costoReserva; }
 }

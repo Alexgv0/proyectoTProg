@@ -14,6 +14,7 @@ import clases.DiaConsulta;
 import clases.Especialidad;
 import datatypes.DTClinica;
 import datatypes.DTConsulta;
+import datatypes.DTConsultaCompleta;
 import datatypes.DTUsuario;
 import enums.Dia;
 
@@ -144,16 +145,25 @@ public class ControladorClinicas implements IControladorClinicas {
     //Alta Consulta
     
     //Consulta Consulta
-    public Set<DTConsulta> seleccionarDiaConsulta(String nombreDiaConsulta) {
+    public Set<DTConsultaCompleta> seleccionarDiaConsulta(String nombreDiaConsulta) {
 		DiaConsulta dc = mdc.buscarDiaConsulta(nombreDiaConsulta);
-		Set<DTConsulta> res = new HashSet<>();
+		Set<DTConsultaCompleta> res = new HashSet<>();
 		for (Consulta c : dc.getConsultas().values()) {
 			res.add(c.getDatosConsulta());
 		}
 		return res;
 	}
 
-	public DTConsulta seleccionarConsulta(String nombreConsulta) {
+    public Set<String> listarDiasConsulta() {
+        Set<DiaConsulta> dias = mdc.obtenerDiasConsulta();
+        Set<String> res = new HashSet<>();
+        for (DiaConsulta d : dias) {
+            res.add(d.getNombre());
+        }
+        return res;
+    }
+
+	public DTConsultaCompleta seleccionarConsulta(String nombreConsulta) {
 		Consulta c = mcons.buscarConsulta(nombreConsulta);
 		return c.getDatosConsulta();
 	}

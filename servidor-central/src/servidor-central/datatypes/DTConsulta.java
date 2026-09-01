@@ -15,23 +15,13 @@ public class DTConsulta {
 		this.costo = costo; //TODO:
 	}
 
-	public String getNombreConsulta() { 
-		return nombreConsulta; 
-	}
+	public String getNombreConsulta() { return nombreConsulta; }
 
-	public DTFecha getFecha() { 
-		return fecha; 
-	}
+	public DTFecha getFecha() { return fecha; }
 
-	public int getNroSala() { 
-		return nroSala; 
-	}
+	public int getNroSala() { return nroSala; }
 
-	public int getCantidadNumeros() { 
-		return cantidadNumeros; 
-	}
+	public int getCantidadNumeros() { return cantidadNumeros; }
 
-	public float getCosto() { 
-		return costo; 
-	}
+	public float getCosto() { return costo; }
 }
