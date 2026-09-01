@@ -6,6 +6,7 @@ import javax.swing.JComboBox;
 
 import datatypes.DTFecha;
 
+// TODO: Ver si es necesario
 public class UtilidadesSwing {
 	private UtilidadesSwing() {
 		
