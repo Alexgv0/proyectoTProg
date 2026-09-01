@@ -19,7 +19,7 @@ public class ConsultaClinica extends FormularioBase {
         detalle.setEditable(false);
         detalle.setLineWrap(true);
         detalle.setWrapStyleWord(true);
-        clinicas.addActionListener(_ -> ejecutarSeguro(() -> {
+        clinicas.addActionListener(evento -> ejecutarSeguro(() -> {
             if (clinicas.getSelectedItem() != null) {
                 detalle.setText(Formato.clinica(controlador.obtenerDatosClinica(
                         clinicas.getSelectedItem().toString())));

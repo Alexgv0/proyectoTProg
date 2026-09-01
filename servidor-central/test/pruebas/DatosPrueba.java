@@ -15,6 +15,11 @@ import fabrica.Fabrica;
 import interfaces.IControladorClinicas;
 import interfaces.IControladorReservas;
 import interfaces.IControladorUsuarios;
+import manejadores.ManejadorClinicas;
+import manejadores.ManejadorConsultas;
+import manejadores.ManejadorDiasConsulta;
+import manejadores.ManejadorEspecialidades;
+import manejadores.ManejadorUsuarios;
 
 public class DatosPrueba {
 
@@ -675,7 +680,31 @@ public class DatosPrueba {
         }
     }
 
+    /**
+     * Los Manejadores son singletons compartidos por todo el proceso, y las
+     * tres clases de test (ControladorClinicasTest, ControladorReservasTest,
+     * ControladorUsuariosTest) llaman cada una a cargarTodosLosDatos() en su
+     * propio @BeforeAll. Si se corren juntas en la misma corrida de JUnit,
+     * la segunda y la tercera intentan volver a dar de alta los mismos
+     * nicknames/nombres ya cargados por la primera y explotan con
+     * "ya existe/ya está en uso". Por eso se limpia todo antes de recargar.
+     */
+    private static void limpiarTodo() {
+        ManejadorUsuarios.getInstancia().limpiar();
+        ManejadorClinicas.getInstancia().limpiar();
+        ManejadorDiasConsulta.getInstancia().limpiar();
+        ManejadorConsultas.getInstancia().limpiar();
+        ManejadorEspecialidades.getInstancia().limpiar();
+
+        usuarios.clear();
+        clinicasPorRef.clear();
+        diasConsultaPorRef.clear();
+        consultasPorRef.clear();
+    }
+
     public static void cargarTodosLosDatos() {
+
+        limpiarTodo();
 
         cargarEspecialidades();
         cargarUsuarios();

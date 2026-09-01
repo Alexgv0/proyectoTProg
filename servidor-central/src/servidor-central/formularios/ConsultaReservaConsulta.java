@@ -25,7 +25,7 @@ public class ConsultaReservaConsulta extends FormularioBase {
         JList<String> lista = new JList<>(modelo);
         JTextArea detalle = new JTextArea();
         detalle.setEditable(false);
-        pacientes.addActionListener(_ -> ejecutarSeguro(() -> {
+        pacientes.addActionListener(evento -> ejecutarSeguro(() -> {
             modelo.clear();
             if (pacientes.getSelectedItem() != null) {
                 reservas.listarReservasConsultas(pacientes.getSelectedItem().toString())

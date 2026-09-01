@@ -94,7 +94,7 @@ public class VentanaPrincipal extends JFrame {
 
     private void agregar(JMenu menu, String texto, CreadorVentana creador) {
         JMenuItem item = new JMenuItem(texto);
-        item.addActionListener(_ -> abrir(creador.crear()));
+        item.addActionListener(evento -> abrir(creador.crear()));
         menu.add(item);
     }
 

@@ -63,8 +63,8 @@ abstract class FormularioBase extends JInternalFrame {
         JPanel panel = new JPanel();
         JButton botonAceptar = new JButton("Aceptar");
         JButton botonCancelar = new JButton("Cancelar");
-        botonAceptar.addActionListener(_ -> ejecutarSeguro(aceptar));
-        botonCancelar.addActionListener(_ -> dispose());
+        botonAceptar.addActionListener(evento -> ejecutarSeguro(aceptar));
+        botonCancelar.addActionListener(evento -> dispose());
         panel.add(botonAceptar);
         panel.add(botonCancelar);
         return panel;

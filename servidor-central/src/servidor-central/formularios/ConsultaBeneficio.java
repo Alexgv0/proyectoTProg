@@ -23,7 +23,7 @@ public class ConsultaBeneficio extends FormularioBase {
         JList<String> beneficios = new JList<>(modelo);
         JTextArea detalle = new JTextArea();
         detalle.setEditable(false);
-        pacientes.addActionListener(_ -> ejecutarSeguro(() -> {
+        pacientes.addActionListener(evento -> ejecutarSeguro(() -> {
             modelo.clear();
             if (pacientes.getSelectedItem() != null) {
                 controlador.listarBeneficiosAnuales(pacientes.getSelectedItem().toString()).stream().map(DTBeneficioAnual::getAnio).sorted().map(String::valueOf).forEach(modelo::addElement);

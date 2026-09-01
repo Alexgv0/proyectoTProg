@@ -29,7 +29,7 @@ public class ConsultaDiaConsulta extends FormularioBase {
         JTextArea detalleConsulta = new JTextArea();
         detalleConsulta.setEditable(false);
 
-        dias.addActionListener(_ -> ejecutarSeguro(() -> {
+        dias.addActionListener(evento -> ejecutarSeguro(() -> {
             if (dias.getSelectedItem() == null) return;
             DTDiaConsultaCompleto dato = controlador.obtenerDatosDiaConsulta(
                     dias.getSelectedItem().toString());
