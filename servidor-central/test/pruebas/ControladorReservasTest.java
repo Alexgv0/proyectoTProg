@@ -257,12 +257,12 @@ public class ControladorReservasTest {
 	
 	@Test
 	void testAltaReservaConsultaConsultaCompleta() {
-
+		
 	    IllegalStateException excepcion = assertThrows(
 	        IllegalStateException.class,
 	        () -> controlador.altaReservaConsulta(
-	            "s.lopez",
-	            "NOMBRE_DE_CONSULTA_COMPLETA",
+	            "mar.fernandez",
+	            "Pediatría 080926",
 	            new DTFecha(8, 9, 2026)
 	        )
 	    );
