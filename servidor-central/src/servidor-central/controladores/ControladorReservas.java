@@ -61,7 +61,23 @@ public class ControladorReservas implements IControladorReservas {
         if (fechaReserva == null) throw new IllegalArgumentException("La fecha de reserva es obligatoria.");
         
         if (consulta.tieneReservaPaciente(paciente)) throw new IllegalStateException("El paciente ya tiene una reserva para esta consulta.");
+        
         if (consulta.estaCompleta()) throw new IllegalStateException("La consulta no tiene numeros disponibles.");
+        
+        boolean consultaIgualFechaHora = paciente.listarReservas().stream().anyMatch(r -> {
+            Consulta consultaReservada = mc.buscarConsulta(r.getNombreConsulta());
+
+            return consultaReservada.getFecha().equals(fechaReserva)
+                && consultaReservada.getDiaConsulta().getHoraInicio()
+                    == consulta.getDiaConsulta().getHoraInicio();
+        });
+
+        if (consultaIgualFechaHora) {
+            throw new IllegalArgumentException(
+                "El paciente ya tiene una reserva para esa fecha y hora."
+            );
+        }
+        
         BeneficioAnual beneficio = paciente.obtenerBeneficioConsultaDisponible(fechaReserva.getAnio());
         Reserva reserva = new Reserva(fechaReserva, consulta, paciente, beneficio);
         consulta.agregarReserva(reserva);
