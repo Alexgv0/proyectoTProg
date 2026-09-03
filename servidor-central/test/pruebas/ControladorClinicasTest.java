@@ -218,8 +218,7 @@ public class ControladorClinicasTest {
                         "ana.perez@tuclinica.com"
                 );
 
-        Set<DTConsultaSoloConsulta> consultas =
-                controladorClinicas.listarConsultas(usuario);
+        Set<DTConsultaSoloConsulta> consultas = controladorClinicas.listarConsultas(usuario);
 
         assertNotNull(consultas);
     }
@@ -343,7 +342,7 @@ public class ControladorClinicasTest {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
-                "ClinicaExistente",
+                "CASMU",
                 "Descripcion",
                 "Direccion",
                 "https://sitio.com",
@@ -367,8 +366,8 @@ public class ControladorClinicasTest {
                 "Descripcion",
                 Dia.LUNES,
                 10,
-                "Cardiologia",
-                "ClinicaExistente"
+                "Medicina General",
+                "CASMU"
             )
         );
     }
@@ -383,7 +382,7 @@ public class ControladorClinicasTest {
                 Dia.LUNES,
                 10,
                 "Cardiologia",
-                "ClinicaExistente"
+                "Hospital Británico"
             )
         );
     }
@@ -397,8 +396,8 @@ public class ControladorClinicasTest {
                 "Descripcion",
                 null,
                 10,
-                "Cardiologia",
-                "ClinicaExistente"
+                "Medicina General",
+                "CASMU"
             )
         );
 
@@ -417,8 +416,8 @@ public class ControladorClinicasTest {
                 "Descripcion",
                 Dia.LUNES,
                 24,
-                "Cardiologia",
-                "ClinicaExistente"
+                "Cardiología",
+                "Hospital Británico"
             )
         );
 
@@ -433,12 +432,12 @@ public class ControladorClinicasTest {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaDiaConsulta(
-                "DiaConsultaExistente",
+                "Cardiología - Lunes",
                 "Descripcion",
                 Dia.LUNES,
                 10,
                 "Cardiologia",
-                "ClinicaExistente"
+                "fsdf Británico"
             )
         );
 
@@ -458,7 +457,7 @@ public class ControladorClinicasTest {
                 Dia.LUNES,
                 10,
                 "Cardiologia",
-                "ClinicaInexistente"
+                "Hospital de Clinicas"
             )
         );
 
@@ -477,8 +476,8 @@ public class ControladorClinicasTest {
                 "Descripcion",
                 Dia.LUNES,
                 10,
-                "EspecialidadInexistente",
-                "ClinicaExistente"
+                "Ingeniero",
+                "Hospital Británico"
             )
         );
 
@@ -510,8 +509,8 @@ public class ControladorClinicasTest {
                 new DTFecha(24, 8, 2026),
                 1,
                 10,
-                "DiaConsultaExistente",
-                "medicoExistente"
+                "Cardiología - Lunes",
+                "bsilva"
             )
         );
     }
@@ -571,12 +570,12 @@ public class ControladorClinicasTest {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaConsulta(
-                "ConsultaExistente",
-                new DTFecha(24, 8, 2026),
+                "Cardiología 240826",
+                new DTFecha(3, 9, 2026),
                 1,
                 10,
-                "DiaConsultaExistente",
-                "medicoExistente"
+                "Cardiología - Jueves",
+                "carla.rodriguez"
             )
         );
 
@@ -615,8 +614,8 @@ public class ControladorClinicasTest {
                 new DTFecha(24, 8, 2026),
                 1,
                 10,
-                "DiaConsultaExistente",
-                "medicoInexistente"
+                "Medicina General Central - Miércoles",
+                "not.medico"
             )
         );
 
@@ -635,8 +634,8 @@ public class ControladorClinicasTest {
                 new DTFecha(24, 8, 2026),
                 1,
                 10,
-                "DiaConsultaExistente",
-                "medicoSinEspecialidad"
+                "Medicina General Central - Miércoles",
+                "bsilva"
             )
         );
 
@@ -655,8 +654,8 @@ public class ControladorClinicasTest {
                 new DTFecha(25, 8, 2026),
                 1,
                 10,
-                "DiaConsultaExistente",
-                "medicoExistente"
+                "Cardiología - Lunes",
+                "ana.perez"
             )
         );
 
