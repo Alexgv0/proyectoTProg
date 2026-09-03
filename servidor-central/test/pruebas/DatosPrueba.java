@@ -44,14 +44,15 @@ public class DatosPrueba {
     private static final Map<String, String> diasConsultaPorRef = new HashMap<>();
     private static final Map<String, String> consultasPorRef = new HashMap<>();
 
-
+    private static final Map<String, String[]> especialidades = new HashMap<>();
+    
     public static void cargarEspecialidades() {
 
         String ruta = RUTA_CSV + "2026Especialidades.csv";
 
         try (BufferedReader br = new BufferedReader(new FileReader(ruta))) {
 
-            br.readLine(); // encabezado
+            br.readLine();
 
             String linea;
 
@@ -65,12 +66,21 @@ public class DatosPrueba {
 
                 String[] datos = linea.split(";");
 
+                String ref = datos[0];
                 String nombre = datos[1];
-                int porcentaje = Integer.parseInt(datos[2]);
+                String porcentaje = datos[2];
 
                 controladorUsuarios.ingresarDatosAltaEspecialidad(
                         nombre,
-                        porcentaje
+                        Integer.parseInt(porcentaje)
+                );
+
+                especialidades.put(
+                        ref,
+                        new String[]{
+                                nombre,
+                                porcentaje
+                        }
                 );
             }
 
@@ -81,6 +91,10 @@ public class DatosPrueba {
                     e
             );
         }
+    }
+    
+    public static String[] obtenerEspecialidadPorRef(String ref) {
+        return especialidades.get(ref);
     }
 
     /**
@@ -134,6 +148,10 @@ public class DatosPrueba {
         }
     }
 
+    public static String[] obtenerUsuarioPorRef(String ref) {
+    	return usuarios.get(ref);
+    }
+    
     /**
      * Carga los pacientes oficiales.
      */
