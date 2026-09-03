@@ -46,10 +46,13 @@ public class Paciente extends Usuario {
 
     public DTFecha getFecNacimiento() { return fecNacimiento; }
     public void setFecNacimiento(DTFecha fecha) { this.fecNacimiento = fecha; }
+    
     public DTFecha getFechaIngreso() { return fechaIngreso; }
     public void setFechaIngreso(DTFecha fecha) { this.fechaIngreso = fecha; }
+    
     public int getDocumento() { return documento; }
     public void setDocumento(int documento) { this.documento = documento; }
+    
     public Set<String> getAntecedentesMed() {
         return Collections.unmodifiableSet(antecedentesMed);
     }
@@ -57,15 +60,15 @@ public class Paciente extends Usuario {
         this.antecedentesMed = new LinkedHashSet<>(antecedentes);
     }
 
+    public Set<DTBeneficioAnual> listarBeneficios() {
+    	return beneficios.values().stream().map(BeneficioAnual::getDatos)
+    			.collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+    public BeneficioAnual obtenerBeneficio(int anio) { return beneficios.get(anio); }
     public void agregarBeneficio(BeneficioAnual beneficio) {
         beneficios.put(beneficio.getAnio(), beneficio);
     }
     public boolean tieneBeneficio(int anio) { return beneficios.containsKey(anio); }
-    public BeneficioAnual obtenerBeneficio(int anio) { return beneficios.get(anio); }
-    public Set<DTBeneficioAnual> listarBeneficios() {
-        return beneficios.values().stream().map(BeneficioAnual::getDatos)
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-    }
     public BeneficioAnual obtenerBeneficioConsultaDisponible(int anioActual) {
         return beneficios.values().stream()
                 .filter(b -> b.getAnio() <= anioActual && b.getConsultasGratis() > 0)

@@ -9,7 +9,6 @@ import java.util.Set;
 import clases.Medico;
 import clases.Paciente;
 import clases.Usuario;
-import datatypes.DTFecha;
 import datatypes.DTUsuario;
 
 public class ManejadorUsuarios {
@@ -75,12 +74,6 @@ public class ManejadorUsuarios {
     
     public Map<String, Usuario> getUsuarios() {
         return Collections.unmodifiableMap(usuarios);
-    }
-
-    public Paciente crearPaciente(String nickname, String nombre, String apellido, String correo, DTFecha nacimiento, int documento, DTFecha ingreso, Set<String> antecedentes) {
-        Paciente paciente = new Paciente(nickname, nombre, apellido, correo, nacimiento, documento, ingreso, antecedentes);
-        agregarUsuario(paciente);
-        return paciente;
     }
 
     public void eliminarUsuario(String nickname) { usuarios.remove(nickname); }

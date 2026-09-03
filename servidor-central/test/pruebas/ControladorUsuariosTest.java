@@ -13,6 +13,7 @@ import java.util.Set;
 import datatypes.DTEspecialidad;
 import datatypes.DTFecha;
 import datatypes.DTUsuario;
+import clases.Medico;
 import clases.Paciente;
 import datatypes.DTBeneficioAnual;
 
@@ -35,45 +36,35 @@ public class ControladorUsuariosTest {
     @Test
     void testListarEspecialidades() {
 
-        assertNotNull(controladorUsuarios);
+    	Set<String> listaEspecialidades = controladorUsuarios.listarEspecialidades();
+    	
+        assertNotNull(listaEspecialidades);
 
-        assertTrue(
-            controladorUsuarios.listarEspecialidades()
-                .contains("Cardiología")
-        );
+        assertTrue(listaEspecialidades.contains("Cardiología"));
 
-        assertTrue(
-            controladorUsuarios.listarEspecialidades()
-                .contains("Pediatría")
-        );
+        assertTrue(listaEspecialidades.contains("Pediatría"));
 
-        assertTrue(
-            controladorUsuarios.listarEspecialidades()
-                .contains("Medicina General")
-        );
+        assertTrue(listaEspecialidades.contains("Medicina General"));
     }
     
     @Test
     void testObtenerDatosEspecialidad() {
     	
-    	DTEspecialidad cardiologia =
-    			controladorUsuarios.obtenerDatosEspecialidad("Cardiología");
+    	DTEspecialidad cardiologia = controladorUsuarios.obtenerDatosEspecialidad("Cardiología");
     	
     	assertNotNull(cardiologia);
     	assertEquals("Cardiología", cardiologia.getNombre());
     	assertEquals(20, cardiologia.getPorcentajeCostoConsultaAdicional());
     	
     	
-    	DTEspecialidad pediatria =
-    			controladorUsuarios.obtenerDatosEspecialidad("Pediatría");
+    	DTEspecialidad pediatria = controladorUsuarios.obtenerDatosEspecialidad("Pediatría");
     	
     	assertNotNull(pediatria);
     	assertEquals("Pediatría", pediatria.getNombre());
     	assertEquals(10, pediatria.getPorcentajeCostoConsultaAdicional());
     	
     	
-    	DTEspecialidad medicinaGeneral =
-    			controladorUsuarios.obtenerDatosEspecialidad("Medicina General");
+    	DTEspecialidad medicinaGeneral = controladorUsuarios.obtenerDatosEspecialidad("Medicina General");
     	
     	assertNotNull(medicinaGeneral);
     	assertEquals("Medicina General", medicinaGeneral.getNombre());
@@ -91,7 +82,7 @@ public class ControladorUsuariosTest {
     			controladorUsuarios.obtenerDatosEspecialidad("Medicina General")
     			);
     	
-    	Usuario m1 = controladorUsuarios.altaMedico(
+    	Medico m1 = (Medico) controladorUsuarios.altaMedico(
     			"ana.perez.test",
     			"Ana",
     			"Pérez",
@@ -108,6 +99,10 @@ public class ControladorUsuariosTest {
     	assertEquals("Ana", m1.getNombre());
     	assertEquals("Pérez", m1.getApellido());
     	assertEquals("ana.perez.test@tuclinica.com", m1.getCorreo());
+    	assertEquals(2001, m1.getRegistro());
+    	assertEquals("Enero", m1.getMesLicencia());
+    	assertEquals("https://www.hospitalbritanico.org.uy/", m1.getSitioWeb());
+    	assertEquals(15, m1.getPorcentajeCostoConsulta());
 
 
     	Set<DTEspecialidad> especialidades2 = new HashSet<>();
@@ -115,7 +110,7 @@ public class ControladorUsuariosTest {
     			controladorUsuarios.obtenerDatosEspecialidad("Pediatría")
     			);
 
-    	Usuario m2 = controladorUsuarios.altaMedico(
+    	Medico m2 = (Medico) controladorUsuarios.altaMedico(
     			"bsilva.test",
     			"Bruno",
     			"Silva",
@@ -132,6 +127,10 @@ public class ControladorUsuariosTest {
     	assertEquals("Bruno", m2.getNombre());
     	assertEquals("Silva", m2.getApellido());
     	assertEquals("bruno.silva.test@hospital.com", m2.getCorreo());
+    	assertEquals(2002, m2.getRegistro());
+    	assertEquals("Julio", m2.getMesLicencia());
+    	assertEquals("", m2.getSitioWeb());
+    	assertEquals(5, m2.getPorcentajeCostoConsulta());
 
 
     	Set<DTEspecialidad> especialidades3 = new HashSet<>();
@@ -167,14 +166,17 @@ public class ControladorUsuariosTest {
     	Set<String> antecedentes1 = new HashSet<>();
     	antecedentes1.add("Sin antecedentes relevantes.");
     	
-    	Usuario p1 = controladorUsuarios.altaPaciente(
+    	DTFecha fecha = new DTFecha(12, 4, 1990);
+    	DTFecha fecha0 = new DTFecha(1, 3, 2024);
+    	
+    	Paciente p1 = (Paciente) controladorUsuarios.altaPaciente(
     			"lgomez.test",
     			"Laura",
     			"Gómez",
     			"laura.gomez.test@gmail.com",
-    			new DTFecha(12, 4, 1990),
+    			fecha,
     			45678902,
-    			new DTFecha(1, 3, 2024),
+    			fecha0,
     			antecedentes1
     			);
 
@@ -183,6 +185,9 @@ public class ControladorUsuariosTest {
     	assertEquals("Laura", p1.getNombre());
     	assertEquals("Gómez", p1.getApellido());
     	assertEquals("laura.gomez.test@gmail.com", p1.getCorreo());
+    	assertEquals(fecha, p1.getFecNacimiento());
+    	assertEquals(45678902, p1.getDocumento());
+    	assertEquals(fecha0, p1.getFechaIngreso());
 
 
     	Set<String> antecedentes2 = new HashSet<>();
@@ -190,14 +195,17 @@ public class ControladorUsuariosTest {
     			"Hipertensión arterial diagnosticada en 2018, actualmente controlada con tratamiento farmacológico. Antecedentes de colesterol elevado y episodios ocasionales de migraña. En 2022 fue intervenido quirúrgicamente por una hernia inguinal, sin complicaciones posteriores."
     			);
 
-    	Usuario p2 = controladorUsuarios.altaPaciente(
+    	DTFecha fecha1 = new DTFecha(8, 11, 1955);
+    	DTFecha fecha2 = new DTFecha(15, 6, 2022);
+    	
+    	Paciente p2 = (Paciente) controladorUsuarios.altaPaciente(
     			"mar.fernandez.test",
     			"Mario",
     			"Fernández",
     			"mario.fernandez.test@hotmail.com",
-    			new DTFecha(8, 11, 1955),
+    			fecha1,
     			32145679,
-    			new DTFecha(15, 6, 2022),
+    			fecha2,
     			antecedentes2
     			);
 
@@ -206,19 +214,25 @@ public class ControladorUsuariosTest {
     	assertEquals("Mario", p2.getNombre());
     	assertEquals("Fernández", p2.getApellido());
     	assertEquals("mario.fernandez.test@hotmail.com", p2.getCorreo());
+    	assertEquals(fecha1, p2.getFecNacimiento());
+    	assertEquals(32145679, p2.getDocumento());
+    	assertEquals(fecha2, p2.getFechaIngreso());
 
 
     	Set<String> antecedentes3 = new HashSet<>();
     	antecedentes3.add("Alergia a penicilina.");
 
-    	Usuario p3 = controladorUsuarios.altaPaciente(
+    	DTFecha fecha3 = new DTFecha(20, 9, 2014);
+    	DTFecha fecha4 = new DTFecha(10, 2, 2025);
+    	
+    	Paciente p3 = (Paciente) controladorUsuarios.altaPaciente(
     			"s.lopez.test",
     			"Sofía",
     			"López",
     			"sofia.lopez.test@gmail.com",
-    			new DTFecha(20, 9, 2014),
+    			fecha3,
     			58963215,
-    			new DTFecha(10, 2, 2025),
+    			fecha4,
     			antecedentes3
     			);
 
@@ -227,6 +241,9 @@ public class ControladorUsuariosTest {
     	assertEquals("Sofía", p3.getNombre());
     	assertEquals("López", p3.getApellido());
     	assertEquals("sofia.lopez.test@gmail.com", p3.getCorreo());
+    	assertEquals(fecha3, p3.getFecNacimiento());
+    	assertEquals(58963215, p3.getDocumento());
+    	assertEquals(fecha4, p3.getFechaIngreso());
     }
     
     //datos propios

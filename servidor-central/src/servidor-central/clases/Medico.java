@@ -27,56 +27,28 @@ public class Medico extends Usuario {
         this.porcentajeCostoConsulta = porcentajeCostoConsulta;
     }
 
-    public int getRegistro() {
-        return registro;
-    }
+    public int getRegistro() { return registro; }
+    public void setRegistro(int registro) { this.registro = registro; }
 
-    public void setRegistro(int registro) {
-        this.registro = registro;
-    }
+    public String getMesLicencia() { return mesLicencia; }
+    public void setMesLicencia(String mesLicencia) { this.mesLicencia = mesLicencia; }
 
-    public String getMesLicencia() {
-        return mesLicencia;
-    }
-
-    public void setMesLicencia(String mesLicencia) {
-        this.mesLicencia = mesLicencia;
-    }
-
-    public int getPorcentajeCostoConsulta() {
-        return porcentajeCostoConsulta;
-    }
-
-    public void setPorcentajeCostoConsulta(int porcentajeCostoConsulta) {
-        this.porcentajeCostoConsulta = porcentajeCostoConsulta;
-    }
-
-    public String getSitioWeb() {
-        return sitioWeb;
-    }
-
-    public void setSitioWeb(String sitioWeb) {
-        this.sitioWeb = sitioWeb;
-    }
-
-    public Set<Especialidad> getEspecialidades() {
-        return Collections.unmodifiableSet(especialidades);
-    }
+    public String getSitioWeb() { return sitioWeb; }
+    public void setSitioWeb(String sitioWeb) { this.sitioWeb = sitioWeb; }
     
-    public void setEspecialidades(Set<Especialidad> especialidades) {
-        this.especialidades = new LinkedHashSet<>(especialidades);
-    }
+    public Set<Especialidad> getEspecialidades() { return Collections.unmodifiableSet(especialidades); }
+    public void setEspecialidades(Set<Especialidad> especialidades) { this.especialidades = new LinkedHashSet<>(especialidades); }
     
-    public Map<String, Consulta> getConsultas() {
-        return Collections.unmodifiableMap(consultas);
-    }
-
-    public void agregarConsulta(Consulta consulta) {
-        consultas.put(consulta.getNombre(), consulta);
-    }
+    public int getPorcentajeCostoConsulta() { return porcentajeCostoConsulta; }
+    public void setPorcentajeCostoConsulta(int porcentajeCostoConsulta) { this.porcentajeCostoConsulta = porcentajeCostoConsulta; }
     
-    public boolean tieneEspecialidad(String nombreEspecialidad) {
-        return especialidades.stream().anyMatch(e -> e.getNombre().equals(nombreEspecialidad));
+    
+    public Map<String, Consulta> getConsultas() { return Collections.unmodifiableMap(consultas); }
+    public void agregarConsulta(Consulta consulta) { consultas.put(consulta.getNombre(), consulta); }
+    
+    
+    public boolean tieneEspecialidad(String nombreEspecialidad) { 
+    	return especialidades.stream().anyMatch(e -> e.getNombre().equals(nombreEspecialidad)); 
     }
 
     @Override

@@ -94,7 +94,9 @@ public class ControladorUsuarios implements IControladorUsuarios {
         if (fechaIngreso.compareTo(fecNacimiento) < 0) {
             throw new IllegalArgumentException("La fecha de ingreso no puede ser anterior al nacimiento.");
         }
-        return mu.crearPaciente(nickname.trim(), nombre.trim(), apellido.trim(), correo.trim(), fecNacimiento, documento, fechaIngreso, antecedentesMed == null ? Set.of() : antecedentesMed);
+        Paciente paciente = new Paciente(nickname.trim(), nombre.trim(), apellido.trim(), correo.trim(), fecNacimiento, documento, fechaIngreso, antecedentesMed == null ? Set.of() : antecedentesMed);
+        this.altaUsuario(paciente);
+        return paciente;
     }
 
     

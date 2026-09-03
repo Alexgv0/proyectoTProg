@@ -3,8 +3,8 @@ package clases;
 import datatypes.DTUsuario;
 
 public abstract class Usuario {
-    private final String nickname;
-    private final String correo;
+    private String nickname;
+    private String correo;
     private String nombre;
     private String apellido;
 
@@ -16,16 +16,17 @@ public abstract class Usuario {
     }
 
     public String getNickname() { return nickname; }
-    
-    public String getNombre() { return nombre; }
-    
-    public String getApellido() { return apellido; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
     
     public String getCorreo() { return correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
     
+    public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     
+    public String getApellido() { return apellido; }
     public void setApellido(String apellido) { this.apellido = apellido; }
+    
 
     public abstract DTUsuario getDatos();
 }
