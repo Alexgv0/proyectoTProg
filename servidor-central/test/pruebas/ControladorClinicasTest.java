@@ -195,12 +195,26 @@ public class ControladorClinicasTest {
     @Test
     void testListarConsultasDia() {
 
+        // CO01 y CO05 (oficiales) están asociadas al día "Cardiología - Lunes"
         Set<DTConsultaSoloConsulta> consultas =
                 controladorClinicas.listarConsultasDia(
                         "Cardiología - Lunes"
                 );
 
         assertNotNull(consultas);
+
+        assertTrue(
+                consultas.stream()
+                        .anyMatch(c -> c.getNombreConsulta().equals("Cardiología 240826"))
+        );
+        assertTrue(
+                consultas.stream()
+                        .anyMatch(c -> c.getNombreConsulta().equals("Cardiología 140926"))
+        );
+        assertTrue(
+                consultas.stream()
+                        .allMatch(c -> c.getNombreMedico().equals("ana.perez"))
+        );
     }
 
 
@@ -208,7 +222,7 @@ public class ControladorClinicasTest {
     void testListarConsultas() {
 
         // US01 = ana.perez
-        // Es médico y tiene consultas.
+        // Es médico y tiene las consultas CO01 y CO05 (oficiales).
 
         datatypes.DTUsuario usuario =
                 new datatypes.DTUsuario(
@@ -221,6 +235,15 @@ public class ControladorClinicasTest {
         Set<DTConsultaSoloConsulta> consultas = controladorClinicas.listarConsultas(usuario);
 
         assertNotNull(consultas);
+
+        assertTrue(
+                consultas.stream()
+                        .anyMatch(c -> c.getNombreConsulta().equals("Cardiología 240826"))
+        );
+        assertTrue(
+                consultas.stream()
+                        .anyMatch(c -> c.getNombreConsulta().equals("Cardiología 140926"))
+        );
     }
 
 
@@ -233,6 +256,17 @@ public class ControladorClinicasTest {
                 );
 
         assertNotNull(consultas);
+
+        DTConsulta co01 = consultas.stream()
+                .filter(c -> c.getNombreConsulta().equals("Cardiología 240826"))
+                .findFirst()
+                .orElse(null);
+
+        assertNotNull(co01);
+        assertEquals(101, co01.getNroSala());
+        assertEquals(3, co01.getCantidadNumeros());
+        assertEquals("ana.perez", co01.getNombreMedico());
+        assertEquals(1656f, co01.getCosto());
     }
 
 
@@ -264,7 +298,7 @@ public class ControladorClinicasTest {
 
     @Test
     void testAltaClinicaNombreInvalido() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
                 "",
@@ -275,11 +309,13 @@ public class ControladorClinicasTest {
                 200
             )
         );
+
+        assertEquals("El campo nombre es obligatorio.", excepcion.getMessage());
     }
 
     @Test
     void testAltaClinicaDescripcionInvalida() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
                 "ClinicaTest",
@@ -290,11 +326,13 @@ public class ControladorClinicasTest {
                 200
             )
         );
+
+        assertEquals("El campo descripcion es obligatorio.", excepcion.getMessage());
     }
 
     @Test
     void testAltaClinicaDireccionInvalida() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
                 "ClinicaTest",
@@ -305,11 +343,13 @@ public class ControladorClinicasTest {
                 200
             )
         );
+
+        assertEquals("El campo direccion es obligatorio.", excepcion.getMessage());
     }
 
     @Test
     void testAltaClinicaCostoMedicamentoNegativo() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
                 "ClinicaTest",
@@ -320,11 +360,13 @@ public class ControladorClinicasTest {
                 200
             )
         );
+
+        assertEquals("El campo costo del ticket debe ser un numero no negativo.", excepcion.getMessage());
     }
 
     @Test
     void testAltaClinicaCostoConsultaNegativo() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaClinica(
                 "ClinicaTest",
@@ -335,6 +377,8 @@ public class ControladorClinicasTest {
                 -1
             )
         );
+
+        assertEquals("El campo costo de la orden debe ser un numero no negativo.", excepcion.getMessage());
     }
 
     @Test
@@ -359,7 +403,7 @@ public class ControladorClinicasTest {
 
     @Test
     void testAltaDiaConsultaNombreInvalido() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaDiaConsulta(
                 "",
@@ -370,11 +414,13 @@ public class ControladorClinicasTest {
                 "CASMU"
             )
         );
+
+        assertEquals("El campo nombre es obligatorio.", excepcion.getMessage());
     }
 
     @Test
     void testAltaDiaConsultaDescripcionInvalida() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaDiaConsulta(
                 "DiaConsultaTest",
@@ -385,6 +431,8 @@ public class ControladorClinicasTest {
                 "Hospital Británico"
             )
         );
+
+        assertEquals("El campo descripcion es obligatorio.", excepcion.getMessage());
     }
 
     @Test
@@ -502,7 +550,7 @@ public class ControladorClinicasTest {
 
     @Test
     void testAltaConsultaNombreInvalido() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaConsulta(
                 "",
@@ -513,6 +561,8 @@ public class ControladorClinicasTest {
                 "bsilva"
             )
         );
+
+        assertEquals("El campo nombre es obligatorio.", excepcion.getMessage());
     }
 
     @Test
@@ -537,32 +587,36 @@ public class ControladorClinicasTest {
 
     @Test
     void testAltaConsultaNumeroSalaInvalido() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaConsulta(
                 "ConsultaTest",
                 new DTFecha(24, 8, 2026),
                 0,
                 10,
-                "DiaConsultaExistente",
-                "medicoExistente"
+                "Cardiología - Lunes",
+                "ana.perez"
             )
         );
+
+        assertEquals("El campo numero de sala debe ser mayor que cero.", excepcion.getMessage());
     }
 
     @Test
     void testAltaConsultaCantidadNumerosInvalida() {
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
             () -> controladorClinicas.altaConsulta(
                 "ConsultaTest",
                 new DTFecha(24, 8, 2026),
                 1,
                 0,
-                "DiaConsultaExistente",
-                "medicoExistente"
+                "Cardiología - Lunes",
+                "ana.perez"
             )
         );
+
+        assertEquals("El campo cantidad de numeros debe ser mayor que cero.", excepcion.getMessage());
     }
 
     @Test

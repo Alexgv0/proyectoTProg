@@ -297,11 +297,123 @@ public class ControladorUsuariosTest {
 
         controladorUsuarios.cancelarAltaUsuario(usuario);
 
-        assertThrows(
+        IllegalArgumentException excepcion = assertThrows(
                 IllegalArgumentException.class,
                 () -> controladorUsuarios.seleccionarUsuario(
                         "usuario.cancelar"
                 )
+        );
+
+        assertEquals("El usuario no existe.", excepcion.getMessage());
+    }
+
+    @Test
+    void testAltaMedicoNicknameDuplicado() {
+
+        Set<DTEspecialidad> especialidades = new HashSet<>();
+        especialidades.add(controladorUsuarios.obtenerDatosEspecialidad("Cardiología"));
+
+        // "ana.perez" ya existe (cargado desde el CSV oficial)
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaMedico(
+                        "ana.perez",
+                        "Otro",
+                        "Nombre",
+                        "otro.correo.nuevo@hospital.com",
+                        9999,
+                        "Enero",
+                        "",
+                        especialidades,
+                        10
+                )
+        );
+
+        assertEquals("El nickname o el correo ya estan en uso.", excepcion.getMessage());
+    }
+
+    @Test
+    void testAltaPacienteCorreoDuplicado() {
+
+        // "laura.gomez@gmail.com" ya es el correo de "lgomez" (cargado desde el CSV oficial)
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaPaciente(
+                        "nickname.nuevo.distinto",
+                        "Otro",
+                        "Paciente",
+                        "laura.gomez@gmail.com",
+                        new DTFecha(1, 1, 2000),
+                        99999999,
+                        new DTFecha(1, 1, 2020),
+                        new HashSet<>()
+                )
+        );
+
+        assertEquals("El nickname o el correo ya estan en uso.", excepcion.getMessage());
+    }
+
+    @Test
+    void testAltaMedicoSinEspecialidad() {
+
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaMedico(
+                        "medico.sin.especialidad",
+                        "Nombre",
+                        "Apellido",
+                        "medico.sin.especialidad@hospital.com",
+                        5001,
+                        "Enero",
+                        "",
+                        new HashSet<>(),
+                        10
+                )
+        );
+
+        assertEquals("El medico debe tener al menos una especialidad.", excepcion.getMessage());
+    }
+
+    @Test
+    void testAltaPacienteFechaIngresoAnteriorANacimiento() {
+
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaPaciente(
+                        "paciente.fecha.invalida",
+                        "Nombre",
+                        "Apellido",
+                        "paciente.fecha.invalida@gmail.com",
+                        new DTFecha(1, 1, 2000),
+                        88888888,
+                        new DTFecha(1, 1, 1999),
+                        new HashSet<>()
+                )
+        );
+
+        assertEquals(
+                "La fecha de ingreso no puede ser anterior al nacimiento.",
+                excepcion.getMessage()
+        );
+    }
+
+    @Test
+    void testAltaBeneficioAnualDuplicadoParaElMismoAnio() {
+
+        // "lgomez" ya tiene un beneficio anual para 2026 (BA02, cargado desde el CSV oficial)
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaBeneficioAnual(
+                        "lgomez",
+                        2026,
+                        1,
+                        1
+                )
+        );
+
+        assertEquals(
+                "El paciente ya tiene un beneficio para ese anio.",
+                excepcion.getMessage()
         );
     }
     
