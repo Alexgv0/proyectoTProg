@@ -71,28 +71,28 @@ public class DatosPruebaTest {
 
 	    DatosPrueba.cargarEspecialidades();
 
-	    //ES01
-	    DTEspecialidad especialidad1 =
-	            DatosPrueba.obtenerEspecialidadPorNombre("Cardiología");
+	    String[] datosES01 =
+	            DatosPrueba.obtenerEspecialidadPorRef("ES01");
 
-	    assertNotNull(especialidad1);
-	    assertEquals("Cardiología", especialidad1.getNombre());
-	    assertEquals(20, especialidad1.getPorcentajeAdicional());
+	    assertNotNull(datosES01);
+	    assertEquals(2, datosES01.length);
+	    assertEquals("Cardiología", datosES01[0]);
+	    assertEquals("20", datosES01[1]);
 
-	    //ES02
-	    DTEspecialidad especialidad2 =
-	            DatosPrueba.obtenerEspecialidadPorNombre("Pediatría");
+	    String[] datosES02 =
+	            DatosPrueba.obtenerEspecialidadPorRef("ES02");
 
-	    assertNotNull(especialidad2);
-	    assertEquals("Pediatría", especialidad2.getNombre());
-	    assertEquals(10, especialidad2.getPorcentajeAdicional());
+	    assertNotNull(datosES02);
+	    assertEquals(2, datosES02.length);
+	    assertEquals("Pediatría", datosES02[0]);
+	    assertEquals("10", datosES02[1]);
 
-	    //ES03
-	    DTEspecialidad especialidad3 =
-	            DatosPrueba.obtenerEspecialidadPorNombre("Medicina General");
+	    String[] datosES03 =
+	            DatosPrueba.obtenerEspecialidadPorRef("ES03");
 
-	    assertNotNull(especialidad3);
-	    assertEquals("Medicina General", especialidad3.getNombre());
-	    assertEquals(0, especialidad3.getPorcentajeAdicional());
+	    assertNotNull(datosES03);
+	    assertEquals(2, datosES03.length);
+	    assertEquals("Medicina General", datosES03[0]);
+	    assertEquals("0", datosES03[1]);
 	}
 }
