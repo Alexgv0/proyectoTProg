@@ -208,22 +208,58 @@ public class DatosPruebaTest {
         DTConsulta co01 = controladorClinicas.seleccionarConsulta("Cardiología 240826");
 
         assertNotNull(co01);
+        assertEquals("Cardiología 240826", co01.getNombreConsulta());
+        assertEquals(new DTFecha(24, 8, 2026), co01.getFecha());
+        assertEquals(101, co01.getNroSala());
+        assertEquals(3, co01.getCantidadNumeros());
+        // TODO: Comprobar DiaConsulta
+        assertEquals("Ana", co01.getNombreMedico());
+        assertEquals(1656, co01.getCosto());
+        
 
         DTConsulta co02 = controladorClinicas.seleccionarConsulta("Pediatría 080926");
 
         assertNotNull(co02);
+        assertEquals("Pediatría 080926", co02.getNombreConsulta());
+        assertEquals(new DTFecha(8, 9, 2026), co02.getFecha());
+        assertEquals(202, co02.getNroSala());
+        assertEquals(2, co02.getCantidadNumeros());
+        // TODO: Comprobar DiaConsulta
+        assertEquals("Bruno", co02.getNombreMedico());
+        assertEquals(1097.25, co02.getCosto());
 
         DTConsulta co03 = controladorClinicas.seleccionarConsulta("Medicina General 090926");
 
         assertNotNull(co03);
+        assertEquals("Medicina General 090926", co03.getNombreConsulta());
+        assertEquals(new DTFecha(9, 9, 2026), co03.getFecha());
+        assertEquals(103, co03.getNroSala());
+        assertEquals(4, co03.getCantidadNumeros());
+        // TODO: Comprobar DiaConsulta
+        assertEquals("Carla", co03.getNombreMedico());
+        assertEquals(1320, co03.getCosto());
 
         DTConsulta co04 = controladorClinicas.seleccionarConsulta("Cardiología 130826");
 
         assertNotNull(co04);
+        assertEquals("Cardiología 130826", co04.getNombreConsulta());
+        assertEquals(new DTFecha(13, 8, 2026), co04.getFecha());
+        assertEquals(204, co04.getNroSala());
+        assertEquals(2, co04.getCantidadNumeros());
+        // TODO: Comprobar DiaConsulta
+        assertEquals("Carla", co04.getNombreMedico());
+        assertEquals(1254, co04.getCosto());
 
         DTConsulta co05 = controladorClinicas.seleccionarConsulta("Cardiología 140926");
 
         assertNotNull(co05);
+        assertEquals("Cardiología 140926", co05.getNombreConsulta());
+        assertEquals(new DTFecha(14, 9, 2026), co05.getFecha());
+        assertEquals(101, co05.getNroSala());
+        assertEquals(3, co05.getCantidadNumeros());
+        // TODO: Comprobar DiaConsulta
+        assertEquals("Ana", co05.getNombreMedico());
+        assertEquals(1656, co05.getCosto());
     }
     
     @Test
