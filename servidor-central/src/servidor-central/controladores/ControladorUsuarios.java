@@ -46,11 +46,8 @@ public class ControladorUsuarios implements IControladorUsuarios {
     private void validarIdentidadNueva(String nickname, String correo) {
         Validaciones.texto(nickname, "nickname");
         Validaciones.texto(correo, "correo electronico");
-        if (mu.existeUsuario(nickname.trim())) {
-            throw new IllegalArgumentException("El nickname ya esta en uso.");
-        }
-        if (mu.existeCorreo(correo.trim())) {
-            throw new IllegalArgumentException("El correo electronico ya esta en uso.");
+        if (mu.existeUsuario(nickname.trim()) || mu.existeCorreo(correo.trim())) {
+        	throw new IllegalArgumentException("El nickname o el correo ya estan en uso.");
         }
     }
     
@@ -78,7 +75,7 @@ public class ControladorUsuarios implements IControladorUsuarios {
             especialidadesDominio.add(especialidad);
         }
         Medico medico = new Medico(nickname.trim(), nombre.trim(), apellido.trim(), correo.trim(), registro, mesLicencia.trim(), sitioWeb == null ? "" : sitioWeb.trim(), especialidadesDominio, porcentajeConsultas);
-        mu.agregarUsuario(medico);
+        this.altaUsuario(medico);
         return medico;
     }
 
@@ -104,9 +101,6 @@ public class ControladorUsuarios implements IControladorUsuarios {
     @Override
     public void altaUsuario(Usuario usuario) {
         if (usuario == null) throw new IllegalArgumentException("El usuario es obligatorio.");
-        if (mu.existeUsuario(usuario.getNickname()) || mu.existeCorreo(usuario.getCorreo())) {
-            throw new IllegalArgumentException("El nickname o el correo ya estan en uso.");
-        }
         mu.agregarUsuario(usuario);
     }
 
