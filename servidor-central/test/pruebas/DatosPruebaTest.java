@@ -213,7 +213,7 @@ public class DatosPruebaTest {
         assertEquals(101, co01.getNroSala());
         assertEquals(3, co01.getCantidadNumeros());
         // TODO: Comprobar DiaConsulta
-        assertEquals("Ana", co01.getNombreMedico());
+        assertEquals("ana.perez", co01.getNombreMedico());
         assertEquals(1656, co01.getCosto());
         
 
@@ -225,7 +225,7 @@ public class DatosPruebaTest {
         assertEquals(202, co02.getNroSala());
         assertEquals(2, co02.getCantidadNumeros());
         // TODO: Comprobar DiaConsulta
-        assertEquals("Bruno", co02.getNombreMedico());
+        assertEquals("bsilva", co02.getNombreMedico());
         assertEquals(1097.25, co02.getCosto());
 
         DTConsulta co03 = controladorClinicas.seleccionarConsulta("Medicina General 090926");
@@ -236,7 +236,7 @@ public class DatosPruebaTest {
         assertEquals(103, co03.getNroSala());
         assertEquals(4, co03.getCantidadNumeros());
         // TODO: Comprobar DiaConsulta
-        assertEquals("Carla", co03.getNombreMedico());
+        assertEquals("carla.rodriguez", co03.getNombreMedico());
         assertEquals(1320, co03.getCosto());
 
         DTConsulta co04 = controladorClinicas.seleccionarConsulta("Cardiología 130826");
@@ -247,7 +247,7 @@ public class DatosPruebaTest {
         assertEquals(204, co04.getNroSala());
         assertEquals(2, co04.getCantidadNumeros());
         // TODO: Comprobar DiaConsulta
-        assertEquals("Carla", co04.getNombreMedico());
+        assertEquals("carla.rodriguez", co04.getNombreMedico());
         assertEquals(1254, co04.getCosto());
 
         DTConsulta co05 = controladorClinicas.seleccionarConsulta("Cardiología 140926");
@@ -258,7 +258,7 @@ public class DatosPruebaTest {
         assertEquals(101, co05.getNroSala());
         assertEquals(3, co05.getCantidadNumeros());
         // TODO: Comprobar DiaConsulta
-        assertEquals("Ana", co05.getNombreMedico());
+        assertEquals("ana.perez", co05.getNombreMedico());
         assertEquals(1656, co05.getCosto());
     }
     
