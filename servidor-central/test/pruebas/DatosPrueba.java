@@ -44,7 +44,7 @@ public class DatosPrueba {
     private static final Map<String, String> diasConsultaPorRef = new HashMap<>();
     private static final Map<String, String> consultasPorRef = new HashMap<>();
 
-
+    
     public static void cargarEspecialidades() {
 
         String ruta = RUTA_CSV + "2026Especialidades.csv";
@@ -134,6 +134,10 @@ public class DatosPrueba {
         }
     }
 
+    public static String[] obtenerUsuarioPorRef(String ref) {
+    	return usuarios.get(ref);
+    }
+    
     /**
      * Carga los pacientes oficiales.
      */
