@@ -239,7 +239,7 @@ public class DatosPruebaTest {
         assertEquals(1, rc01.getNumeroCliente());
         assertEquals("lgomez", rc01.getNickPaciente());
         assertEquals("Cardiología 240826", rc01.getNombreConsulta());
-        assertEquals(1656, rc01.getCostoReserva());
+        assertEquals(1656f, rc01.getCostoReserva());
 
         DTReservaConsulta rc02 = controladorReservas.seleccionarReservaConsulta(
         		"mar.fernandez",
@@ -251,7 +251,7 @@ public class DatosPruebaTest {
         assertEquals(2, rc02.getNumeroCliente());
         assertEquals("mar.fernandez", rc02.getNickPaciente());
         assertEquals("Cardiología 240826", rc02.getNombreConsulta());
-        assertEquals(1324.8, rc02.getCostoReserva());
+        assertEquals(1324.8f, rc02.getCostoReserva());
 
 
 
@@ -265,7 +265,7 @@ public class DatosPruebaTest {
         assertEquals(1, rc03.getNumeroCliente());
         assertEquals("s.lopez", rc03.getNickPaciente());
         assertEquals("Pediatría 080926", rc03.getNombreConsulta());
-        assertEquals(1097.25, rc03.getCostoReserva());
+        assertEquals(1097.25f, rc03.getCostoReserva());
 
 
 
@@ -279,7 +279,7 @@ public class DatosPruebaTest {
         assertEquals(2, rc04.getNumeroCliente());
         assertEquals("lgomez", rc04.getNickPaciente());
         assertEquals("Pediatría 080926", rc04.getNombreConsulta());
-        assertEquals(1097.25, rc04.getCostoReserva());
+        assertEquals(1097.25f, rc04.getCostoReserva());
 
 
 
@@ -293,7 +293,7 @@ public class DatosPruebaTest {
         assertEquals(1, rc05.getNumeroCliente());
         assertEquals("mar.fernandez", rc05.getNickPaciente());
         assertEquals("Medicina General 090926", rc05.getNombreConsulta());
-        assertEquals(1056, rc05.getCostoReserva());
+        assertEquals(1056f, rc05.getCostoReserva());
 
     }
     
