@@ -8,12 +8,15 @@ import java.util.Set;
 
 import datatypes.DTFecha;
 import datatypes.DTReservaConsulta;
+import enums.Dia;
 import fabrica.Fabrica;
+import interfaces.IControladorClinicas;
 import interfaces.IControladorReservas;
 
 public class ControladorReservasTest {
 
 	private static IControladorReservas controlador;
+	private static IControladorClinicas controladorClinicas;
 
 	@BeforeAll
 	static void iniciar() {
@@ -21,6 +24,7 @@ public class ControladorReservasTest {
         Fabrica fabrica = Fabrica.getInstancia();
 
         controlador = fabrica.getControladorReservas();
+        controladorClinicas = fabrica.getControladorClinicas();
 
         DatosPrueba.cargarTodosLosDatos();
     }
@@ -272,5 +276,33 @@ public class ControladorReservasTest {
 	        excepcion.getMessage()
 	    );
 	}
+	
+	@Test
+	void testAltaReservaConsultaFechaHoraOcupada() {
+		String nombreDiaConsulta = "Lunes - Test";
+		String nickPaciente = "lgomez";
+		int horaDiaConsulta = 9;
+		DTFecha fechaConsulta = new DTFecha(24,8,2026);
+		String nombreConsulta = "Test - Medicina General";
+		
+		controladorClinicas.altaDiaConsulta(nombreDiaConsulta, "Test", Dia.LUNES, horaDiaConsulta, "Medicina General", "CASMU");
+
+		controladorClinicas.altaConsulta(nombreConsulta, fechaConsulta, 10, 10, nombreDiaConsulta, "carla.rodriguez");
+		
+		IllegalArgumentException excepcion = assertThrows(
+	        IllegalArgumentException.class,
+	        () -> controlador.altaReservaConsulta(
+	            nickPaciente,
+	            nombreConsulta,
+	            fechaConsulta
+	        )
+	    );
+
+	    assertEquals(
+	        "El paciente ya tiene una reserva para esa fecha y hora.",
+	        excepcion.getMessage()
+	    );
+	}
+
 
 }
