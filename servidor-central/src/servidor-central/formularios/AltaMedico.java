@@ -52,8 +52,16 @@ public class AltaMedico extends FormularioBase {
                 seleccionadas.add(controlador.obtenerDatosEspecialidad(valor));
             }
             
-            Usuario usuario = controlador.altaMedico(nickname.getText(), nombre.getText(), apellido.getText(), correo.getText(), leerEntero(registro.getText(), "numero de registro"), 
-            		licencia.getSelectedItem().toString(), sitioWeb.getText(), seleccionadas, leerEntero(porcentaje.getText(), "porcentaje adicional"));
+            Usuario usuario = controlador.altaMedico(
+            		nickname.getText(), 
+            		nombre.getText(), 
+            		apellido.getText(), 
+            		correo.getText(), 
+            		leerEntero(registro.getText(), "numero de registro"), 
+            		licencia.getSelectedItem().toString(), 
+            		sitioWeb.getText(), 
+            		seleccionadas, 
+            		leerEntero(porcentaje.getText(), "porcentaje adicional"));
             
             controlador.altaUsuario(usuario);
             

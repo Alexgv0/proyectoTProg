@@ -383,9 +383,29 @@ public class ControladorUsuariosTest {
                 );
 
         assertNotNull(usuario);
-
         assertEquals(
                 "Laura Modificada",
+                usuario.getNombre()
+        );
+        
+        controladorUsuarios.modificarPaciente(
+                "lgomez",
+                "Laura",
+                "Gómez",
+                new DTFecha(12, 4, 1990),
+                45678901,
+                new DTFecha(1, 3, 2024),
+                new HashSet<>()
+        );
+        
+        usuario =
+                controladorUsuarios.seleccionarUsuario(
+                        "lgomez"
+                );
+        
+        assertNotNull(usuario);
+        assertEquals(
+                "Laura",
                 usuario.getNombre()
         );
     }
@@ -393,8 +413,7 @@ public class ControladorUsuariosTest {
     @Test
     void testModificarMedico() {
 
-        Set<String> especialidades =
-                new HashSet<>();
+        Set<String> especialidades = new HashSet<>();
 
         especialidades.add("Cardiología");
         especialidades.add("Medicina General");
@@ -416,9 +435,30 @@ public class ControladorUsuariosTest {
                 );
 
         assertNotNull(usuario);
-
         assertEquals(
                 "Ana Modificada",
+                usuario.getNombre()
+        );
+        
+        controladorUsuarios.modificarMedico(
+                "ana.perez",
+                "Ana",
+                "Pérez",
+                1001,
+                "Enero",
+                "https://www.hospitalbritanico.org.uy/",
+                especialidades,
+                15
+        );
+        
+        usuario =
+                controladorUsuarios.seleccionarUsuario(
+                        "ana.perez"
+                );
+        
+        assertNotNull(usuario);
+        assertEquals(
+                "Ana",
                 usuario.getNombre()
         );
     }
