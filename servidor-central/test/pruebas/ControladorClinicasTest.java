@@ -290,7 +290,7 @@ public class ControladorClinicasTest {
     void testObtenerDatosClinicaInexistente() {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
-            () -> controladorClinicas.obtenerDatosClinica("ClinicaInexistente")
+            () -> controladorClinicas.obtenerDatosClinica("ASSE.Test")
         );
 
         assertEquals("La clinica no existe.", excepcion.getMessage());
@@ -485,7 +485,7 @@ public class ControladorClinicasTest {
                 Dia.LUNES,
                 10,
                 "Cardiologia",
-                "fsdf Británico"
+                "Hospital Británico"
             )
         );
 
@@ -524,7 +524,7 @@ public class ControladorClinicasTest {
                 "Descripcion",
                 Dia.LUNES,
                 10,
-                "Ingeniero",
+                "Neurocirujano",
                 "Hospital Británico"
             )
         );
@@ -539,7 +539,7 @@ public class ControladorClinicasTest {
     void testObtenerDatosDiaConsultaInexistente() {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
-            () -> controladorClinicas.obtenerDatosDiaConsulta("DiaConsultaInexistente")
+            () -> controladorClinicas.obtenerDatosDiaConsulta("Sabado - Neurocirujano")
         );
 
         assertEquals(
@@ -648,7 +648,7 @@ public class ControladorClinicasTest {
                 new DTFecha(24, 8, 2026),
                 1,
                 10,
-                "DiaConsultaInexistente",
+                "Lunes - Neurocirugia",
                 "medicoExistente"
             )
         );
@@ -723,7 +723,7 @@ public class ControladorClinicasTest {
     void testListarConsultasDiaInexistente() {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
-            () -> controladorClinicas.listarConsultasDia("DiaConsultaInexistente")
+            () -> controladorClinicas.listarConsultasDia("Martes - Neurocirugia")
         );
 
         assertEquals(
@@ -749,7 +749,7 @@ public class ControladorClinicasTest {
     void testSeleccionarDiaConsultaInexistente() {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
-            () -> controladorClinicas.seleccionarDiaConsulta("DiaConsultaInexistente")
+            () -> controladorClinicas.seleccionarDiaConsulta("Miercoles - Cirugia General")
         );
 
         assertEquals(
@@ -762,7 +762,7 @@ public class ControladorClinicasTest {
     void testSeleccionarConsultaInexistente() {
         IllegalArgumentException excepcion = assertThrows(
             IllegalArgumentException.class,
-            () -> controladorClinicas.seleccionarConsulta("ConsultaInexistente")
+            () -> controladorClinicas.seleccionarConsulta("Cirugia General 11188")
         );
 
         assertEquals(
