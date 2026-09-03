@@ -306,7 +306,33 @@ public class ControladorUsuariosTest {
         assertTrue(
                 usuarios.stream()
                         .anyMatch(u ->
+                                u.getNickname().equals("bsilva")
+                        )
+        );
+        assertTrue(
+                usuarios.stream()
+                        .anyMatch(u ->
+                                u.getNickname().equals("carla.rodriguez")
+                        )
+        );
+
+        assertTrue(
+                usuarios.stream()
+                        .anyMatch(u ->
                                 u.getNickname().equals("lgomez")
+                        )
+        );
+        assertTrue(
+                usuarios.stream()
+                        .anyMatch(u ->
+                                u.getNickname().equals("mar.fernandez")
+                        )
+        );
+
+        assertTrue(
+                usuarios.stream()
+                        .anyMatch(u ->
+                                u.getNickname().equals("s.lopez")
                         )
         );
     }
@@ -463,37 +489,6 @@ public class ControladorUsuariosTest {
         );
     }
 
-
-    /*@Test
-    void testIngresarDatosAltaEspecialidad() {
-
-        boolean resultado =
-                controladorUsuarios.ingresarDatosAltaEspecialidad(
-                        "Dermatología",
-                        15
-                );
-
-        assertTrue(resultado);
-
-        DTEspecialidad especialidad =
-                controladorUsuarios.obtenerDatosEspecialidad(
-                        "Dermatología"
-                );
-
-        assertNotNull(especialidad);
-
-        assertEquals(
-                "Dermatología",
-                especialidad.getNombre()
-        );
-
-        assertEquals(
-                15,
-                especialidad.getPorcentajeCostoConsultaAdicional()
-        );
-    }*/
-
-
     @Test
     void testAltaBeneficioAnual() {
 
@@ -529,6 +524,28 @@ public class ControladorUsuariosTest {
                 );
 
         assertNotNull(beneficios);
+        
+        assertEquals(
+        		1,
+        		beneficios.size()
+        );
+        
+        DTBeneficioAnual beneficio = beneficios.iterator().next();
+        
+        assertNotNull(beneficio);
+        
+        assertEquals(
+        		2026,
+        		beneficio.getAnio()
+        );
+        assertEquals(
+        		4,
+        		beneficio.getConsultasGratis()
+        		);
+        assertEquals(
+        		5,
+        		beneficio.getTicketsGratis()
+        );
     }
 
     @Test
@@ -545,6 +562,14 @@ public class ControladorUsuariosTest {
         assertEquals(
                 2026,
                 beneficio.getAnio()
+        );
+        assertEquals(
+        		4,
+        		beneficio.getConsultasGratis()
+        		);
+        assertEquals(
+                5,
+                beneficio.getTicketsGratis()
         );
     }
     
