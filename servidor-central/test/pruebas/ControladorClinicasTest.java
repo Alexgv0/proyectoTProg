@@ -53,10 +53,13 @@ public class ControladorClinicasTest {
 
         assertNotNull(clinica);
 
-        assertEquals(
-                "Hospital Británico",
-                clinica.getNombre()
-        );
+        assertEquals("Hospital Británico", clinica.getNombre());
+        assertEquals("Hospital general privado", clinica.getDescripcion());
+        assertEquals("Av. Italia 2420", clinica.getDireccion());
+        assertEquals("https://www.hospitalbritanico.org.uy/", clinica.getSitioWeb());
+        assertEquals(350, clinica.getCostoMedicamento());
+        assertEquals(1200, clinica.getCostoConsulta());
+        
     }
     
     //datos propios para la prueba
