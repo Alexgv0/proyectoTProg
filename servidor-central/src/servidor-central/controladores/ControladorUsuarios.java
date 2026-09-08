@@ -35,8 +35,7 @@ public class ControladorUsuarios implements IControladorUsuarios {
     @Override
     public DTEspecialidad obtenerDatosEspecialidad(String nombre) {
         Especialidad especialidad = me.obtenerEspecialidad(nombre);
-        if (especialidad == null) throw new IllegalArgumentException(
-                "La especialidad indicada no existe.");
+        if (especialidad == null) throw new IllegalArgumentException("La especialidad indicada no existe.");
         return especialidad.getDatos();
     }
     

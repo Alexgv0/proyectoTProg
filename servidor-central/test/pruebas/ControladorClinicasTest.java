@@ -773,4 +773,38 @@ public class ControladorClinicasTest {
             excepcion.getMessage()
         );
     }
+    
+    @Test
+    void testAltaClinicaSinSitioWeb() {
+        controladorClinicas.altaClinica(
+                "Clinica Sin Sitio",
+                "Clinica de prueba sin sitio web",
+                "Direccion de prueba",
+                null,
+                300.0f,
+                1000.0f
+        );
+
+        DTClinica clinica = controladorClinicas.obtenerDatosClinica("Clinica Sin Sitio");
+
+        assertNotNull(clinica);
+        assertEquals("", clinica.getSitioWeb());
+    }
+
+    @Test
+    void testListarConsultasUsuarioNoEsMedico() {
+        // lgomez es paciente, no médico
+        datatypes.DTUsuario usuario =
+                new datatypes.DTUsuario(
+                        "lgomez",
+                        "Laura",
+                        "Gómez",
+                        "laura.gomez@gmail.com"
+                );
+
+        Set<DTConsultaSoloConsulta> consultas = controladorClinicas.listarConsultas(usuario);
+
+        assertNotNull(consultas);
+        assertTrue(consultas.isEmpty());
+    }
 }
