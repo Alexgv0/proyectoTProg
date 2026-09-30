@@ -41,10 +41,28 @@
 			<input type="password" id="contrasenia" name="contrasenia" required>
 			<br>
 			<label for="confirmarContrasenia">Confirmar contraseña:</label>
-			<input type="password" id="confirmarContrasenia" name="confirmarContrasenia" required>
+			<input type="password" 
+					id="confirmarContrasenia" 
+					name="confirmarContrasenia" required>
 			<br>
 			<label for="imagen">Imagen de perfil:</label>
 			<input type="file" id="imagen" name="imagen" accept="image/*">
+			<div id="datosPaciente">
+			    <h3>Datos del paciente</h3>
+			    <label for="fechaNacimiento">Fecha de nacimiento:</label>
+			    <input type="date"
+			           id="fechaNacimiento"
+			           name="fechaNacimiento">
+			    <br>
+			    <label for="documento">Número de documento:</label>
+			    <input type="text"
+			           id="documento"
+			           name="documento">
+			    <br>
+			    <label for="antecedentes">Antecedentes médicos:</label>
+			    <textarea id="antecedentes"
+			              name="antecedentes"></textarea>
+			</div>
 		</form>
 	</main>
 </body>
