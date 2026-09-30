@@ -724,4 +724,107 @@ public class ControladorUsuariosTest {
         );
     }
     
+    @Test
+    void testAltaPacienteAntecedentesNulos() {
+        // cubre la rama "== null" del ternario de antecedentesMed en altaPaciente
+        Paciente p = (Paciente) controladorUsuarios.altaPaciente(
+                "paciente.sin.antecedentes",
+                "Nombre",
+                "Apellido",
+                "paciente.sin.antecedentes@gmail.com",
+                new DTFecha(1, 1, 2000),
+                77777777,
+                new DTFecha(1, 1, 2020),
+                null
+        );
+
+        assertNotNull(p);
+        assertTrue(p.getAntecedentesMed().isEmpty());
+    }
+
+    @Test
+    void testAltaPacienteFechaNacimientoNula() {
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaPaciente(
+                        "paciente.sin.nacimiento",
+                        "Nombre",
+                        "Apellido",
+                        "paciente.sin.nacimiento@gmail.com",
+                        null,
+                        66666666,
+                        new DTFecha(1, 1, 2020),
+                        new HashSet<>()
+                )
+        );
+
+        assertEquals("Las fechas son obligatorias.", excepcion.getMessage());
+    }
+
+    @Test
+    void testAltaPacienteFechaIngresoNula() {
+        IllegalArgumentException excepcion = assertThrows(
+                IllegalArgumentException.class,
+                () -> controladorUsuarios.altaPaciente(
+                        "paciente.sin.ingreso",
+                        "Nombre",
+                        "Apellido",
+                        "paciente.sin.ingreso@gmail.com",
+                        new DTFecha(1, 1, 2000),
+                        55555555,
+                        null,
+                        new HashSet<>()
+                )
+        );
+
+        assertEquals("Las fechas son obligatorias.", excepcion.getMessage());
+    }
+
+    @Test
+    void testModificarPacienteFechasInvalidas() {
+        // nacimiento nulo
+        assertThrows(IllegalArgumentException.class,
+                () -> controladorUsuarios.modificarPaciente(
+                        "lgomez", "Laura", "Gómez", null,
+                        45678901, new DTFecha(1, 3, 2024), new HashSet<>()));
+
+        // ingreso nulo
+        assertThrows(IllegalArgumentException.class,
+                () -> controladorUsuarios.modificarPaciente(
+                        "lgomez", "Laura", "Gómez", new DTFecha(12, 4, 1990),
+                        45678901, null, new HashSet<>()));
+
+        // ingreso anterior al nacimiento
+        assertThrows(IllegalArgumentException.class,
+                () -> controladorUsuarios.modificarPaciente(
+                        "lgomez", "Laura", "Gómez", new DTFecha(12, 4, 1990),
+                        45678901, new DTFecha(1, 1, 1980), new HashSet<>()));
+    }
+
+    @Test
+    void testModificarPacienteAntecedentesNulos() {
+        // cubre la rama "== null" del ternario de antecedentes en modificarPaciente
+        controladorUsuarios.modificarPaciente(
+                "lgomez", "Laura", "Gómez", new DTFecha(12, 4, 1990),
+                45678901, new DTFecha(1, 3, 2024), null);
+
+        DTUsuario usuario = controladorUsuarios.seleccionarUsuario("lgomez");
+        assertNotNull(usuario);
+    }
+
+    @Test
+    void testModificarMedicoSinEspecialidades() {
+        // especialidades == null
+        assertThrows(IllegalArgumentException.class,
+                () -> controladorUsuarios.modificarMedico(
+                        "ana.perez", "Ana", "Pérez", 1001, "Enero",
+                        "https://www.hospitalbritanico.org.uy/", null, 15));
+
+        // especialidades vacío
+        assertThrows(IllegalArgumentException.class,
+                () -> controladorUsuarios.modificarMedico(
+                        "ana.perez", "Ana", "Pérez", 1001, "Enero",
+                        "https://www.hospitalbritanico.org.uy/", new HashSet<>(), 15));
+    }
+
 } 
