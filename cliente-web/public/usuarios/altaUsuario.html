@@ -10,7 +10,7 @@
 	<header>
 		<h1>salud.uy</h1>
 		<nav>
-			<a href="index.html">Inicio</a>
+			<a href="../index.html">Inicio</a>
 			<a href="login.html">Iniciar sesión</a>
 			<a href="altaUsuario.html">Registrarse</a>
 		</nav>
@@ -20,25 +20,35 @@
 		<form>
 			<label for="tipoUsuario">Tipo de usuario:</label>
 			<select id="tipoUsuario" name="tipoUsuario" required>
-				<option value="">Seleccione una opción</option>
+				<option selected disabled value="">Seleccione una opción</option>
 				<option value="paciente">Paciente</option>
 				<option value="medico">Médico</option>
 			</select>
 			<br><br>
 			<label for="nickname">Nickname:</label>
-			<input type="text" id="nickname" name="nickname" required>
+			<input type="text" 
+					id="nickname" 
+					name="nickname" required>
 			<br>
 			<label for="nombre">Nombre:</label>
-			<input type="text" id="nombre" name="nombre" required>
+			<input type="text" 
+					id="nombre" 
+					name="nombre" required>
 			<br>
 			<label for="apellido">Apellido:</label>
-			<input type="text" id="apellido" name="apellido" required>
+			<input type="text" 
+					id="apellido" 
+					name="apellido" required>
 			<br>
 			<label for="email">Correo electrónico:</label>
-			<input type="email" id="email" name="email" required>
+			<input type="email" 
+					id="email" 
+					name="email" required>
 			<br>
 			<label for="contrasenia">Contraseña:</label>
-			<input type="password" id="contrasenia" name="contrasenia" required>
+			<input type="password" 
+					id="contrasenia" 
+					name="contrasenia" required>
 			<br>
 			<label for="confirmarContrasenia">Confirmar contraseña:</label>
 			<input type="password" 
@@ -63,8 +73,112 @@
 			    <textarea id="antecedentes"
 			              name="antecedentes"></textarea>
 			</div>
+			<div id="datosMedico">
+			    <h3>Datos del médico</h3>
+			    <label for="numeroRegistro">Número de registro:</label>
+			    <input type="text" 
+			    		id="numeroRegistro" 
+			    		name="numeroRegistro">
+			    <br>
+			    <label for="mesLicencia">Mes de licencia:</label>
+			    <select id="mesLicencia" name="mesLicencia">
+			        <option selected disabled value="">Seleccione un mes</option>
+			        <option value="enero">Enero</option>
+			        <option value="febrero">Febrero</option>
+			        <option value="marzo">Marzo</option>
+			        <option value="abril">Abril</option>
+			        <option value="mayo">Mayo</option>
+			        <option value="junio">Junio</option>
+			        <option value="julio">Julio</option>
+			        <option value="agosto">Agosto</option>
+			        <option value="septiembre">Septiembre</option>
+			        <option value="octubre">Octubre</option>
+			        <option value="noviembre">Noviembre</option>
+			        <option value="diciembre">Diciembre</option>
+			    </select>
+			    <br>
+			    <label for="sitioWeb">Sitio web:</label>
+			    <input type="url" 
+			    		id="sitioWeb" 
+			    		name="sitioWeb">
+			    <br>
+			    <p>Especialidades:</p>
+				
+				<input type="checkbox"
+				       id="cardiologia"
+				       name="especialidades"
+				       value="cardiologia">
+				<label for="cardiologia">Cardiología</label>
+				
+				<br>
+				
+				<input type="checkbox"
+				       id="pediatria"
+				       name="especialidades"
+				       value="pediatria">
+				<label for="pediatria">Pediatría</label>
+				
+				<br>
+				
+				<input type="checkbox"
+				       id="medicinaGeneral"
+				       name="especialidades"
+				       value="medicinaGeneral">
+				<label for="medicinaGeneral">Medicina General</label>
+			    <br>
+			    <label for="porcentajeAdicional">Porcentaje adicional:</label>
+			    <input type="number"
+			           id="porcentajeAdicional"
+			           name="porcentajeAdicional">
+			</div>
+			<br>
+			<button type="submit">Registrarse</button>
 		</form>
 	</main>
-</body>
+	<script>
+        const tipoUsuario = document.getElementById("tipoUsuario");
+        const datosPaciente = document.getElementById("datosPaciente");
+        const datosMedico = document.getElementById("datosMedico");
+        const contrasenia = document.getElementById("contrasenia");
+        const confirmarContrasenia = document.getElementById("confirmarContrasenia");
+        datosPaciente.style.display = "none";
+        datosMedico.style.display = "none";
+        tipoUsuario.addEventListener("change", function() {
+        	if (tipoUsuario.value === "paciente") {
+        	    datosPaciente.style.display = "block";
+        	    datosMedico.style.display = "none";
+        	    document.getElementById("fechaNacimiento").required = true;
+        	    document.getElementById("documento").required = true;
+        	    document.getElementById("numeroRegistro").required = false;
+        	    document.getElementById("mesLicencia").required = false;
+        	    document.getElementById("porcentajeAdicional").required = false;
+        	}
+        	else if (tipoUsuario.value === "medico") {
+        	    datosPaciente.style.display = "none";
+        	    datosMedico.style.display = "block";
+        	    document.getElementById("fechaNacimiento").required = false;
+        	    document.getElementById("documento").required = false;
+        	    document.getElementById("numeroRegistro").required = true;
+        	    document.getElementById("mesLicencia").required = true;
+        	    document.getElementById("porcentajeAdicional").required = true;
+        	}
+            else {
+                datosPaciente.style.display = "none";
+                datosMedico.style.display = "none";
+            }
+        });
+        confirmarContrasenia.addEventListener("input", function() {
 
+            if (contrasenia.value !== confirmarContrasenia.value) {
+                confirmarContrasenia.setCustomValidity(
+                    "Las contraseñas no coinciden"
+                );
+            }
+            else {
+                confirmarContrasenia.setCustomValidity("");
+            }
+
+        });
+    </script>
+</body>
 </html>
