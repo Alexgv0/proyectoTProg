@@ -3,7 +3,9 @@
 
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 	<title>Registrarse - salud.uy</title>
+	<script defer src="../js/altaUsuario.js"></script>
 </head>
 
 <body>
@@ -17,7 +19,7 @@
 	</header>
 	<main>
 		<h2>Registro de usuario</h2>
-		<form>
+		<form id="formAltaUsuario">
 			<label for="tipoUsuario">Tipo de usuario:</label>
 			<select id="tipoUsuario" name="tipoUsuario" required>
 				<option selected disabled value="">Seleccione una opción</option>
@@ -28,17 +30,20 @@
 			<label for="nickname">Nickname:</label>
 			<input type="text" 
 					id="nickname" 
-					name="nickname" required>
+					name="nickname" 
+					maxlength="50" required> 
 			<br>
 			<label for="nombre">Nombre:</label>
 			<input type="text" 
 					id="nombre" 
-					name="nombre" required>
+					name="nombre"
+					maxlength="50" required>
 			<br>
 			<label for="apellido">Apellido:</label>
 			<input type="text" 
 					id="apellido" 
-					name="apellido" required>
+					name="apellido"
+					maxlength="50" required>
 			<br>
 			<label for="email">Correo electrónico:</label>
 			<input type="email" 
@@ -65,9 +70,11 @@
 			           name="fechaNacimiento">
 			    <br>
 			    <label for="documento">Número de documento:</label>
-			    <input type="text"
+			    <input type="number"
 			           id="documento"
-			           name="documento">
+			           name="documento"
+			           min="1"
+						step="1">
 			    <br>
 			    <label for="antecedentes">Antecedentes médicos:</label>
 			    <textarea id="antecedentes"
@@ -76,9 +83,11 @@
 			<div id="datosMedico">
 			    <h3>Datos del médico</h3>
 			    <label for="numeroRegistro">Número de registro:</label>
-			    <input type="text" 
-			    		id="numeroRegistro" 
-			    		name="numeroRegistro">
+			    <input type="number"
+       					id="numeroRegistro"
+       					name="numeroRegistro"
+      					min="1"
+       					step="1">
 			    <br>
 			    <label for="mesLicencia">Mes de licencia:</label>
 			    <select id="mesLicencia" name="mesLicencia">
@@ -103,23 +112,18 @@
 			    		name="sitioWeb">
 			    <br>
 			    <p>Especialidades:</p>
-				
 				<input type="checkbox"
 				       id="cardiologia"
 				       name="especialidades"
 				       value="cardiologia">
 				<label for="cardiologia">Cardiología</label>
-				
 				<br>
-				
 				<input type="checkbox"
 				       id="pediatria"
 				       name="especialidades"
 				       value="pediatria">
-				<label for="pediatria">Pediatría</label>
-				
+				<label for="pediatria">Pediatría</label>	
 				<br>
-				
 				<input type="checkbox"
 				       id="medicinaGeneral"
 				       name="especialidades"
@@ -135,50 +139,5 @@
 			<button type="submit">Registrarse</button>
 		</form>
 	</main>
-	<script>
-        const tipoUsuario = document.getElementById("tipoUsuario");
-        const datosPaciente = document.getElementById("datosPaciente");
-        const datosMedico = document.getElementById("datosMedico");
-        const contrasenia = document.getElementById("contrasenia");
-        const confirmarContrasenia = document.getElementById("confirmarContrasenia");
-        datosPaciente.style.display = "none";
-        datosMedico.style.display = "none";
-        tipoUsuario.addEventListener("change", function() {
-        	if (tipoUsuario.value === "paciente") {
-        	    datosPaciente.style.display = "block";
-        	    datosMedico.style.display = "none";
-        	    document.getElementById("fechaNacimiento").required = true;
-        	    document.getElementById("documento").required = true;
-        	    document.getElementById("numeroRegistro").required = false;
-        	    document.getElementById("mesLicencia").required = false;
-        	    document.getElementById("porcentajeAdicional").required = false;
-        	}
-        	else if (tipoUsuario.value === "medico") {
-        	    datosPaciente.style.display = "none";
-        	    datosMedico.style.display = "block";
-        	    document.getElementById("fechaNacimiento").required = false;
-        	    document.getElementById("documento").required = false;
-        	    document.getElementById("numeroRegistro").required = true;
-        	    document.getElementById("mesLicencia").required = true;
-        	    document.getElementById("porcentajeAdicional").required = true;
-        	}
-            else {
-                datosPaciente.style.display = "none";
-                datosMedico.style.display = "none";
-            }
-        });
-        confirmarContrasenia.addEventListener("input", function() {
-
-            if (contrasenia.value !== confirmarContrasenia.value) {
-                confirmarContrasenia.setCustomValidity(
-                    "Las contraseñas no coinciden"
-                );
-            }
-            else {
-                confirmarContrasenia.setCustomValidity("");
-            }
-
-        });
-    </script>
 </body>
 </html>
