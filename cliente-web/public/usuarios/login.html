@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>Iniciar sesión - salud.uy</title>
+	<script src="../js/login.js" defer></script>
 </head>
-
 <body>
 	<header>
 		<h1>salud.uy</h1>
@@ -17,16 +16,22 @@
 	</header>
 	<main>
 		<h2>Iniciar sesión</h2>
-		<form>
+		<form id="formLogin">
 			<label for="nickname">Nickname:</label>
-			<input type="text" id="nickname" name="nickname" required>
+			<input type="text" 
+				id="nickname" 
+				name="nickname" 
+				maxlenght="50"
+				required>
 			<br>
 			<label for="contrasenia">Contraseña:</label>
-			<input type="password" id="contrasenia" name="contrasenia" required>
+			<input type="password" 
+				id="contrasenia" 
+				name="contrasenia"
+				required>
 			<br>
 			<button type="submit">Iniciar sesión</button>
 		</form>
 	</main>
 </body>
-
 </html>

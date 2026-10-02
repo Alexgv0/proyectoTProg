@@ -1,3 +1,8 @@
+const fechaActual = new Date();
+const hoy = new Date().toISOString().split("T")[0];
+const fechaMinima = new Date(fechaActual);
+fechaMinima.setFullYear(fechaActual.getFullYear() - 150);
+const hace150Anios = fechaMinima.toISOString().split("T")[0];
 const nickname = document.getElementById("nickname");
 const nombre = document.getElementById("nombre");
 const apellido = document.getElementById("apellido");
@@ -9,7 +14,7 @@ const confirmarContrasenia = document.getElementById("confirmarContrasenia");
 const especialidades = document.querySelectorAll('input[name="especialidades"]');
 const formAltaUsuario = document.getElementById("formAltaUsuario");
 const fechaNacimiento = document.getElementById("fechaNacimiento");
-const hoy = new Date().toISOString().split("T")[0];
+fechaNacimiento.min = hace150Anios;
 fechaNacimiento.max = hoy;
 datosPaciente.style.display = "none";
 datosMedico.style.display = "none";
