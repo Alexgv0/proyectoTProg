@@ -1,23 +1,3 @@
-const nickname = "juanperez";
-const email = "juan@email.com";
-const nombrei = "Juan";
-const apellidoi = "Pérez";
-const fechaNacimientoUsuario = "2000-05-15";
-const documento = "12345678";
-const antecedentes = "Ninguno";
-const fechaIngresoUsuario = "2026-10-01";
-const cargarDatosUsuario = () => {
-    document.getElementById("nickname").value = nickname;
-    document.getElementById("email").value = email;
-    document.getElementById("nombre").value = nombrei;
-    document.getElementById("apellido").value = apellidoi;
-    document.getElementById("fechaNacimiento").value = fechaNacimientoUsuario;
-    document.getElementById("documento").value = documento;
-    document.getElementById("antecedentes").value = antecedentes;
-    document.getElementById("fechaIngreso").value = fechaIngresoUsuario;
-}
-cargarDatosUsuario();
-
 const fechaActual = new Date();
 const hoy = new Date().toISOString().split("T")[0];
 const fechaMinima = new Date(fechaActual);
