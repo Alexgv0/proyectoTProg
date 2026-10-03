@@ -17,13 +17,21 @@
 	
 	<body>
 		<header>
-			<h1>salud.uy</h1>
-			<nav>
-				<a href="../index.html">Inicio</a>
-				<a href="../usuarios/login.html">Iniciar sesión</a>
-				<a href="../usuarios/altaUsuario.html">Registrarse</a>
+			<nav class="navbar bg-body-tertiary">
+		        <div class="container">
+		            
+		            <a class="navbar-brand" href="index.html">salud.uy</a>
+		
+					<div class="navbar-nav flex-row gap-3">
+		                <a class="nav-link" href="index.html">Inicio</a>
+		                <a class="nav-link" href="usuarios/login.html">Iniciar sesión</a>
+		                <a class="nav-link" href="usuarios/altaUsuario.html">Registrarse</a>
+		            </div>
+		
+		        </div>
 			</nav>
 		</header>
+		
 		<main class="container mt-4">
 		
 		    <div class="row justify-content-center">
@@ -34,25 +42,18 @@
 		            <form>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="nombre">
-		                        Nombre: 
-		                    </label>
-		                    <input class="form-control" id="nombre" name="nombre" type="text">
+		                    <label class="form-label" for="nombre">Nombre: </label>
+		                    <input class="form-control" id="nombre" name="nombre" type="text" required>
 		                </div>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="descripcion">
-		                        Descripción:
-		                    </label>
-		                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+		                    <label class="form-label" for="descripcion">Descripción: </label>
+		                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
 		                </div>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="dia">
-		                        Día de la semana:
-		                    </label>
-		
-		                    <select class="form-select" id="dia" name="dia">
+		                    <label class="form-label" for="dia">Día de la semana: </label>
+		                    <select class="form-select" id="dia" name="dia" required>
 		                        <option selected disabled>Selecciona un día</option>
 		                        <option value="lunes">Lunes</option>
 		                        <option value="martes">Martes</option>
@@ -65,38 +66,31 @@
 		                </div>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="horaInicio">
-		                        Hora de inicio:
-		                    </label>
-		
-		                    <input class="form-control" id="horaInicio" name="horaInicio" type="time">
+		                    <label class="form-label" for="horaInicio">Hora de inicio: </label>
+		                    <input class="form-control" id="horaInicio" name="horaInicio" type="time" required>
 		                </div>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="especialidad">
-		                        Especialidad:
-		                    </label>
-		
-		                    <select class="form-select" id="especialidad" name="especialidad">
-		                        <option selected disabled>Selecciona una especialidad</option>
+		                    <label class="form-label" for="especialidad">Especialidad: </label>
+		                    <select class="form-select" id="especialidad" name="especialidad" required>
+		                        <option selected disabled value="">Selecciona una especialidad</option>
+		                        <option value="cardiologia">Cardiología</option>
+		                        <option value="pediatria">Pediatría</option>
+		                        <option value="medicinaGeneral">Medicina General</option>
 		                    </select>
 		                </div>
 		
 		                <div class="mb-3">
-		                    <label class="form-label" for="clinica">
-		                        Clínica:
-		                    </label>
-		
-		                    <select class="form-select" id="clinica" name="clinica">
+		                    <label class="form-label" for="clinica">Clínica: </label>
+		                    <select class="form-select" id="clinica" name="clinica" required>
 		                        <option selected disabled>Selecciona una clínica</option>
+		                        <option value="hospitalBritanico">Hospital Británico</option>
+		                        <option value="casmu">CASMU</option>
 		                    </select>
 		                </div>
 		
 		                <div class="mb-4">
-		                    <label class="form-label" for="imagen">
-		                        Imagen:
-		                    </label>
-		
+		                    <label class="form-label" for="imagen">Imagen: </label>
 		                    <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*">
 		                </div>
 		
@@ -110,5 +104,11 @@
 		    </div>
 		
 		</main>
+		
+		<footer class="bg-body-tertiary mt-auto py-3">
+		    <div class="container text-center">
+		        <p class="mb-0"> &copy; 2026 salud.uy - Taller de Programación 2026 - Grupo 57</p>
+		    </div>
+		</footer>
 	</body>
 </html>

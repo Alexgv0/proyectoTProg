@@ -1,10 +1,23 @@
 
 const validarDatos = () => {
 	document.addEventListener("DOMContentLoaded", () => {
+		limpiarCampos();
 		validarEmails();
 		validarPasswords();
 	});
 }
+
+const limpiarCampos = () => {
+
+    document.querySelectorAll("input[type='text'], input[type='email'], textarea").forEach(campo => {
+
+        campo.addEventListener("blur", () => {
+            campo.value = campo.value.trim();
+        });
+
+    });
+
+};
 
 const validarEmails = () => {
 	document.querySelectorAll(".email").forEach(campo => {
