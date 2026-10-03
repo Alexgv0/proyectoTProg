@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <title>Perfil de usuario - salud.uy</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <script defer type="text/javascript" src="../js/perfilUsuario.js"></script>
 </head>
 <body>
     <header>
@@ -17,33 +19,29 @@
         <a href="modificarUsuario.html">Modificar mis datos</a>
         <section>
 		    <h3>Información personal</h3>
-		    <img src="../img/perfilEjemplo.png"
-		         alt="Imagen de perfil"
-		         width="150">
-		    <p><strong>Nickname:</strong> juanperez</p>
-		    <p><strong>Nombre:</strong> Juan</p>
-		    <p><strong>Apellido:</strong> Pérez</p>
-		    <p><strong>Correo electrónico:</strong> juan@email.com</p>
-		    <p><strong>Fecha de ingreso:</strong> 01/10/2026</p>
+		    <img id="imagenPerfil"
+			     alt="Imagen de perfil"
+			     width="150">
+		    <p><strong>Nickname:</strong> <span id="nickname"></span></p>
+			<p><strong>Nombre:</strong> <span id="nombre"></span></p>
+			<p><strong>Apellido:</strong> <span id="apellido"></span></p>
+			<p><strong>Correo electrónico:</strong> <span id="correo"></span></p>
+			<p><strong>Fecha de ingreso:</strong> <span id="fechaIngreso"></span></p>
 		</section>
         <section>
     		<h3>Datos del paciente</h3>
-    		<p><strong>Fecha de nacimiento:</strong> 15/05/2000</p>
-    		<p><strong>Número de documento:</strong> 12345678</p>
-    		<p><strong>Antecedentes médicos:</strong> Ninguno</p>
+    		<p><strong>Fecha de nacimiento:</strong> <span id="fechaNacimiento"></span></p>
+			<p><strong>Número de documento:</strong> <span id="documento"></span></p>
+			<p><strong>Antecedentes médicos:</strong> <span id="antecedentes"></span></p>
 		</section>
 		<section>
 		    <h3>Mis reservas</h3>
 		    <ul>
 		        <li>
-		            <a href="../reservas/consultaReserva.html"> <!-- consultaReserva es el nombre q espero  -->
-		                Consulta de Cardiología - 15/10/2026
-		            </a>
+		            <a id="reserva1"></a>
 		        </li>
 		        <li>
-		            <a href="../reservas/consultaReserva.html">
-		                Consulta de Medicina General - 22/10/2026
-		            </a>
+		            <a id="reserva2"></a>
 		        </li>
 		    </ul>
 		</section>
