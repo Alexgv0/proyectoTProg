@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Modificar perfil - salud.uy</title>
     <script src="../js/modificarUsuario.js" defer></script>
+    <link rel="stylesheet" href="../css/global.css">
 </head>
 <body>
     <header>
@@ -20,21 +21,18 @@
 			<input type="text"
 			       id="nickname"
 			       name="nickname"
-			       value="juanperez"
 			       readonly>
 			<br>
 			<label for="email">Correo electrónico:</label>
 			<input type="email"
 			       id="email"
 			       name="email"
-			       value="juan@email.com"
 			       readonly>
 			<br>
 			<label for="nombre">Nombre:</label>
 			<input type="text"
 			       id="nombre"
 			       name="nombre"
-			       value="Juan"
 			       maxlength="50"
 			       required>
 			<br>
@@ -42,36 +40,33 @@
 			<input type="text"
 			       id="apellido"
 			       name="apellido"
-			       value="Pérez"
 			       maxlength="50"
 			       required>
 			<br>
 			<h3>Datos del paciente</h3>
+			
 			<label for="fechaNacimiento">Fecha de nacimiento:</label>
 			<input type="date"
 			       id="fechaNacimiento"
 			       name="fechaNacimiento"
-			       value="2000-05-15"
 			       required>
 			<br>
 			<label for="documento">Número de documento:</label>
 			<input type="number"
 			       id="documento"
 			       name="documento"
-			       value="12345678"
 			       min="1"
 			       step="1"
 			       required>
 			<br>
 			<label for="antecedentes">Antecedentes médicos:</label>
 			<textarea id="antecedentes"
-			          name="antecedentes">Ninguno</textarea>
+			          name="antecedentes"></textarea>
 			<br>
 			<label for="fechaIngreso">Fecha de ingreso:</label>
 			<input type="date"
 			       id="fechaIngreso"
 			       name="fechaIngreso"
-			       value="2026-10-01"
 			       required>
 			<br>
 			<h3>Cambiar contraseña</h3>
