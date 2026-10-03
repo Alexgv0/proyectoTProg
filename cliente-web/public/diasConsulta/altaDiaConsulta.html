@@ -16,50 +16,99 @@
 	</head>
 	
 	<body>
-		<form>
-			<h1>Alta de Dia de Consulta</h1>
-			<label for="nombre">Nombre: </label>
-			<input id="nombre" type="text">
-			<br>
-			
-			<label for="descripcion">Descripcion: </label>
-			<textarea id="descripcion"></textarea>
-			<br>
+		<header>
+			<h1>salud.uy</h1>
+			<nav>
+				<a href="../index.html">Inicio</a>
+				<a href="../usuarios/login.html">Iniciar sesión</a>
+				<a href="../usuarios/altaUsuario.html">Registrarse</a>
+			</nav>
+		</header>
+		<main class="container mt-4">
 		
-			<label for="dia">Dia de la semana: </label>
-			<select id="dia" name="dia">
-				<option selected disabled>Selecciona un dia</option>
-				<option value="lunes">Lunes</option>
-				<option value="martes">Martes</option>
-				<option value="miercoles">Miercoles</option>
-				<option value="jueves">Jueves</option>
-				<option value="viernes">Viernes</option>
-				<option value="sabado">Sabado</option>
-				<option value="domingo">Domingo</option>
-			</select>
-			<br>
-			
-			<label for="horaInicio">Hora de inicio: </label>
-			<input id="horaInicio" type="time">
-			<br>
-			
-			<label for="especialidad">Especialidad: </label>
-			<select id="especialidad" name="especialidad">
-				<option selected disabled>Selecciona una especialidad</option>
-			</select>
-			<br>
-			
-			<label for="clinica">Clinica: </label>
-			<select id="clinica" name="clinica">
-				<option selected disabled>Selecciona una clinica</option>
-			</select>
-			<br>
-			
-			<label for="imagen">Imagen: </label>
-			<input type="file" id="imagen" name="imagen" accept="image/*">
-			<br>
-
-			<input id="enviar" type="submit">
-		</form>
+		    <div class="row justify-content-center">
+		        <div class="col-md-8 col-lg-6">
+		
+		            <h1 class="mb-4">Alta de Día de Consulta</h1>
+		
+		            <form>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="nombre">
+		                        Nombre: 
+		                    </label>
+		                    <input class="form-control" id="nombre" name="nombre" type="text">
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="descripcion">
+		                        Descripción:
+		                    </label>
+		                    <textarea class="form-control" id="descripcion" name="descripcion" rows="4"></textarea>
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="dia">
+		                        Día de la semana:
+		                    </label>
+		
+		                    <select class="form-select" id="dia" name="dia">
+		                        <option selected disabled>Selecciona un día</option>
+		                        <option value="lunes">Lunes</option>
+		                        <option value="martes">Martes</option>
+		                        <option value="miercoles">Miércoles</option>
+		                        <option value="jueves">Jueves</option>
+		                        <option value="viernes">Viernes</option>
+		                        <option value="sabado">Sábado</option>
+		                        <option value="domingo">Domingo</option>
+		                    </select>
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="horaInicio">
+		                        Hora de inicio:
+		                    </label>
+		
+		                    <input class="form-control" id="horaInicio" name="horaInicio" type="time">
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="especialidad">
+		                        Especialidad:
+		                    </label>
+		
+		                    <select class="form-select" id="especialidad" name="especialidad">
+		                        <option selected disabled>Selecciona una especialidad</option>
+		                    </select>
+		                </div>
+		
+		                <div class="mb-3">
+		                    <label class="form-label" for="clinica">
+		                        Clínica:
+		                    </label>
+		
+		                    <select class="form-select" id="clinica" name="clinica">
+		                        <option selected disabled>Selecciona una clínica</option>
+		                    </select>
+		                </div>
+		
+		                <div class="mb-4">
+		                    <label class="form-label" for="imagen">
+		                        Imagen:
+		                    </label>
+		
+		                    <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*">
+		                </div>
+		
+		                <button class="btn btn-primary" id="enviar" type="submit">
+		                    Crear día de consulta
+		                </button>
+		
+		            </form>
+		
+		        </div>
+		    </div>
+		
+		</main>
 	</body>
 </html>
