@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Alta de clínica - salud.uy</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/global.css">
+	<script defer src="../js/altaClinica.js"></script>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar bg-body-tertiary">
+	        <div class="container">
+	            <a class="navbar-brand" href="../index.html">salud.uy</a>
+				<div class="navbar-nav flex-row gap-3">
+	                <a class="nav-link" href="../index.html">Inicio</a>
+	                <a class="nav-link" href="../clinicas/consultaClinica.html">Clínicas</a>
+	                <a class="nav-link" href="../especialidades/consultaEspecialidad.html">Especialidades</a>
+	                <a class="nav-link" href="../usuarios/login.html">Iniciar sesión</a>
+	                <a class="nav-link" href="../usuarios/altaUsuario.html">Registrarse</a>
+	            </div>
+	        </div>
+		</nav>
+	</header>
+	<main class="container mt-4">
+		<h1 class="mb-4">Alta de clínica</h1>
+		<form id="formAltaClinica">
+			<label for="nombre" class="form-label">Nombre:</label>
+			<input class="form-control mb-2" type="text" id="nombre" name="nombre" maxlength="50" required>
+
+			<label for="descripcion" class="form-label">Descripción:</label>
+			<textarea class="form-control mb-2" id="descripcion" name="descripcion" required></textarea>
+
+			<label for="direccion" class="form-label">Dirección:</label>
+			<input class="form-control mb-2" type="text" id="direccion" name="direccion" required>
+
+			<label for="costoMedicamento" class="form-label">Costo ticket medicamento:</label>
+			<input class="form-control mb-2" type="number" id="costoMedicamento" name="costoMedicamento" min="0" step="0.01" required>
+
+			<label for="costoConsulta" class="form-label">Costo orden consulta médica:</label>
+			<input class="form-control mb-2" type="number" id="costoConsulta" name="costoConsulta" min="0" step="0.01" required>
+
+			<label for="sitioWeb" class="form-label">Sitio web (opcional):</label>
+			<input class="form-control mb-2" type="url" id="sitioWeb" name="sitioWeb">
+
+			<label for="imagen" class="form-label">Imagen (opcional):</label>
+			<input class="form-control mb-3" type="file" id="imagen" name="imagen" accept="image/*">
+
+			<button class="btn btn-primary" type="submit">Aceptar</button>
+			<a class="btn btn-secondary" href="consultaClinica.html">Cancelar</a>
+		</form>
+	</main>
+</body>
+</html>
