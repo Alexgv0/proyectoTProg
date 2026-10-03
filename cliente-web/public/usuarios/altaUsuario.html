@@ -104,82 +104,145 @@
 			           accept="image/*">
 			</div>
 			
-			<div id="datosPaciente" style="display: none;">
-			    <h3>Datos del paciente</h3>
-			    <label for="fechaNacimiento">Fecha de nacimiento:</label>
-			    <input type="date"
-			           id="fechaNacimiento"
-			           name="fechaNacimiento">
-			    <br>
-			    <label for="documento">Número de documento:</label>
-			    <input type="number"
-			           id="documento"
-			           name="documento"
-			           min="1"
-						step="1">
-			    <br>
-			    <label for="antecedentes">Antecedentes médicos:</label>
-			    <textarea id="antecedentes"
-			              name="antecedentes"></textarea>
+			<div id="datosPaciente">
+			    <h3 class="mb-3">Datos del paciente</h3>
+			
+			    <div class="mb-3">
+			        <label for="fechaNacimiento" class="form-label">
+			            Fecha de nacimiento:
+			        </label>
+			        <input type="date"
+			               class="form-control"
+			               id="fechaNacimiento"
+			               name="fechaNacimiento">
+			    </div>
+			
+			    <div class="mb-3">
+			        <label for="documento" class="form-label">
+			            Número de documento:
+			        </label>
+			        <input type="number"
+			               class="form-control"
+			               id="documento"
+			               name="documento"
+			               min="1"
+			               step="1">
+			    </div>
+			
+			    <div class="mb-3">
+			        <label for="antecedentes" class="form-label">
+			            Antecedentes médicos:
+			        </label>
+			        <textarea class="form-control"
+			                  id="antecedentes"
+			                  name="antecedentes"
+			                  rows="3"></textarea>
+			    </div>
 			</div>
 			
-			<div id="datosMedico" style="display: none;">
-			    <h3>Datos del médico</h3>
-			    <label for="numeroRegistro">Número de registro:</label>
-			    <input type="number"
-       					id="numeroRegistro"
-       					name="numeroRegistro"
-      					min="1"
-       					step="1">
-			    <br>
-			    <label for="mesLicencia">Mes de licencia:</label>
-			    <select id="mesLicencia" name="mesLicencia">
-			        <option selected disabled value="">Seleccione un mes</option>
-			        <option value="enero">Enero</option>
-			        <option value="febrero">Febrero</option>
-			        <option value="marzo">Marzo</option>
-			        <option value="abril">Abril</option>
-			        <option value="mayo">Mayo</option>
-			        <option value="junio">Junio</option>
-			        <option value="julio">Julio</option>
-			        <option value="agosto">Agosto</option>
-			        <option value="septiembre">Septiembre</option>
-			        <option value="octubre">Octubre</option>
-			        <option value="noviembre">Noviembre</option>
-			        <option value="diciembre">Diciembre</option>
-			    </select>
-			    <br>
-			    <label for="sitioWeb">Sitio web:</label>
-			    <input type="url" 
-			    		id="sitioWeb" 
-			    		name="sitioWeb">
-			    <br>
-			    <p>Especialidades:</p>
-				<input type="checkbox"
-				       id="cardiologia"
-				       name="especialidades"
-				       value="cardiologia">
-				<label for="cardiologia">Cardiología</label>
-				<br>
-				<input type="checkbox"
-				       id="pediatria"
-				       name="especialidades"
-				       value="pediatria">
-				<label for="pediatria">Pediatría</label>	
-				<br>
-				<input type="checkbox"
-				       id="medicinaGeneral"
-				       name="especialidades"
-				       value="medicinaGeneral">
-				<label for="medicinaGeneral">Medicina General</label>
-			    <br>
-			    <label for="porcentajeAdicional">Porcentaje adicional:</label>
-			    <input type="number"
-			           id="porcentajeAdicional"
-			           name="porcentajeAdicional">
+			<div id="datosMedico">
+			    <h3 class="mb-3">Datos del médico</h3>
+			
+			    <div class="mb-3">
+			        <label for="numeroRegistro" class="form-label">
+			            Número de registro:
+			        </label>
+			        <input type="number"
+			               class="form-control"
+			               id="numeroRegistro"
+			               name="numeroRegistro"
+			               min="1"
+			               step="1">
+			    </div>
+			
+			    <div class="mb-3">
+			        <label for="mesLicencia" class="form-label">
+			            Mes de licencia:
+			        </label>
+			
+			        <select id="mesLicencia"
+			                name="mesLicencia"
+			                class="form-select">
+				        <option selected disabled value="">Seleccione un mes</option>
+				        <option value="enero">Enero</option>
+				        <option value="febrero">Febrero</option>
+				        <option value="marzo">Marzo</option>
+				        <option value="abril">Abril</option>
+				        <option value="mayo">Mayo</option>
+				        <option value="junio">Junio</option>
+				        <option value="julio">Julio</option>
+				        <option value="agosto">Agosto</option>
+				        <option value="septiembre">Septiembre</option>
+				        <option value="octubre">Octubre</option>
+				        <option value="noviembre">Noviembre</option>
+				        <option value="diciembre">Diciembre</option>
+			    	</select>
+			    </div>
+			    
+		        <div class="mb-3">
+			        <label for="sitioWeb" class="form-label">
+			            Sitio web:
+			        </label>
+			
+			        <input type="url"
+			               class="form-control"
+			               id="sitioWeb"
+			               name="sitioWeb">
+			    </div>
+				    
+			    <div class="mb-3">
+				    <label class="form-label">Especialidades:</label>
+				
+				    <div class="form-check">
+				        <input class="form-check-input"
+				               type="checkbox"
+				               name="especialidades"
+				               value="Cardiología"
+				               id="cardiologia">
+				
+				        <label class="form-check-label" for="cardiologia">
+				            Cardiología
+				        </label>
+				    </div>
+				
+				    <div class="form-check">
+				        <input class="form-check-input"
+				               type="checkbox"
+				               name="especialidades"
+				               value="Pediatría"
+				               id="pediatria">
+				
+				        <label class="form-check-label" for="pediatria">
+				            Pediatría
+				        </label>
+				    </div>
+				
+				    <div class="form-check">
+				        <input class="form-check-input"
+				               type="checkbox"
+				               name="especialidades"
+				               value="Medicina General"
+				               id="medicinaGeneral">
+				
+				        <label class="form-check-label" for="medicinaGeneral">
+				            Medicina General
+				        </label>
+				    </div>
+				</div>
+				
+				<div class="mb-3">
+				    <label for="porcentajeAdicional" class="form-label">
+				        Porcentaje adicional:
+				    </label>
+				
+				    <input type="number"
+				           class="form-control"
+				           id="porcentajeAdicional"
+				           name="porcentajeAdicional">
+				</div>
 			</div>
-			<br>
-			<button type="submit">Registrarse</button>
+
+			<button type="submit" class="btn btn-primary">Registrarse</button>
 		</form>
 	</main>
 </body>

@@ -53,13 +53,6 @@ confirmarContrasenia.addEventListener("input", function() {
     }
 });
 formAltaUsuario.addEventListener("submit", function(event) {
-	if (nickname.value.trim() === "" ||
-	    nombre.value.trim() === "" ||
-	    apellido.value.trim() === "") {
-	    event.preventDefault();
-	    alert("Nickname, nombre y apellido no pueden contener solo espacios.");
-	    return;
-	}
     if (tipoUsuario.value === "medico") {
         let especialidadSeleccionada = false;
         especialidades.forEach(function(especialidad) {
