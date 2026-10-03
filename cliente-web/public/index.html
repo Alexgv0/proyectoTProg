@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/global.css">
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<header>
 		<nav class="navbar bg-body-tertiary">
 	        <div class="container">
@@ -27,16 +27,27 @@
 	        </div>
 		</nav>
 	</header>
+	
 	<main class="container mt-4">
 		<h2 >Bienvenido a salud.uy</h2>
 		<p>Seleccione una opción para continuar.</p>
 		<h2>Especialidades</h2>
-		<ul>
-			<li><a href="#">Cardiología</a></li>
-			<li><a href="#">Pediatría</a></li>
-			<li><a href="#">Medicina General</a></li>
-		</ul>
+		<div class="col-md-8 col-lg-6">
+			<div class="list-group">
+			    <a href="#" class="list-group-item list-group-item-action"> 
+			        Cardiología</a>
+			    <a href="#" class="list-group-item list-group-item-action">
+			        Pediatría</a>
+			    <a href="#" class="list-group-item list-group-item-action">
+			        Medicina General</a>
+		    </div>
+		</div>
 	</main>
+	
+	<footer class="bg-body-tertiary mt-auto py-3">
+	    <div class="container text-center">
+	        <p class="mb-0"> &copy; 2026 salud.uy - Taller de Programación 2026 - Grupo 57</p>
+	    </div>
+	</footer>
 </body>
-
 </html>
