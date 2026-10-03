@@ -1,13 +1,99 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Modificar perfil - salud.uy</title>
+    <script src="../js/modificarUsuario.js" defer></script>
 </head>
-
 <body>
-
+    <header>
+        <h1>salud.uy</h1>
+        <nav>
+            <a href="../index.html">Inicio</a>
+            <a href="perfilUsuario.html">Mi perfil</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Modificar perfil</h2>
+        <form id="formModificarUsuario">
+        	<label for="nickname">Nickname:</label>
+			<input type="text"
+			       id="nickname"
+			       name="nickname"
+			       value="juanperez"
+			       readonly>
+			<br>
+			<label for="email">Correo electrónico:</label>
+			<input type="email"
+			       id="email"
+			       name="email"
+			       value="juan@email.com"
+			       readonly>
+			<br>
+			<label for="nombre">Nombre:</label>
+			<input type="text"
+			       id="nombre"
+			       name="nombre"
+			       value="Juan"
+			       maxlength="50"
+			       required>
+			<br>
+			<label for="apellido">Apellido:</label>
+			<input type="text"
+			       id="apellido"
+			       name="apellido"
+			       value="Pérez"
+			       maxlength="50"
+			       required>
+			<br>
+			<h3>Datos del paciente</h3>
+			<label for="fechaNacimiento">Fecha de nacimiento:</label>
+			<input type="date"
+			       id="fechaNacimiento"
+			       name="fechaNacimiento"
+			       value="2000-05-15"
+			       required>
+			<br>
+			<label for="documento">Número de documento:</label>
+			<input type="number"
+			       id="documento"
+			       name="documento"
+			       value="12345678"
+			       min="1"
+			       step="1"
+			       required>
+			<br>
+			<label for="antecedentes">Antecedentes médicos:</label>
+			<textarea id="antecedentes"
+			          name="antecedentes">Ninguno</textarea>
+			<br>
+			<label for="fechaIngreso">Fecha de ingreso:</label>
+			<input type="date"
+			       id="fechaIngreso"
+			       name="fechaIngreso"
+			       value="2026-10-01"
+			       required>
+			<br>
+			<h3>Cambiar contraseña</h3>
+			<label for="nuevaContrasenia">Nueva contraseña:</label>
+			<input type="password"
+			       id="nuevaContrasenia"
+			       name="nuevaContrasenia">
+			<br>
+			<label for="confirmarContrasenia">Confirmar nueva contraseña:</label>
+			<input type="password"
+			       id="confirmarContrasenia"
+			       name="confirmarContrasenia">
+			<br>
+			<h3>Imagen de perfil</h3>
+			<label for="imagen">Nueva imagen:</label>
+			<input type="file"
+			       id="imagen"
+			       name="imagen"
+			       accept="image/*">
+			<br><br>
+			<button type="submit">Guardar cambios</button>
+        </form>
+    </main>
 </body>
-
 </html>
