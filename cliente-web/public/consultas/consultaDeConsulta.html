@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<title>Consulta de Consulta</title>
+		<meta name="description" content="Se consultará una consulta.">
+
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+		
+		<link rel="stylesheet" href="../css/global.css">
+		<script defer type="text/javascript" src="../js/global.js"></script>
+		<script defer type="text/javascript" src="../js/cargarConsultas.js"></script>
+	</head>
+	
+	<body class="d-flex flex-column min-vh-100">
+		<header>
+			<nav class="navbar bg-body-tertiary">
+		        <div class="container">
+		            
+		            <a class="navbar-brand" href="../index.html">salud.uy</a>
+		
+					<div class="navbar-nav flex-row gap-3">
+		                <a class="nav-link" href="../index.html">Inicio</a>
+		                <a class="nav-link" href="../usuarios/login.html">Iniciar sesión</a>
+		                <a class="nav-link" href="../usuarios/altaUsuario.html">Registrarse</a>
+		            </div>
+		
+		        </div>
+			</nav>
+		</header>
+		
+		<main class="container mt-4">
+		
+			<div class="row justify-content-center">
+				<div class="col-md-8 col-lg-6">
+				
+					<h1 class="mb-4">Consulta de Consulta</h1>
+					
+					<div class="mt-4">
+					    <h2>Selecciona un día de consulta</h2>
+					
+					    <div class="list-group" id="selectorDiaConsulta">
+					        <label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="1">
+					            Cardiología - Lunes
+					        </label>
+					
+					        <label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="2">
+					            Pediatría - Martes
+					        </label>
+					
+					        <label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="3">
+					            Medicina General Central - Miércoles
+					        </label>
+					        
+					        <label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="4">
+					            Cardiología - Jueves
+					        </label>
+					    </div>
+									
+					</div>
+					
+				    <div class="mt-4" >
+				    	<section id="listaConsultas" class="mt-4" hidden >
+				    	<h2>Selecciona una consulta</h2>
+					
+						    <div class="list-group" id="selectorConsulta">
+						    	<label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="consulta" value="1">
+						            Cardiología 240826
+						        </label>
+						
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="consulta" value="2">
+						            Pediatría 080926
+						        </label>
+						
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="consulta" value="3">
+						            Medicina General 090926
+						        </label>
+						    </div>
+						    		
+						    <div id="infoConsulta" class="mt-4" hidden>
+					    		<h3>Información de la consulta:</h3>
+						    	
+						    	<p><strong>Nombre: </strong><span id="nombreConsulta">Cardiología 240826</span></p>
+						    	<p><strong>Médico: </strong><span id="medicoConsulta">ana.perez</span></p>
+						    	<p><strong>Fecha: </strong><span id="fechaConsulta">24/08/2026</span></p>
+						    	<p><strong>Número de sala: </strong><span id="numSala">101</span></p>
+						    	<p><strong>Cantidad de números: </strong><span id="cantidadNumeros">3</span></p>
+						    	<p><strong>Costo de la consulta: </strong><span id="costoConsulta">1656</span></p>
+					    		<div id="imagenConsulta" hidden>
+						    		<p><strong>Imagen: </strong></p>
+						    		<img class="img-fluid" id="imagen" alt="Imagen de la consulta">						    
+					    		</div>
+						    
+						    	<div id="listaReserva" class="mt-4" hidden> 
+						    	<!--  Si el usuario es el medico de la consulta podra ver el listado de reservas -->
+						    		<h4>Reservas asociadas:</h4>
+						    		
+						    		<div class="list-group">						    		
+								    	<a class="list-group-item list-group-item-action" href="../reservas/consultaDeReserva.html">
+								    		<p>
+									    		<span id="reserva1-fecha">01/08/2026</span>
+									    		 - 
+								    			<span id="reserva1-numPaciente">1</span>
+								    			 - 
+									    		<span id="reserva1-nickPaciente">lgomez</span>
+								    		</p>
+								    	</a>
+								    	
+								    	<a class="list-group-item list-group-item-action" href="../reservas/consultaDeReserva.html">
+								    		<p>
+									    		<span id="reserva2-fecha">27/07/2026</span>
+												 - 
+								    			<span id="reserva2-numPaciente">2</span>
+								    			 - 
+									    		<span id="reserva2-nickPaciente">mar.fernandez</span>
+								    		</p>
+								    	</a>
+						    		</div>
+						    		
+							    </div>
+							    
+							    <div id="infoReserva" class="mt-4" hidden> 
+						    	<!--   Si el usuario es un paciente que tiene una reserva a la consulta podra ver los detalles de su reserva -->
+						    		<h4>Información de la reserva asociada:</h4>
+						    		
+						    		<p><strong>Nombre del paciente: </strong><span id="nombrePaciente">Laura</span></p>
+							    	<p><strong>Apellido del paciente: </strong><span id="apellidoPaciente">Gómez</span></p>
+							    	<p><strong>Fecha: </strong><span id="fechaReserva">01/08/2026</span></p>
+							    	<p><strong>Número: </strong><span id="numero">1</span></p>
+							    	<p><strong>Costo de la reserva: </strong><span id="costoReserva">1656</span></p>
+						    		<a href="../reservas/consultaDeReserva.html" class="btn btn-primary">
+						    			Ver detalles de la reserva
+						    		</a>
+							    </div>
+						    
+						    </div>
+						</section>
+						
+					</div>
+			    </div>
+			</div>
+		</main>
+		
+		<footer class="bg-body-tertiary mt-auto py-3">
+		    <div class="container text-center">
+		        <p class="mb-0"> &copy; salud.uy - Taller de Programación 2026 - Grupo 57</p>
+		    </div>
+		</footer>
+	</body>
+</html>

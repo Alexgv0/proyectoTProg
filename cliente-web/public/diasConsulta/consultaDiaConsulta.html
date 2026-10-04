@@ -12,8 +12,7 @@
 		
 		<link rel="stylesheet" href="../css/global.css">
 		<script defer type="text/javascript" src="../js/global.js"></script>
-		<script defer type="text/javascript" src="../js/consultaDiaConsulta.js"></script>
-	
+		<script defer type="text/javascript" src="../js/cargarConsultas.js"></script>
 	</head>
 	
 	<body class="d-flex flex-column min-vh-100">
@@ -40,72 +39,64 @@
 				
 					<h1 class="mb-4">Consulta de Día de Consulta</h1>
 					
-					<div class="container mt-4">
+					<div class="mt-4">
 					    <h2>Selecciona un día de consulta</h2>
 					
 					    <div class="list-group" id="selectorDiaConsulta">
 					        <label class="list-group-item">
 					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="1">
-					            Lunes 5 de octubre - Cardiología - 10:00
+					            Cardiología - Lunes
 					        </label>
 					
 					        <label class="list-group-item">
 					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="2">
-					            Martes 6 de octubre - Pediatría - 14:00
+					            Pediatría - Martes
 					        </label>
 					
 					        <label class="list-group-item">
 					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="3">
-					            Miércoles 7 de octubre - Medicina general - 09:00
+					            Medicina General Central - Miércoles
+					        </label>
+					        
+					        <label class="list-group-item">
+					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="4">
+					            Cardiología - Jueves
 					        </label>
 					    </div>
 									
 					</div>
 					
-				    <div class="container mt-4">
+				    <div id="datosDiaConsulta" class="mt-4" hidden>
 				    	<h2>Datos del día de consulta</h2>
 				    	
-				    	<p><strong>Nombre: </strong><span id="nombre"></span></p>
-				    	<p><strong>Imagen: </strong></p><img id="imagen" alt="Imagen del dia de consulta" src="">
-				    	<p><strong>Fecha: </strong><span id="fecha"></span></p>
-				    	<p><strong>Número de sala: </strong><span id="numSala"></span></p>
-				    	<p><strong>Números disponibles: </strong><span id="numDisponibles"></span></p>
-				    	<p><strong>Costo de la consulta: </strong><span id="costoConsulta"></span></p>
+				    	<p><strong>Nombre: </strong><span id="nombre">Cardiología - Lunes</span></p>
+				    	<p><strong>Descripción: </strong><span id="descripcion">Atención cardiológica semanal</span></p>
+				    	<p><strong>Día de la semana: </strong><span id="dia">Lunes</span></p>
+				    	<p><strong>Hora de inicio: </strong><span id="horaInicio">09:00</span></p>
+				    	<p><strong>Especialidad: </strong><span id="especialidad">Cardiología</span></p>
+				    	<p><strong>Clínica: </strong><span id="clinica">Hospital Británico</span></p>
+				    	<p><strong>Costo: </strong><span id="costo">1440</span></p>
+				    	<div id="imagenConsulta" hidden>
+				    		<p><strong>Imagen: </strong></p>
+				    		<img class="img-fluid" id="imagen" alt="Imagen del dia de consulta">						    
+			    		</div>
 				    	
-				    	<section id="listaConsultas" class="container mt-4" hidden >
+				    	<section id="listaConsultas" class="mt-4" >
 				    		<h3>Consultas asociadas</h3>
 					
 						    <div class="list-group">
-						    	<a class="list-group-item list-group-item-action" href="detalleClinicaBritanico.html">
+						    	<a class="list-group-item list-group-item-action" href="../consultas/consultaDeConsulta.html">
 						    		Cardiología 240826
 						    	</a>
 						    	
-						    	<a class="list-group-item list-group-item-action" href="detalleClinicaBritanico.html">
+						    	<a class="list-group-item list-group-item-action" href="../consultas/consultaDeConsulta.html">
 						    		Pediatría 080926
 						    	</a>
 						    	
-						    	<a class="list-group-item list-group-item-action" href="detalleClinicaBritanico.html">
+						    	<a class="list-group-item list-group-item-action" href="../consultas/consultaDeConsulta.html">
 						    		Medicina General 090926
 						    	</a>
-						        <label class="list-group-item">
-						            <input class="form-check-input me-2" type="radio" name="consulta" value="1">
-						            Cardiología 240826
-						        </label>
-						
-						        <label class="list-group-item">
-						            <input class="form-check-input me-2" type="radio" name="consulta" value="2">
-						            Pediatría 080926
-						        </label>
-						
-						        <label class="list-group-item">
-						            <input class="form-check-input me-2" type="radio" name="consulta" value="3">
-						            Medicina General 090926
-						        </label>
 						    </div>
-						    <div class="list-group">
-								
-								<a class="list-group-item list-group-item-action" href="detalleClinicaCasmu.html">CASMU</a>
-							</div>
 						    		
 						</section>
 						
@@ -116,7 +107,7 @@
 		
 		<footer class="bg-body-tertiary mt-auto py-3">
 		    <div class="container text-center">
-		        <p class="mb-0"> &copy; 2026 salud.uy - Taller de Programación 2026 - Grupo 57</p>
+		        <p class="mb-0"> &copy; salud.uy - Taller de Programación 2026 - Grupo 57</p>
 		    </div>
 		</footer>
 	</body>
