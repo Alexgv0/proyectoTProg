@@ -4,30 +4,202 @@
 <head>
 	<meta charset="UTF-8">
 	<title>salud.uy</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous">
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	
 	<link rel="stylesheet" href="css/global.css">
 	<script src="../js/global.js" defer></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
 	<header>
-		<nav class="navbar bg-body-tertiary">
+	    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
 	        <div class="container">
-	            
-	            <a class="navbar-brand" href="index.html">salud.uy</a>
 	
-				<div class="navbar-nav flex-row gap-3">
-	                <a class="nav-link" href="index.html">Inicio</a>
-	                <a class="nav-link" href="usuarios/consultaUsuario.html">Consultar usuario</a>
-	                <a class="nav-link" href="usuarios/login.html">Iniciar sesión</a>
-	                <a class="nav-link" href="usuarios/altaUsuario.html">Registrarse</a>
+	            <!-- Logo -->
+	            <a class="navbar-brand fw-bold" href="index.html">
+	                salud.uy
+	            </a>
+	
+	            <!-- Botón para celular -->
+	            <button
+	                class="navbar-toggler"
+	                type="button"
+	                data-bs-toggle="collapse"
+	                data-bs-target="#navbarPrincipal"
+	                aria-controls="navbarPrincipal"
+	                aria-expanded="false"
+	                aria-label="Mostrar navegación">
+	                <span class="navbar-toggler-icon"></span>
+	            </button>
+	
+	            <!-- Menú -->
+	            <div class="collapse navbar-collapse" id="navbarPrincipal">
+	
+	                <ul class="navbar-nav ms-auto">
+	
+	                    <!-- Inicio -->
+	                    <li class="nav-item">
+	                        <a class="nav-link" href="index.html">
+	                            Inicio
+	                        </a>
+	                    </li>
+	
+	                    <!-- Usuarios -->
+	                    <li class="nav-item dropdown">
+	                        <a
+	                            class="nav-link dropdown-toggle"
+	                            href="#"
+	                            role="button"
+	                            data-bs-toggle="dropdown"
+	                            aria-expanded="false">
+	                            Usuarios
+	                        </a>
+	
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a class="dropdown-item" href="usuarios/altaUsuario.html">
+	                                    Registrarse
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="usuarios/login.html">
+	                                    Iniciar sesión
+	                                </a>
+	                            </li>
+	
+	                            <li><hr class="dropdown-divider"></li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="usuarios/consultaUsuario.html">
+	                                    Consultar usuario
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="usuarios/modificarUsuario.html">
+	                                    Modificar datos
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="usuarios/perfilUsuario.html">
+	                                    Mi perfil
+	                                </a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	
+	                    <!-- Días de consulta -->
+	                    <li class="nav-item dropdown">
+	                        <a
+	                            class="nav-link dropdown-toggle"
+	                            href="#"
+	                            role="button"
+	                            data-bs-toggle="dropdown"
+	                            aria-expanded="false">
+	                            Días de consulta
+	                        </a>
+	
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a class="dropdown-item" href="diasConsulta/altaDiaConsulta.html">
+	                                    Alta de día
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="diasConsulta/consultaDiaConsulta.html">
+	                                    Consultar días
+	                                </a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	
+	                    <!-- Consultas -->
+	                    <li class="nav-item dropdown">
+	                        <a
+	                            class="nav-link dropdown-toggle"
+	                            href="#"
+	                            role="button"
+	                            data-bs-toggle="dropdown"
+	                            aria-expanded="false">
+	                            Consultas
+	                        </a>
+	
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a class="dropdown-item" href="consultas/altaConsulta.html">
+	                                    Alta de consulta
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="consultas/consultaDeConsulta.html">
+	                                    Consultar consultas
+	                                </a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	
+	                    <!-- Clínicas -->
+	                    <li class="nav-item dropdown">
+	                        <a
+	                            class="nav-link dropdown-toggle"
+	                            href="#"
+	                            role="button"
+	                            data-bs-toggle="dropdown"
+	                            aria-expanded="false">
+	                            Clínicas
+	                        </a>
+	
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a class="dropdown-item" href="clinicas/altaClinica.html">
+	                                    Alta de clínica
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="clinicas/consultaClinica.html">
+	                                    Consultar clínicas
+	                                </a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	
+	                    <!-- Especialidades -->
+	                    <li class="nav-item dropdown">
+	                        <a
+	                            class="nav-link dropdown-toggle"
+	                            href="#"
+	                            role="button"
+	                            data-bs-toggle="dropdown"
+	                            aria-expanded="false">
+	                            Especialidades
+	                        </a>
+	
+	                        <ul class="dropdown-menu">
+	                            <li>
+	                                <a class="dropdown-item" href="especialidades/altaEspecialidad.html">
+	                                    Alta de especialidad
+	                                </a>
+	                            </li>
+	
+	                            <li>
+	                                <a class="dropdown-item" href="especialidades/consultaEspecialidad.html">
+	                                    Consultar especialidades
+	                                </a>
+	                            </li>
+	                        </ul>
+	                    </li>
+	
+	                </ul>
 	            </div>
-	
 	        </div>
-		</nav>
+	    </nav>
 	</header>
 	
 	<main class="container mt-4">
