@@ -37,35 +37,34 @@
 		        <div class="col-md-8 col-lg-6">
 		
 		            <h1 class="mb-4">Alta de Consulta</h1>
-		            
-		            <div class="mb-3">
-					    <h2>Selecciona un día de consulta</h2>
-					
-					    <div class="list-group" id="selectorDiaConsulta">
-					        <label class="list-group-item">
-					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="1">
-					            Cardiología - Lunes
-					        </label>
-					
-					        <label class="list-group-item">
-					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="2">
-					            Pediatría - Martes
-					        </label>
-					
-					        <label class="list-group-item">
-					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="3">
-					            Medicina General Central - Miércoles
-					        </label>
-					        
-					        <label class="list-group-item">
-					            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="4">
-					            Cardiología - Jueves
-					        </label>
-					    </div>
-									
-					</div>
 		
 		            <form>
+			            <div class="mb-3">
+						    <h2>Selecciona un día de consulta</h2>
+						
+						    <div class="list-group" id="selectorDiaConsulta">
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="1" required>
+						            Cardiología - Lunes
+						        </label>
+						
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="2">
+						            Pediatría - Martes
+						        </label>
+						
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="3">
+						            Medicina General Central - Miércoles
+						        </label>
+						        
+						        <label class="list-group-item">
+						            <input class="form-check-input me-2" type="radio" name="diaConsulta" value="4">
+						            Cardiología - Jueves
+						        </label>
+						    </div>
+										
+						</div>
 		
 		                <div class="mb-3">
 		                    <label class="form-label" for="nombre">Nombre: </label>
@@ -79,12 +78,12 @@
 		                
 		                <div class="mb-3">
 		                    <label class="form-label" for="nroSala">Número de sala: </label>
-		                    <input class="form-control" id="nroSala" name="nroSala" type="number" min=0 required>
+		                    <input class="form-control" id="nroSala" name="nroSala" type="number" min=1 required>
 		                </div>
 		
 		                <div class="mb-3">
 		                    <label class="form-label" for="cantNumeros">Cantidad de números: </label>
-		                    <input class="form-control" id="cantNumeros" name="cantNumeros" type="number" min=0 required>
+		                    <input class="form-control" id="cantNumeros" name="cantNumeros" type="number" min=1 required>
 		                </div>
 		                
 		                <div class="mb-4">
