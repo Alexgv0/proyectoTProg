@@ -3,3 +3,10 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
+
+@media (min-width: 992px) {
+    .navbar .dropdown:hover .dropdown-menu {
+        display: block;
+        margin-top: 0;
+    }
+}
