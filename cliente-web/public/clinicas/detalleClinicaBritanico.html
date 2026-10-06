@@ -3,30 +3,30 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 	<title>Hospital Británico - salud.uy</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous">
 	<link rel="stylesheet" href="../css/global.css">
+	<script src="../js/global.js" defer></script>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<header>
 		<nav class="navbar bg-body-tertiary">
-	        <div class="container">
-	            <a class="navbar-brand" href="../index.html">salud.uy</a>
+			<div class="container">
+				<a class="navbar-brand" href="../index.html">salud.uy</a>
 				<div class="navbar-nav flex-row gap-3">
-	                <a class="nav-link" href="../index.html">Inicio</a>
-	                <a class="nav-link" href="../clinicas/consultaClinica.html">Clínicas</a>
-	                <a class="nav-link" href="../especialidades/consultaEspecialidad.html">Especialidades</a>
-	                <a class="nav-link" href="../usuarios/login.html">Iniciar sesión</a>
-	                <a class="nav-link" href="../usuarios/altaUsuario.html">Registrarse</a>
-	            </div>
-	        </div>
+					<a class="nav-link" href="../index.html">Inicio</a>
+					<a class="nav-link" href="../usuarios/login.html">Iniciar sesión</a>
+					<a class="nav-link" href="../usuarios/altaUsuario.html">Registrarse</a>
+				</div>
+			</div>
 		</nav>
 	</header>
+
 	<main class="container mt-4">
 		<h1 class="mb-4">Hospital Británico</h1>
 		<img class="img-fluid mb-3" alt="Imagen de la clínica" src="">
@@ -42,5 +42,13 @@
 		</ul>
 		<a class="btn btn-secondary" href="consultaClinica.html">Volver</a>
 	</main>
+
+	<footer class="bg-body-tertiary mt-auto py-3">
+	    <div class="container text-center">
+	        <p class="mb-0"> &copy; salud.uy - Taller de Programación 2026 - Grupo 57</p>
+	    </div>
+	</footer>
+
 </body>
+
 </html>
